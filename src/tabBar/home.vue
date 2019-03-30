@@ -76,7 +76,7 @@
       },
       getData () {
         this.$http.get('/official/home').then(({data}) => {
-          debugger
+
         }).catch((error) => {
           console.log(error)
         })
