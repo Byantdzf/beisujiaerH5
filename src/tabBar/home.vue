@@ -1,8 +1,9 @@
 <template>
   <div>
-    <x-header class="ignore" :left-options="{showBack: false}">福恋共享平台</x-header>
+    <!--<x-header class="ignore" :left-options="{showBack: false}">福恋共享平台</x-header>-->
     <!--<Search auto-fixed="false" position="absolute"></Search>-->
-    <div style="background: rgba(0,0,0,0.4);padding: 10px;padding-bottom: 0px;" class="font30">
+    <!--<div style="height: 50px;"></div>-->
+    <div style="background: #35495e;padding: 10px;padding-bottom: 0px;" class="font30">
       <swiper auto height="30px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false" >
         <swiper-item><p class="ellipsis_1">义务爱了 完成传奇世界H5-王者归来任务 获得20金币</p></swiper-item>
         <swiper-item><p class="ellipsis_1">基本世神 兑换《传奇世界H5》畅玩级礼包 消耗30金币</p></swiper-item>
@@ -15,8 +16,9 @@
     <div class="text-center search-box">
       <input type="text" class="homeSearch text-center" v-model="search" placeholder="请搜索Ta的名字">
     </div>
+    <!--<button @click="onClick">登录</button>-->
     <p class="bc_title font34 bold">征婚</p>
-    <swiper :list="imgList" :auto="true" :show-desc-mask="false" :show-dots="false" :min-moving-distance="120"></swiper>
+    <swiper :list="imgList"  :min-moving-distance="120"></swiper>
     <div class="list-item" v-for="item in list">
       <div class="image" style="background-image: url('https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1511461500,2536850263&fm=200&gp=0.jpg');"></div>
       <p style="margin-top: 8px;">
@@ -25,11 +27,12 @@
       </p>
       <p class="font26 color6" style="margin-top: 4px">一次就好，我陪你去看天荒地老</p>
     </div>
+
     <!--<group title="cell demo">-->
-      <!--<cell title="VUX" value="cool" is-link></cell>-->
+    <!--<cell title="VUX" value="cool" is-link></cell>-->
     <!--</group>-->
     <!--<group>-->
-      <!--<x-input title="title" v-model="value"></x-input>-->
+    <!--<x-input title="title" v-model="value"></x-input>-->
     <!--</group>-->
   </div>
 </template>
@@ -55,22 +58,30 @@
         imgList: [{
           url: 'javascript:',
           img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2622829061,2227432350&fm=26&gp=0.jpg',
-          title: '我的'
+          title: 'angelababy'
         }, {
           url: 'javascript:',
           img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=685006216,2192383313&fm=26&gp=0.jpg',
-          title: '都是我的',
+          title: 'Echo',
           fallbackImg: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2622829061,2227432350&fm=26&gp=0.jpg'
         }],
         list: [
           {}, {}, {}, {}, {}, {}, {}
         ]
       }
+    },
+    methods: {
+      onClick () {
+        this.$store.dispatch('login')
+      }
+    },
+    mounted () {
+      console.log(this.$store.state.route)
     }
   }
 </script>
 
-<style  lang="less">
+<style  lang="less" scoped>
   body{
     background: #f7f7f7 !important;
   }

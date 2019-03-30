@@ -1,8 +1,25 @@
 <template>
   <div id="app">
+    <div v-transfer-dom>
+      <loading v-model="isLoading"></loading>
+    </div>
     <router-view></router-view>
-    <tabbar class="vux-demo-tabbar" icon-class="vux-center"  slot="bottom">
-      <tabbar-item :link="{path:'/'}">
+    <div style="height: 50px;" v-show="!isTabbarDemo"></div>
+    <!--{{entryUrl}}-->
+    <!--<x-header-->
+      <!--v-if="isShowNav"-->
+      <!--slot="header"-->
+      <!--style="width:100%;position:absolute;left:0;top:0;z-index:100;"-->
+      <!--:left-options="leftOptions"-->
+      <!--:right-options="rightOptions"-->
+      <!--:title="title"-->
+      <!--@on-click-more="onClickMore">-->
+          <!--<span v-if="route.path === '/'" slot="overwrite-left" @click="drawerVisibility = !drawerVisibility">-->
+            <!--<x-icon type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;"></x-icon>-->
+          <!--</span>-->
+    <!--</x-header>-->
+    <tabbar class="vux-demo-tabbar" icon-class="vux-center" v-show="!isTabbarDemo" slot="bottom">
+      <tabbar-item :link="{path:'/'}" :selected="path === '/'">
         <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
           <img src="../src/assets/icon/home.png" alt="home">
         </span>
@@ -11,49 +28,126 @@
         </span>
         <span slot="label">首页</span>
       </tabbar-item>
-      <tabbar-item :link="{path:'/'}" badge="9">
+      <tabbar-item :link="{path:'/activity'}" badge="9" :selected="path === '/activity'">
         <span class="demo-icon-22" slot="icon">
           <img src="../src/assets/icon/attention.png" alt="home">
         </span>
         <span class="demo-icon-22" slot="icon-active">
           <img src="../src/assets/icon/attentionActive.png" alt="home">
         </span>
-        <span slot="label">
-          <!--<span v-if="componentName" class="vux-demo-tabbar-component">{{componentName}}</span>-->
-          <!--<span v-else>活动</span>-->
-          活动
-        </span>
+        <span slot="label">活动</span>
       </tabbar-item>
-      <tabbar-item :link="{path:'/'}" >
+      <tabbar-item :link="{path:'/chitchat'}" badge="34" :selected="path === '/chitchat'">
         <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
           <img src="../src/assets/icon/message.png" alt="home">
         </span>
         <span class="demo-icon-22" slot="icon-active">
           <img src="../src/assets/icon/messageActive.png" alt="home">
         </span>
-        <span slot="label">首页</span>
+        <span slot="label">聊天</span>
       </tabbar-item>
-      <tabbar-item :link="{path:'/'}" >
+      <tabbar-item :link="{path:'/user'}" :selected="path === '/user'">
         <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
           <img src="../src/assets/icon/my.png" alt="home">
         </span>
         <span class="demo-icon-22" slot="icon-active">
           <img src="../src/assets/icon/myActive.png" alt="home">
         </span>
-        <span slot="label">首页</span>
+        <span slot="label">我的</span>
       </tabbar-item>
     </tabbar>
   </div>
 </template>
 
 <script>
-  import { XHeader, Tabbar, TabbarItem } from 'vux'
+  import {XHeader, Tabbar, TabbarItem, ViewBox, Loading, TransferDom} from 'vux'
+  import {mapState, mapActions} from 'vuex'
+
   export default {
     name: 'app',
+    directives: {
+      TransferDom
+    },
     components: {
       XHeader,
       Tabbar,
-      TabbarItem
+      TabbarItem,
+      ViewBox,
+      Loading
+    },
+    data () {
+      return {
+        entryUrl: document.location.href
+      }
+    },
+    watch: {
+      isLoading () {
+        console.log(this.isLoading)
+      }
+    },
+    computed: {
+      ...mapState({
+        route: state => state.route,
+        path: state => state.route.path,
+        deviceready: state => state.app.deviceready,
+        isLoading: state => state.vux.isLoading,
+        direction: state => state.vux.direction
+      }),
+      isTabbarDemo () {
+        // console.log(this.route.path)
+        // return /tabbar/.test(this.route.path)
+        if (this.route.path === '/') return false
+        if (this.route.path === '/activity') return false
+        if (this.route.path === '/chitchat') return false
+        if (this.route.path === '/user') return false
+        return true
+      },
+      isDemo () {
+        return /component|demo/.test(this.route.path)
+      },
+      isShowNav () {
+        if (this.entryUrl.indexOf('hide-nav') > -1) {
+          return false
+        }
+        return true
+      },
+      leftOptions () {
+        return {
+          showBack: this.route.path === '/'
+        }
+      },
+      rightOptions () {
+        return {
+          showMore: true
+        }
+      },
+      title () {
+        if (this.route.path === '/') return '主页'
+        if (this.route.path === '/activity') return '活动'
+        if (this.route.path === '/chitchat') return '聊天'
+        if (this.route.path === '/user') return '我的'
+        return this.componentName ? `Demo/${this.componentName}` : 'Demo/~~'
+      }
+      // headerTransition () {
+      //   if (!this.direction) return ''
+      //   return this.direction === 'forward' ? 'vux-header-fade-in-right' : 'vux-header-fade-in-left'
+      // },
+    },
+    methods: {
+      ...mapActions([
+        'updateDemoPosition'
+      ]),
+      onClickMore () {
+        this.showMenu = true
+      }
+    },
+    mounted () {
+      this.handler = () => {
+        if (this.path === '/demo') {
+          this.box = document.querySelector('#demo_list_box')
+          this.updateDemoPosition(this.box.scrollTop)
+        }
+      }
     }
   }
 </script>
@@ -62,5 +156,24 @@
 @import '../src/assets/style/reset';
 body {
   background-color: #fbf9fe;
+  input,button,select,textarea{outline:none}
+  .weui-tabbar,.vux-header{
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+  }
+  .vux-header{}
+  .weui-tabbar__icon{
+    width: 22px;
+    height: 22px;
+  }
+  .dp-header .dp-item {
+    color: #04be02;
+    font-size: 4vw;
+    height: 5.867vw;
+    line-height: 5.867vw;
+    margin: 16px 0;
+    cursor: pointer;
+  }
 }
 </style>
