@@ -5,13 +5,12 @@
         <div class="avatar" style="background-image: url('http://images.ufutx.com/201903/26/000319417f22842bd8c7989d608b3871.png');" ></div>
         <p class="font26">添加个人形象照</p>
       </div>
-      <input @change="uploadPhoto($event)" type="file" class="kyc-passin">
     </div>
     <ul>
       <li class="list-item">
         <span class="title font32">姓名</span>
         <div class="flo_r">
-          <input type="text" class="middle text-right font30" v-model="name" placeholder="点击填写">
+          <input type="text" class="middle text-right font30 color6" v-model="name" placeholder="点击填写">
           <!--<img src="../../src/assets/icon/go.png" alt="icon" class="icon">-->
         </div>
       </li>
@@ -25,21 +24,21 @@
       <li class="list-item">
         <span class="title font32">性别 <span class="font26">（性别选择后无法修改）</span></span>
         <div class="flo_r">
-          <span class="colorbe font30" @click="showSex = !showSex">{{sex.length==0?'请选择':sex}}</span>
+          <span class="font30 " :class="{color6: sex.length!==0,colorbe:sex.length==0}" @click="showSex = !showSex">{{sex.length==0?'请选择':sex}}</span>
           <img src="../../assets/icon/go.png" alt="icon" class="icon">
         </div>
       </li>
       <li class="list-item">
         <span class="title font32">出生日期</span>
         <div class="flo_r">
-          <span class="colorbe font30"  @click="showDate">{{birthday.length==0?'请选择':birthday}}</span>
+          <span class="font30" :class="{color6: birthday.length!==0,colorbe:birthday.length==0}"  @click="showDate">{{birthday.length==0?'请选择':birthday}}</span>
           <img src="../../assets/icon/go.png" alt="icon" class="icon">
         </div>
       </li>
       <li class="list-item">
         <span class="title font32">信仰</span>
         <div class="flo_r">
-          <span class="colorbe font30" @click="showBelief = !showBelief">{{belief.length==0?'请选择':belief}}</span>
+          <span class="font30" :class="{color6: belief.length!==0,colorbe:belief.length==0}"  @click="showBelief = !showBelief">{{belief.length==0?'请选择':belief}}</span>
           <img src="../../assets/icon/go.png" alt="icon" class="icon">
         </div>
       </li>
@@ -60,7 +59,7 @@
 
 <script>
   import {Datetime, Group, XButton, XAddress, ChinaAddressV4Data, PopupPicker} from 'vux'
-  import {$toastSuccess, $toastWarn} from '../../config/util'
+  // import {$toastSuccess, $toastWarn} from '../../config/util'
 
   export default {
     name: 'personalData',
@@ -92,31 +91,6 @@
     watch: {
     },
     methods: {
-      uploadPhoto (e) {
-        console.log(e)
-        let vm = this
-        this.file = e.target.files[0]
-        // filesize = file.size
-        // filename = file.name
-        // 2,621,440   2M
-        // if (filesize > 2101440) {
-          // 图片大于2MB
-        let reader = new FileReader()
-        reader.readAsDataURL(this.file)
-        reader.onload = (e) => {
-          let data = {
-            // file_base64: e.target.result
-            file: this.file
-          }
-          console.log(data)
-          vm.$http.post('/official/upload/face/delect', data).then(({data}) => {
-            $toastSuccess('上传成功')
-          }).catch((error) => {
-            $toastWarn(error)
-          })
-        }
-        // }
-      },
       onChange (type, val) {
         console.log('val change', val)
         this[type] = val[0]
@@ -141,10 +115,8 @@
           name: this.name,
           belief: this.belief,
           type: type,
-          photo: 'hasajs',
-          paas: this.$store.state.paas
+          photo: 'hasajs'
         }
-        console.log(data)
         this.$http.put('/official/users/profile', data).then(({data}) => {
           if (type === 'single') {
             this.$router.push({
@@ -173,6 +145,13 @@
         formData.append('signature', self.ossConfig.signature)
         formData.append('file', self.file)
         formData.append('filename', self.file.name)
+        console.log(formData)
+        console.log(self.ossConfig)
+        self.$http.post(self.ossConfig.host, formData).then(({data}) => {
+          debugger
+        }).catch((error) => {
+          console.log(error)
+        })
         // axios.post(self.ossConfig.host, formData, {headers: {'Content-Type': 'multipart/form-data'}}
         // ).then(function (response) {
         //   if (response.status === 200) {
@@ -196,10 +175,9 @@
         this.address = `${names[0]} - ${names[1]}`
       },
       getSignature () { // 获取上传签证
-        this.$http.get('/upload/signature').then(({res}) => {
-          let result = res.data
-          this.ossConfig = result
-          this.host = result.host
+        this.$http.get('/upload/signature').then(({data}) => {
+          this.ossConfig = data
+          this.host = data.host
         }).catch((error) => {
           console.log(error)
         })

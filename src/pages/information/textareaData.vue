@@ -23,10 +23,14 @@
     data () {
       return {
         title: '',
-        text: ''
+        text: '', // 自我介绍
+        type: ''
       }
     },
     watch: {
+      text () {
+        localStorage.setItem(this.type, this.text)
+      }
     },
     methods: {
       onChange (type, val) {
@@ -34,39 +38,18 @@
         this[type] = val[0]
       },
       back () {
-        window.history.go(-1)
+        window.history.back()
       },
       save (type) {
         window.history.go(-1)
-        let data = {
-          birthday: this.birthday,
-          sex: this.sex === '男' ? 1 : 2,
-          name: this.name,
-          belief: this.belief,
-          type: type,
-          photo: 'hasajs',
-          paas: this.$store.state.paas
-        }
-        console.log(data)
-        this.$http.put('/official/users/profile', data).then(({data}) => {
-          if (data.user && data.user.type) {
-            this.$router.push({
-              name: 'home'
-            })
-          } else {
-            this.$router.push({
-              name: 'personalData'
-            })
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
       }
     },
     mounted () {
       console.log(this.$store.state.route)
       console.log(this.$wechat)
       this.title = this.$route.query.title
+      this.type = this.$route.query.type
+      this.text = localStorage.getItem(this.type) ? localStorage.getItem(this.type) : ''
     }
   }
 </script>

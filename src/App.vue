@@ -3,7 +3,12 @@
     <div v-transfer-dom>
       <loading v-model="isLoading"></loading>
     </div>
-    <router-view></router-view>
+    <div class="layout">
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+      </keep-alive>
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
+    </div>
     <div style="height: 50px;" v-show="!isTabbarDemo"></div>
     <!--{{entryUrl}}-->
     <!--<x-header-->
@@ -162,6 +167,13 @@ body {
     width: 100%;
     z-index: 9999;
   }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  input[type="number"]{
+    -moz-appearance: textfield;
+  }
   .vux-header{}
   .weui-tabbar__icon{
     width: 22px;
@@ -174,6 +186,9 @@ body {
     line-height: 5.867vw;
     margin: 16px 0;
     cursor: pointer;
+  }
+  .vux-no-group-title{
+    margin-top: 0 !important;
   }
 }
 </style>

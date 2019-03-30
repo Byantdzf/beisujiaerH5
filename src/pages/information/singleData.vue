@@ -10,16 +10,20 @@
         <input type="text" class="text-right font30 flo_r" v-model="weight" placeholder="点击填写体重（kg）">
       </li>
       <li class="list-item">
-        <span class="title font32">常居地</span>
-        <input type="text" class="text-right font30 flo_r" v-model="name" placeholder="点击选择">
+        <span class="title font32">单身状态~</span>
+        <input type="text" class="text-right font30 flo_r" v-model="state" readonly placeholder="点击选择" @click="popupPicker('state', 'stateList')">
+      </li>
+      <li class="list-item">
+        <span class="title font32">常居地~</span>
+        <input type="text" class="text-right font30 flo_r" readonly :value="address.length>1?address[1]+' '+address[2]:''" placeholder="点击选择" @click="showAddress = !showAddress ">
       </li>
       <li class="list-item">
         <span class="title font32">成长环境~</span>
-        <input type="text" class="text-right font30 flo_r" v-model="resident_type" placeholder="点击选择" @click="popupPicker('resident_type', 'residentTypeList')">
+        <input type="text" class="text-right font30 flo_r" v-model="resident_type" readonly placeholder="点击选择" @click="popupPicker('resident_type', 'residentTypeList')">
       </li>
       <li class="list-item">
-        <span class="title font32">成长地</span>
-        <input type="text" class="text-right font30 flo_r" v-model="name" placeholder="点击填写">
+        <span class="title font32">成长地~</span>
+        <input type="text" class="text-right font30 flo_r" readonly :value="residentAddress.length>1?residentAddress[1]+' '+residentAddress[2]:''" placeholder="点击选择" @click="showAddress_resident = !showAddress_resident ">
       </li>
       <li class="list-item">
         <span class="title font32">最高学历~</span>
@@ -51,21 +55,21 @@
       </li>
       <li class="list-item" style="margin-top: 3vw;">
         <span class="title font32 flo_l">自我介绍</span>
-        <router-link :to="{name:'textareaData',query:{title: '自我介绍'}}">
-          <div class="text flo_l colorbe font28 ellipsis_3">
+        <!--<router-link :to="{name:'textareaData',query:{title: '自我介绍', type: 'introduction'}}">-->
+          <div class="text flo_l colorbe font28 ellipsis_3" @click="showPopup('自我介绍', 'introduction')">
            {{introduction}}
           </div>
-        </router-link>
+        <!--</router-link>-->
         <img src="http://images.ufutx.com/201903/29/d919daf1cd00a2a2202de67f7972e83f.png" alt="icon" class="edit">
         <div class="clearfloat"></div>
       </li>
       <li class="list-item" style="margin-top: 3vw;">
         <span class="title font32 flo_l">理想对象</span>
-        <router-link :to="{name:'textareaData',query:{title: '理想对象'}}">
-          <div class="text flo_l colorbe font28 ellipsis_3">
+        <!--<router-link :to="{name:'textareaData',query:{title: '理想对象',type: 'ideal_mate'}}">-->
+          <div class="text flo_l colorbe font28 ellipsis_3"  @click="showPopup('理想对象', 'ideal_mate')">
             {{ideal_mate}}
           </div>
-        </router-link>
+        <!--</router-link>-->
         <img src="http://images.ufutx.com/201903/29/d919daf1cd00a2a2202de67f7972e83f.png" alt="icon" class="edit">
         <div class="clearfloat"></div>
       </li>
@@ -74,25 +78,52 @@
     <div class="fixed_bot subjectColor colorff bc_box font32 text-center" @click="submit">
       提交
     </div>
+    <div v-transfer-dom>
+      <popup v-model="showTextarea" height="100%">
+        <div class="popup1">
+          <group>
+            <div id="textareaData">
+              <div class="bc_header ff">
+                <span  @click="showTextarea = !showTextarea">
+                  <img src="../../assets/icon/back.png" width="20" alt="icon" class="icon middle">
+                {{title}}
+                </span>
+                <p class="color flo_r" @click="showTextarea = !showTextarea">保存</p>
+              </div>
+              <div class="center ff">
+                <textarea name="" id="" class="textarea"  v-model="text" placeholder="请输入内容" maxlength="300"></textarea>
+                <p class="num flo_r">{{text.length}}/300</p>
+                <div class="clearfloat"></div>
+              </div>
+            </div>
+          </group>
+        </div>
+      </popup>
+    </div>
     <group>
       <popup-picker style="display:none;" :data="pickerList"   @on-shadow-change="onChange"  @on-change="onChange" :show.sync="showPicker"></popup-picker>
       <!--行业-->
       <popup-picker :data="industriesList" style="display: none" :columns="2" ref="picker2"  @on-shadow-change="onChangeIndustries('industries', $event)" :show.sync="show"  @on-change="onChangeIndustries('industries', $event)" ></popup-picker>
-      <!--<x-address style="display:none;" title="title" :hide-district="true" :list="addressData" placeholder="请选择地址" :show.sync="showAddress" @on-shadow-change="onShowChange"  @on-change="onShowChange"></x-address>-->
+      <popup-picker :data="addressData" style="display: none" :columns="3" ref="picker"  @on-shadow-change="onChangeAddress('address', $event)" :show.sync="showAddress"  @on-change="onChangeAddress('address', $event)" ></popup-picker>
+      <popup-picker :data="addressData" style="display: none" :columns="3" ref="picker1"  @on-shadow-change="onChangeAddress_resident('address', $event)" :show.sync="showAddress_resident"  @on-change="onChangeAddress_resident('address', $event)" ></popup-picker>
     </group>
   </div>
 </template>
 
 <script>
-  import {Datetime, Group, XButton, XAddress, ChinaAddressV4Data, PopupPicker, base64} from 'vux'
+  import {Datetime, TransferDom, Group, XButton, PopupPicker, Popup} from 'vux'
+  import {$toastSuccess, $toastWarn} from '../../config/util'
+
   export default {
     name: 'singleData',
+    directives: {
+      TransferDom
+    },
     components: {
       Datetime,
       Group,
       XButton,
-      XAddress,
-      ChinaAddressV4Data,
+      Popup,
       PopupPicker
     },
     data () {
@@ -109,24 +140,66 @@
         work_sort: '', // 单位性质
         degree: '', // 学历
         resident_type: '', // 成长环境
+        state: '', // 单身状态
         industries: [],
         industriesList: [],
         show: false,
         showPicker: false,
         pickerList: [],
         itemType: '', // 对应的动态赋值
+        stateList: [['从未结婚', '离异', '丧偶']],
         workSortList: [['事业单位', '公务员', '央企', '国企', '私企', '外企']],
         degreeList: [['大专', '本科', '硕士', '博士', '其他']],
         residentTypeList: [['城市', '乡村']],
-        address: '',
-        addressData: ChinaAddressV4Data
+        showAddress: false,
+        showAddress_resident: false,
+        address: [],
+        addressData: [],
+        residentAddress: [],
+        showTextarea: false,
+        title: '',
+        text: '', // 自我介绍
+        textType: ''
       }
     },
     computed: {
     },
     watch: {
+      text () {
+        this[this.textType] = this.text
+      }
     },
     methods: {
+      showPopup (title, type) {
+        this.text = ''
+        this.text = this[type]
+        this.showTextarea = !this.showTextarea
+        this.textType = type
+        this.title = title
+      },
+      getData () {
+        let data = {
+          stature: this.stature,
+          weight: this.weight,
+          country: this.address[0],
+          post: this.post,
+          wechat_id: this.wechat_id,
+          graduate_school: this.graduate_school,
+          introduction: this.introduction === '家庭情况，兴趣爱好，自我评价' ? '' : this.introduction,
+          ideal_mate: this.ideal_mate === '写下你对另一半的期望' ? '' : this.ideal_mate,
+          state: this.state, // 单身状态
+          province: this.address[1],
+          city: this.address[2],
+          resident_type: this.resident_type,
+          resident_province: this.residentAddress[1],
+          resident_city: this.residentAddress[2],
+          degree: this.degree,
+          industry: this.industries[0],
+          industry_sub: this.industries[1],
+          work_sort: this.work_sort
+        }
+        return data
+      },
       popupPicker (item, list) { // 公用选择器函数
         this.showPicker = !this.showPicker
         this.pickerList = this[list]
@@ -136,50 +209,17 @@
         this.industries = this.$refs.picker2 && this.$refs.picker2.getNameValues().split(' ')
         console.log(this.industries)
       },
-      onShowChange (ids, names) { // 地址选择
-        this.address = `${names[0]} - ${names[1]}`
+      onChangeAddress (type, val) { //  地址
+        this.address = this.$refs.picker && this.$refs.picker.getNameValues().split(' ')
+        console.log(this.address)
+      },
+      onChangeAddress_resident (type, val) { //  常居地址
+        this.residentAddress = this.$refs.picker1 && this.$refs.picker1.getNameValues().split(' ')
+        console.log(this.residentAddress)
       },
       onChange (val) {
         console.log('val change', val)
         this[this.itemType] = val[0]
-      },
-      showDate () {
-        let vm = this
-        vm.$vux.datetime.show({
-          value: 'birthday', // 其他参数同 props
-          minYear: '1960',
-          maxYear: '2019',
-          confirmText: '确定',
-          cancelText: '取消',
-          onConfirm (value) {
-            vm.birthday = value
-          }
-        })
-      },
-      onClick (type) {
-        let data = {
-          birthday: this.birthday,
-          sex: this.sex === '男' ? 1 : 2,
-          name: this.name,
-          belief: this.belief,
-          type: type,
-          photo: 'hasajs',
-          paas: this.$store.state.paas
-        }
-        console.log(data)
-        this.$http.put('/official/users/profile', data).then(({data}) => {
-          if (data.user && data.user.type) {
-            this.$router.push({
-              name: 'home'
-            })
-          } else {
-            this.$router.push({
-              name: 'personalData'
-            })
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
       },
       getIndustries () { // 初始化行业数据
         let vm = this
@@ -206,16 +246,61 @@
           console.log(error)
         })
       },
+      getCity () { // 初始化地址数据
+        let vm = this
+        vm.$http.get('/addresses/v2').then(({data}) => {
+          for (let item of data) {
+            vm.addressData.push(
+              {
+                name: item.name,
+                value: 'address' + item.id,
+                parent: 0
+              }
+            )
+            for (let itemV of item.son) {
+              vm.addressData.push(
+                {
+                  name: itemV.name,
+                  value: 'address_son' + itemV.id,
+                  parent: 'address' + item.id
+                }
+              )
+              for (let itemSub of itemV.son) {
+                vm.addressData.push(
+                  {
+                    name: itemSub.name,
+                    value: 'address_sub' + itemSub.id,
+                    parent: 'address_son' + itemV.id
+                  }
+                )
+              }
+            }
+          }
+          console.log(vm.addressData)
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
       submit () { // 提交
-        this.$router.push({
-          name: 'home'
+        let vm = this
+        let data = this.getData()
+        vm.$http.put('/official/users/profile', data).then(({data}) => {
+          console.log(data)
+          $toastSuccess('完成')
+          setTimeout(() => {
+            this.$router.push({
+              name: 'home'
+            })
+          }, 800)
+        }).catch((error) => {
+          $toastWarn(error)
         })
       }
     },
     mounted () {
-      console.log(this.statureList)
-      console.log(base64.encode('assssssssssss'))
-      this.getIndustries()
+      console.log(this.$store.state.route)
+      this.getIndustries() // 行业
+      this.getCity() // 地址
     }
   }
 </script>
@@ -280,6 +365,29 @@
     height: 50px !important;
     .dp-item{
       font-size: 32px !important;
+    }
+  }
+  #textareaData{
+    background-color: #F0F3F5 !important;
+    height: 100vh;
+    .bc_header{
+      padding: 20px 26px 20px 12px;
+      margin-bottom: 2px;
+    }
+    .center{
+      padding-top: 20px;
+    }
+    .icon{
+      margin-bottom: 2px;
+    }
+    .textarea{
+      width: 92vw;
+      border: none;
+      padding: 4vw;
+      min-height: 300px;
+    }
+    .num{
+      padding: 20px 38px 40px 0;
     }
   }
 </style>

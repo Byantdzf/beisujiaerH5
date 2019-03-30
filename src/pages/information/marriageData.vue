@@ -4,57 +4,81 @@
       <li class="list-item">
         <span class="title font32">工作单位</span>
         <div class="flo_r">
-          <input type="text" class="middle text-right font30" v-model="work" placeholder="点击填写">
-          <!--<img src="http://images.ufutx.com/201903/29/d919daf1cd00a2a2202de67f7972e83f.png" alt="icon" class="icon">-->
+          <input type="text" class="middle text-right font30 color6" v-model="company" placeholder="点击填写">
         </div>
       </li>
       <li class="list-item vux-1px-t">
         <span class="title font32">行业</span>
         <div class="flo_r">
-          <span class="colorbe font30" @click="show = !show">{{$refs.picker2&&$refs.picker2.getNameValues()?$refs.picker2&&$refs.picker2.getNameValues():'请选择'}}</span>
+          <span class="font30" :class="{color6: industries.length!==0,colorbe:industries.length==0}" @click="show = !show">{{$refs.picker2&&$refs.picker2.getNameValues()?$refs.picker2&&$refs.picker2.getNameValues():'请选择'}}</span>
           <img src="../../assets/icon/go.png" alt="icon" class="icon">
         </div>
       </li>
       <li class="list-item" style="margin-top: 3vw;">
         <span class="title font32 flo_l">服务格言</span>
-        <router-link :to="{name:'textareaData',query:{title: '服务格言'}}">
-          <div class="text flo_l colorbe font28 ellipsis_3">
-            可嗯呢撒娇的垃圾的骄傲的看就看打卡机三打两建拉三等奖asdasd克拉斯佳都科技爱丽丝的骄傲基督教就打了坚实的卡机第六届
+        <!--<router-link :to="{name:'textareaData',query:{title: '服务格言'}}">-->
+          <div class="text flo_l colorbe font28 ellipsis_3" @click="showTextarea = !showTextarea">
+            {{slogan}}
           </div>
-        </router-link>
+        <!--</router-link>-->
         <img src="http://images.ufutx.com/201903/29/d919daf1cd00a2a2202de67f7972e83f.png" alt="icon" class="edit">
         <div class="clearfloat"></div>
       </li>
     </ul>
-    <div class="fixed_bot subjectColor colorff bc_box font32 text-center">
+    <div class="fixed_bot subjectColor colorff bc_box font32 text-center" @click="submit">
       提交
     </div>
     <group>
       <popup-picker :data="industriesList" style="display: none" :columns="2" ref="picker2"  @on-shadow-change="onChange('industries', $event)" :show.sync="show"  @on-change="onChange('industries', $event)" ></popup-picker>
     </group>
+    <div v-transfer-dom>
+      <popup v-model="showTextarea" height="100%">
+        <div class="popup1">
+          <group>
+            <div id="textareaData">
+              <div class="bc_header ff">
+                <span  @click="showTextarea = !showTextarea">
+                  <img src="../../assets/icon/back.png" width="20" alt="icon" class="icon middle">
+                  服务格言
+                </span>
+                <p class="color flo_r" @click="showTextarea = !showTextarea">保存</p>
+              </div>
+              <div class="center ff">
+                <textarea name="" id="" class="textarea"  v-model="slogan" placeholder="请输入内容" maxlength="300"></textarea>
+                <p class="num flo_r">{{slogan.length}}/300</p>
+                <div class="clearfloat"></div>
+              </div>
+            </div>
+          </group>
+        </div>
+      </popup>
+    </div>
   </div>
 </template>
 
 <script>
-  import {Datetime, Group, XButton, XAddress, ChinaAddressV4Data, PopupPicker} from 'vux'
+  import {Datetime, Group, TransferDom, PopupPicker, Popup} from 'vux'
+  import {$toastSuccess, $toastWarn} from '../../config/util'
+
   export default {
     name: 'marriageData',
+    directives: {
+      TransferDom
+    },
     components: {
       Datetime,
       Group,
-      XButton,
-      XAddress,
-      ChinaAddressV4Data,
-      PopupPicker
+      PopupPicker,
+      Popup
     },
     data () {
       return {
-        work: '',
-        title3: '联动显示值',
-        value3: [],
+        company: '',
+        slogan: '为何喜欢做介绍人？',
         industries: [],
         industriesList: [],
-        show: false
+        show: false,
+        showTextarea: false
       }
     },
     watch: {
@@ -113,6 +137,27 @@
         }).catch((error) => {
           console.log(error)
         })
+      },
+      submit () { // 提交
+        let data = {
+          company: this.company,
+          slogan: this.slogan === '为何喜欢做介绍人？' ? '' : this.slogan,
+          industry: this.industries[0],
+          industry_sub: this.industries[1]
+        }
+        console.log(data)
+        let vm = this
+        vm.$http.put('/official/users/profile', data).then(({data}) => {
+          console.log(data)
+          $toastSuccess('完成')
+          setTimeout(() => {
+            this.$router.push({
+              name: 'home'
+            })
+          }, 800)
+        }).catch((error) => {
+          $toastWarn(error)
+        })
       }
     },
     mounted () {
@@ -139,6 +184,7 @@
       .text{
         width: 70%;
         margin-left: 40px;
+        margin-top: 4px;
       }
       .edit{
         width: 32px;
@@ -179,6 +225,29 @@
     height: 50px !important;
     .dp-item{
       font-size: 32px !important;
+    }
+  }
+  #textareaData{
+    background-color: #F0F3F5 !important;
+    height: 100vh;
+    .bc_header{
+      padding: 20px 26px 20px 12px;
+      margin-bottom: 2px;
+    }
+    .center{
+      padding-top: 20px;
+    }
+    .icon{
+      margin-bottom: 2px;
+    }
+    .textarea{
+      width: 92vw;
+      border: none;
+      padding: 4vw;
+      min-height: 300px;
+    }
+    .num{
+      padding: 20px 38px 40px 0;
     }
   }
 </style>

@@ -36,17 +36,26 @@ export default new Router({
     },
     {
       path: '/personalData',
+      meta: {
+        keepAlive: true // 需要被缓存
+      },
       name: 'personalData',
       component: (resolve) => require(['@/pages/information/personalData'], resolve)
     },
     {
       path: '/marriageData',
       name: 'marriageData',
+      meta: {
+        keepAlive: true // 需要被缓存
+      },
       component: (resolve) => require(['@/pages/information/marriageData'], resolve)
     },
     {
       path: '/singleData',
       name: 'singleData',
+      meta: {
+        keepAlive: true// 需要被缓存
+      },
       component: (resolve) => require(['@/pages/information/singleData'], resolve)
     },
     {

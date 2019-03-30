@@ -6,14 +6,23 @@ import {$toastWarn, $loadingHide, $loadingShow} from '../../src/config/util'
 const api = () => {
   const baseURL = process.env.NODE_ENV === 'development' ? 'http://love.hankin.ufutx.cn/api' : 'http://love.ufutx.com/api/'
   AjaxPlugin.$http.defaults.baseURL = baseURL
-// AjaxPlugin.$http.defaults.timeout = 1000
-// AjaxPlugin.$http.defaults.headers = {'X-Custom-Header': 'foobar'}
+//   AjaxPlugin.$http.defaults.headers = {'X-Custom-Header': 'foobar'}
   AjaxPlugin.$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+  console.log(AjaxPlugin.$http.defaults)
+  // AjaxPlugin.$http.defaults.timeout = 2000
+  // AjaxPlugin.$http.defaults.withCredentials = false
+  // AjaxPlugin.$http.defaults.responseType = 'json'
+  // AjaxPlugin.$http.defaults.maxContentLength = 2000
+  // AjaxPlugin.$http.defaults.dataType = 'jsonp'
+  // AjaxPlugin.$http.defaults.withCredentials = false
+  AjaxPlugin.$http.defaults.data = {
+    XDEBUG_SESSION_START: 1,
+    paas: window.localStorage.getItem('paas')
+  }
 // POST传参序列化(添加请求拦截器)
 // http request 拦截器
   AjaxPlugin.$http.interceptors.request.use((config) => {
     config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('ACCESS_TOKEN')
-    // 发送请求之前做某件事
     if (config.method === 'post') {
       config.data = qs.stringify(config.data)
     }
@@ -22,6 +31,12 @@ const api = () => {
   }, (error) => {
     return error
   })
+  // AjaxPlugin.$http.interceptors.push((request, next) => {
+  //
+  //   request.credentials = true;
+  //
+  //   next();
+  // });
 
   AjaxPlugin.$http.interceptors.response.use(response => {
     $loadingHide()
