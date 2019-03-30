@@ -152,24 +152,6 @@
         }).catch((error) => {
           console.log(error)
         })
-        // axios.post(self.ossConfig.host, formData, {headers: {'Content-Type': 'multipart/form-data'}}
-        // ).then(function (response) {
-        //   if (response.status === 200) {
-        //     console.log(filePath)
-        //     self.filePath = filePath
-        //     self.$emit('uploadPictures',self.filePath)
-        //     self.$Notice.success({
-        //       title: '文件上传成功',
-        //       desc:  `${filePath}上传成功!`
-        //     });
-        //     self.file = null;
-        //   } else {
-        //     self.$Modal.error({
-        //       content: response.statusText
-        //     })
-        //   }
-        // })
-        // self.loadingStatus = false
       },
       onShowChange (ids, names) { // 地址
         this.address = `${names[0]} - ${names[1]}`

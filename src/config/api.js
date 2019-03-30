@@ -31,13 +31,6 @@ const api = () => {
   }, (error) => {
     return error
   })
-  // AjaxPlugin.$http.interceptors.push((request, next) => {
-  //
-  //   request.credentials = true;
-  //
-  //   next();
-  // });
-
   AjaxPlugin.$http.interceptors.response.use(response => {
     $loadingHide()
     if (response.status === 200 && response.data.code === 2) { // token过期

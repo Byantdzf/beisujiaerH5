@@ -73,10 +73,18 @@
     methods: {
       onClick () {
         this.$store.dispatch('login')
+      },
+      getData () {
+        this.$http.get('/official/home').then(({data}) => {
+          debugger
+        }).catch((error) => {
+          console.log(error)
+        })
       }
     },
     mounted () {
       console.log(this.$store.state.route)
+      this.getData()
     }
   }
 </script>
