@@ -18,7 +18,7 @@
     </div>
     <!--<button @click="onClick">登录</button>-->
     <p class="bc_title font34 bold">征婚</p>
-    <swiper :list="imgList"  :min-moving-distance="120"></swiper>
+    <swiper :list="recommend"  :min-moving-distance="120"></swiper>
     <div class="list-item" v-for="item in list">
       <div class="image" style="background-image: url('https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1511461500,2536850263&fm=200&gp=0.jpg');"></div>
       <p style="margin-top: 8px;">
@@ -55,16 +55,7 @@
         value: '',
         msg: 'Hello World!',
         search: '',
-        imgList: [{
-          url: 'javascript:',
-          img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2622829061,2227432350&fm=26&gp=0.jpg',
-          title: 'angelababy'
-        }, {
-          url: 'javascript:',
-          img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=685006216,2192383313&fm=26&gp=0.jpg',
-          title: 'Echo',
-          fallbackImg: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2622829061,2227432350&fm=26&gp=0.jpg'
-        }],
+        recommend: [],
         list: [
           {}, {}, {}, {}, {}, {}, {}
         ]
@@ -76,7 +67,15 @@
       },
       getData () {
         this.$http.get('/official/home').then(({data}) => {
-
+          console.log(data.recommend)
+          for (let item of data.recommend) {
+            this.recommend.push({
+              url: 'javascript:',
+              img: item.photo,
+              title: item.user.name
+            })
+          }
+          console.log(this.recommend)
         }).catch((error) => {
           console.log(error)
         })
