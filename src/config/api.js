@@ -8,11 +8,11 @@ const api = () => {
   AjaxPlugin.$http.defaults.baseURL = baseURL
 //   AjaxPlugin.$http.defaults.headers = {'X-Custom-Header': 'foobar'}
   AjaxPlugin.$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-  console.log(AjaxPlugin.$http.defaults)
-  // AjaxPlugin.$http.defaults.timeout = 2000
-  // AjaxPlugin.$http.defaults.withCredentials = false
+  AjaxPlugin.$http.defaults.timeout = 5000
+  // AjaxPlugin.$http.defaults.withCredent
+  // ials = false
   // AjaxPlugin.$http.defaults.responseType = 'json'
-  // AjaxPlugin.$http.defaults.maxContentLength = 2000
+  // AjaxPlugin.$http.defauduilts.maxContentLength = 2000
   // AjaxPlugin.$http.defaults.dataType = 'jsonp'
   // AjaxPlugin.$http.defaults.withCredentials = false
   AjaxPlugin.$http.defaults.data = {

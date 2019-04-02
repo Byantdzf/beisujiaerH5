@@ -18,11 +18,11 @@
     </div>
     <!--<button @click="onClick">登录</button>-->
     <p class="bc_title font34 bold">征婚</p>
-    <swiper :list="recommend"  :min-moving-distance="120"></swiper>
+    <swiper :list="recommend"  :min-moving-distance="120" height="220px"></swiper>
     <div class="list-item" v-for="item in list">
-      <div class="image" style="background-image: url('https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1511461500,2536850263&fm=200&gp=0.jpg');"></div>
+      <div class="image" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}"></div>
       <p style="margin-top: 8px;">
-        <span class="font32">蔡文姬</span>
+        <span class="font32">{{item.name}}</span>
         <span class="font20 colorb">20岁 · 165cm · 广东深圳</span>
       </p>
       <p class="font26 color6" style="margin-top: 4px">一次就好，我陪你去看天荒地老</p>
@@ -56,9 +56,7 @@
         msg: 'Hello World!',
         search: '',
         recommend: [],
-        list: [
-          {}, {}, {}, {}, {}, {}, {}
-        ]
+        list: []
       }
     },
     methods: {
@@ -66,8 +64,10 @@
         this.$store.dispatch('login')
       },
       getData () {
-        this.$http.get('/official/home').then(({data}) => {
+        let paas = this.$store.state.paas
+        this.$http.get(`/official/home?paas=${paas}`).then(({data}) => {
           console.log(data.recommend)
+          this.list = data.likers.data
           for (let item of data.recommend) {
             this.recommend.push({
               url: 'javascript:',
@@ -139,6 +139,8 @@
     .image{
       width: 100%;
       height: 646px;
+      background-repeat: no-repeat;
+      background-size: contain;
     }
   }
 </style>

@@ -5,6 +5,7 @@
         <div class="avatar" style="background-image: url('http://images.ufutx.com/201903/26/000319417f22842bd8c7989d608b3871.png');" ></div>
         <p class="font26">添加个人形象照</p>
       </div>
+      <input @change="uploadPhoto" type="file" class="kyc-passin">
     </div>
     <ul>
       <li class="list-item">
@@ -91,6 +92,27 @@
     watch: {
     },
     methods: {
+
+      uploadPhoto (e) {
+        this.file = e.target.files[0]
+        this.chooseImage()
+        console.log(this.file)
+        // var filesize = file.size;
+        // var filename = file.name;
+        // // 2,621,440   2M
+        // if (filesize > 2101440) {
+        //   // 图片大于2MB
+        //
+        // }
+        // var reader = new FileReader();
+        // reader.readAsDataURL(file);
+        // reader.onload = function (e) {
+        //
+        //   // 读取到的图片base64 数据编码 将此编码字符串传给后台即可
+        //   var imgcode = e.target.result;
+        //   console.log(imgcode);
+        // }
+      },
       onChange (type, val) {
         console.log('val change', val)
         this[type] = val[0]
@@ -148,7 +170,7 @@
         console.log(formData)
         console.log(self.ossConfig)
         self.$http.post(self.ossConfig.host, formData).then(({data}) => {
-          debugger
+          console.log(data)
         }).catch((error) => {
           console.log(error)
         })

@@ -35,10 +35,20 @@
     methods: {
       onClick () {
         this.$store.dispatch('login')
+      },
+      getData () {
+        let data = this.$store.state.data
+        this.$http.get('/official/activities', data).then(({data}) => {
+          console.log(data)
+        }).catch((error) => {
+          console.log(error)
+        })
       }
     },
     mounted () {
       console.log(this.$store.state.route)
+      console.log(this.$store.state.data)
+      this.getData()
     }
   }
 </script>

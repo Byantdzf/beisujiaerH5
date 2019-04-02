@@ -3,7 +3,7 @@
     <!--<x-header class="ignore" :left-options="{showBack: false}">我的</x-header>-->
     <!--<div style="height: 50px;"></div>-->
     <div class="wrapper ff">
-      <div class="avatar flo_l" style="background-image: url('https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1511461500,2536850263&fm=200&gp=0.jpg');"></div>
+      <div class="avatar flo_l" @click="routeToDetail" style="background-image: url('https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1511461500,2536850263&fm=200&gp=0.jpg');"></div>
       <div class="name inline-block">
         <span class="font36 bold">Angela</span><br/>
         <span class="font26">
@@ -70,6 +70,9 @@
       }
     },
     methods: {
+      routeToDetail () {
+        this.$router.push({name: 'information', params: {id: 1}})
+      },
       onClick () {
         this.$store.dispatch('login')
         this.$store.commit('increment')

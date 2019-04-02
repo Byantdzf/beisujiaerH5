@@ -62,6 +62,21 @@ export default new Router({
       path: '/textareaData',
       name: 'textareaData',
       component: (resolve) => require(['@/pages/information/textareaData'], resolve)
+    },
+    {
+      path: '/authentication', // 实名认证
+      name: 'authentication',
+      component: (resolve) => require(['@/pages/user/authentication'], resolve)
+    },
+    {
+      path: '/information:id',
+      name: 'information',
+      component: (resolve) => require(['@/pages/user/information'], resolve)
+    },
+    {
+      path: '/introducer:id',
+      name: 'introducer',
+      component: (resolve) => require(['@/pages/user/introducer'], resolve)
     }
   ]
 })

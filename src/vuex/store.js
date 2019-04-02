@@ -10,7 +10,11 @@ const state = {
   isLoading: false,
   direction: 'forward',
   count: 0,
-  paas: localStorage.getItem('paas')
+  paas: localStorage.getItem('paas'),
+  data: {
+    XDEBUG_SESSION_START: 1,
+    paas: window.localStorage.getItem('paas')
+  }
 }
 let store = new Vuex.Store({
   state,
