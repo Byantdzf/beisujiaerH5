@@ -4,8 +4,8 @@ import qs from 'qs'
 import {$toastWarn, $loadingHide, $loadingShow} from '../../src/config/util'
 
 const api = () => {
-  // const baseURL = process.env.NODE_ENV === 'development' ? 'http://love.hankin.ufutx.cn/api' : 'http://love.ufutx.com/api/'
-  const baseURL = 'http://love.hankin.ufutx.cn/api'
+  const baseURL = process.env.NODE_ENV === 'development' ? 'http://love.hankin.ufutx.cn/api' : 'http://love.ufutx.com/api/'
+  // const baseURL = 'http://love.hankin.ufutx.cn/api'
   AjaxPlugin.$http.defaults.baseURL = baseURL
 //   AjaxPlugin.$http.defaults.headers = {'X-Custom-Header': 'foobar'}
   AjaxPlugin.$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
