@@ -5,10 +5,10 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
-    {
-      path: '*',
-      component: (resolve) => require(['@/tabBar/home'], resolve)
-    },
+    // {
+    //   path: '*',
+    //   component: (resolve) => require(['@/tabBar/home'], resolve)
+    // },
     {
       path: '/',
       name: 'home',
