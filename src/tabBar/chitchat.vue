@@ -3,7 +3,7 @@
     <!--<x-header class="ignore" :left-options="{showBack: false}">聊天</x-header>-->
     <!--<div style="height: 50px;"></div>-->
     <div class="wrapper ff" v-for="item in list">
-      <div class="avatar flo_l" style="background-image: url('https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1511461500,2536850263&fm=200&gp=0.jpg');"></div>
+      <div class="avatar flo_l"  v-bind:style="{backgroundImage:'url(' + item.img + ')'}"></div>
       <div class="name inline-block">
         <span class="font30 bold">{{item.title}}</span><br/>
         <p class="font26 colorb" style="margin-top: 6px;">
@@ -33,18 +33,34 @@
         value: '',
         search: '',
         list: [
-          {title: '良人'}, {title: '佳偶'}, {title: '红娘'}, {title: '介绍人'}
+          {img: 'http://images.ufutx.com/201904/02/bea66210c44f26ca21fe743758c69dfb.png', title: '良人'},
+          {img: 'http://images.ufutx.com/201904/02/834674d9695ac661388004eda367c937.png', title: '佳偶'},
+          {img: 'http://images.ufutx.com/201904/02/ea2dd5450ff81994dcd1ef70fed720b1.png', title: '红娘'},
+          {img: 'http://images.ufutx.com/201904/02/8699058f061683e3085ba2a2aaaa3464.png', title: '介绍人'}
         ]
       }
     },
     methods: {
-      onClick () {
-        this.$store.dispatch('login')
+      getMessageNum () {
+        let paas = this.$store.state.paas
+        this.$http.get(`/official/notice/num?paas=${paas}`).then(({data}) => {
+          localStorage.setItem('chat_num', data.chat_message_num.toString())
+          localStorage.setItem('notice_num', data.notice_num.toString())
+        })
+      },
+      getOrderList (page, mescroll) {
+        let paas = this.$store.state.paas
+        this.$http.get(`/official/message/linkmen?paas=${paas}`).then(({data}) => {
+          console.log(data)
+        }).catch((error) => {
+          console.log(error)
+        })
       }
     },
     mounted () {
       console.log(this.$store.state.route)
-      console.log(this.$store.state.count)
+      this.getOrderList()
+      this.getMessageNum()
     }
   }
 </script>

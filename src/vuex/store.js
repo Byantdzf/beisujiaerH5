@@ -11,6 +11,8 @@ const state = {
   direction: 'forward',
   count: 0,
   paas: localStorage.getItem('paas'),
+  chat_message_num: '',
+  notice_num: '',
   data: {
     XDEBUG_SESSION_START: 1,
     paas: window.localStorage.getItem('paas')

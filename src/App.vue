@@ -33,7 +33,7 @@
         </span>
         <span slot="label">首页</span>
       </tabbar-item>
-      <tabbar-item :link="{path:'/activity'}" badge="9" :selected="path === '/activity'">
+      <tabbar-item :link="{path:'/activity'}"  :selected="path === '/activity'">
         <span class="demo-icon-22" slot="icon">
           <img src="../src/assets/icon/attention.png" alt="home">
         </span>
@@ -42,7 +42,7 @@
         </span>
         <span slot="label">活动</span>
       </tabbar-item>
-      <tabbar-item :link="{path:'/chitchat'}" badge="34" :selected="path === '/chitchat'">
+      <tabbar-item :link="{path:'/chitchat'}" :badge="chat_num" :selected="path === '/chitchat'">
         <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
           <img src="../src/assets/icon/message.png" alt="home">
         </span>
@@ -51,8 +51,8 @@
         </span>
         <span slot="label">聊天</span>
       </tabbar-item>
-      <tabbar-item :link="{path:'/user'}" :selected="path === '/user'">
-        <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
+      <tabbar-item :link="{path:'/user'}" :badge="notice_num" :selected="path === '/user'" >
+        <span class="demo-icon-22 vux-demo-tabbar-icon-home"  slot="icon" style="position:relative;top: -2px;">
           <img src="../src/assets/icon/my.png" alt="home">
         </span>
         <span class="demo-icon-22" slot="icon-active">
@@ -82,7 +82,9 @@
     },
     data () {
       return {
-        entryUrl: document.location.href
+        entryUrl: document.location.href,
+        chat_num: '',
+        notice_num: ''
       }
     },
     watch: {
@@ -133,10 +135,6 @@
         if (this.route.path === '/user') return '我的'
         return this.componentName ? `Demo/${this.componentName}` : 'Demo/~~'
       }
-      // headerTransition () {
-      //   if (!this.direction) return ''
-      //   return this.direction === 'forward' ? 'vux-header-fade-in-right' : 'vux-header-fade-in-left'
-      // },
     },
     methods: {
       ...mapActions([
@@ -147,6 +145,8 @@
       }
     },
     mounted () {
+      this.chat_num = localStorage.getItem('chat_num')
+      this.notice_num = localStorage.getItem('notice_num')
       this.handler = () => {
         if (this.path === '/demo') {
           this.box = document.querySelector('#demo_list_box')
@@ -189,6 +189,14 @@ body {
   }
   .vux-no-group-title{
     margin-top: 0 !important;
+  }
+  .mescroll {
+    position: fixed;
+    padding-bottom: 1rem;
+    top: 0px;
+    bottom: 60px;
+    height: auto;
+    font-size: 32px;
   }
 }
 </style>

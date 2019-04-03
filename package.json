@@ -17,6 +17,7 @@
     "cssnano": "^4.1.10",
     "es6-promise": "^4.2.6",
     "fastclick": "^1.0.6",
+    "mescroll.js": "^1.4.1",
     "postcss-aspect-ratio-mini": "^1.0.1",
     "postcss-cssnext": "^3.1.0",
     "postcss-px-to-viewport": "^1.1.0",

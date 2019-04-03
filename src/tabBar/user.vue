@@ -1,41 +1,39 @@
 <template>
   <div id="user">
-    <!--<x-header class="ignore" :left-options="{showBack: false}">我的</x-header>-->
-    <!--<div style="height: 50px;"></div>-->
     <div class="wrapper ff">
-      <div class="avatar flo_l" @click="routeToDetail" style="background-image: url('https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1511461500,2536850263&fm=200&gp=0.jpg');"></div>
+      <div class="avatar flo_l" @click="routeToDetail"  :style="{backgroundImage:'url(' + user.photo + ')'}"></div>
       <div class="name inline-block">
-        <span class="font36 bold">Angela</span><br/>
+        <span class="font36 bold">{{user.name}}</span><br/>
         <span class="font26">
-          <img width="16" style="display:inline-block;margin-bottom: 2px;"  class="middle" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=">
-          市级VIP
+          <img width="16" style="display:inline-block;margin-bottom: 2px;"  class="middle" src="http://images.ufutx.com/201904/02/6e9d7b41f9ff9ec9588d0a7f910deb02.png">
+          {{user.rank_name}}
         </span>
       </div>
       <div class="editData flo_r font26">编辑资料</div>
       <div class="clearfloat"></div>
       <ul class="mutual text-center">
-        <li class="after"><p class="bold color6">32</p>喜欢我</li>
-        <li class="after"><p class="bold color6">32</p>我喜欢</li>
-        <li><p class="bold color6">32</p>好友</li>
+        <li class="after"><p class="bold color6">{{user.fans_count}}</p>喜欢我</li>
+        <li class="after"><p class="bold color6">{{user.follow_count}}</p>我喜欢</li>
+        <li><p class="bold color6">{{user.friend_count}}</p>好友</li>
       </ul>
     </div>
     <group title=" " >
       <cell title="VIP办理" is-link>
         <!--<badge text="1"></badge>-->
-        <img slot="icon" width="20" style="display:block;margin-right:5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=">
+        <img slot="icon" width="20" class="icon" src="http://images.ufutx.com/201904/02/ff09a194b571b1fa88c7516af916b122.png">
         <span class="be">2019-03-22到期</span>
       </cell>
     </group>
     <group title=" ">
       <cell title="实名认证" is-link>
         <!--<badge text="1"></badge>-->
-        <img slot="icon" width="20" style="display:block;margin-right:5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=">
+        <img slot="icon" width="20" class="icon" src="http://images.ufutx.com/201904/02/22ae44de7e489989752d4091d4e4bada.png">
       </cell>
     </group>
     <group title=" ">
       <cell title="意见反馈" is-link>
         <!--<badge text="1"></badge>-->
-        <img slot="icon" width="20" style="display:block;margin-right:5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=">
+        <img slot="icon" width="20" class="icon" src="http://images.ufutx.com/201904/02/6b86b27ecd45bf9bdea13beff075b60f.png">
       </cell>
     </group>
     <!--{{count}}-->
@@ -64,6 +62,7 @@
       return {
         value: '',
         search: '',
+        user: {},
         list: [
           {}, {}, {}, {}, {}, {}, {}
         ]
@@ -73,6 +72,22 @@
       routeToDetail () {
         this.$router.push({name: 'information', params: {id: 1}})
       },
+      getMessageNum () {
+        let paas = this.$store.state.paas
+        this.$http.get(`/official/notice/num?paas=${paas}`).then(({data}) => {
+          localStorage.setItem('chat_num', data.chat_message_num.toString())
+          localStorage.setItem('notice_num', data.notice_num.toString())
+        })
+      },
+      getUser () {
+        let paas = this.$store.state.paas
+        this.$http.get(`/official/mine?paas=${paas}`).then(({data}) => {
+          this.user = data
+          console.log(data)
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
       onClick () {
         this.$store.dispatch('login')
         this.$store.commit('increment')
@@ -80,7 +95,8 @@
     },
     mounted () {
       console.log(this.$store.state.route)
-      console.log(this.$store.state.count)
+      this.getMessageNum()
+      this.getUser()
     }
   }
 </script>
@@ -97,6 +113,7 @@
       border-radius: 50%;
       background-size: cover;
       margin-right: 25px;
+      box-shadow: 1px 1px 12px #d3d3d3;
     }
     .name{
       margin-top: 22px;
@@ -136,5 +153,10 @@
   }
   .vux-label,.weui-cell__ft{
     font-size: 4vw;
+  }
+
+  .icon {
+    display:block;
+    margin-right: 20px;
   }
 </style>

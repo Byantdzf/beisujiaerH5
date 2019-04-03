@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: '*',
-      component: (resolve) => require(['@/pages/404'], resolve)
+      component: (resolve) => require(['@/tabBar/home'], resolve)
     },
     {
       path: '/',
@@ -69,14 +69,19 @@ export default new Router({
       component: (resolve) => require(['@/pages/user/authentication'], resolve)
     },
     {
-      path: '/information:id',
+      path: '/information/:id',
       name: 'information',
       component: (resolve) => require(['@/pages/user/information'], resolve)
     },
     {
-      path: '/introducer:id',
+      path: '/introducer/:id',
       name: 'introducer',
       component: (resolve) => require(['@/pages/user/introducer'], resolve)
+    },
+    {
+      path: '/activityDetail/:id',
+      name: 'activityDetail',
+      component: (resolve) => require(['@/pages/user/activityDetail'], resolve)
     }
   ]
 })

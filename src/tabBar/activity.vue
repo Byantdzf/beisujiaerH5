@@ -1,19 +1,23 @@
 <template>
   <div id="activity">
-    <!--<x-header class="ignore" :left-options="{showBack: false}">活动</x-header>-->
-    <!--<div style="height: 50px;"></div>-->
-    <div class="list-item" v-for="item in list">
-      <div class="bc_date font26">
-        2019年03月12日
+    <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit" class="scrollView">
+      <div class="list-item" v-for="item in list" @click="gotoDetail(item.id)">
+        <!--<router-link :to="{name:'activityDetail',params:{id:1}}">-->
+          <div class="bc_date font26">
+            {{item.created_at}}
+            <img src="../assets/icon/go.png" alt="icon" class="icon flo_r">
+          </div>
+          <div class="image" v-bind:style="{backgroundImage:'url(' + item.poster + ')'}" ></div>
+          <p class="font30 color6 name">{{item.theme}}</p>
+        <!--</router-link>-->
       </div>
-      <div class="image" style="background-image: url('https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1511461500,2536850263&fm=200&gp=0.jpg');"></div>
-      <p class="font30 color6 name">一次就好，我陪你去看天荒地老</p>
-    </div>
+    </mescroll-vue>
   </div>
 </template>
 
 <script>
   import { Group, Cell, XHeader, XInput } from 'vux'
+  import MescrollVue from 'mescroll.js/mescroll.vue'
 
   export default {
     name: 'activity',
@@ -21,34 +25,60 @@
       Group,
       Cell,
       XHeader,
-      XInput
+      XInput,
+      MescrollVue
     },
     data () {
       return {
         value: '',
         search: '',
-        list: [
-          {}, {}, {}, {}, {}, {}, {}
-        ]
+        mescroll: null, //  mescroll实例对象
+        mescrollDown: {}, // 下拉刷新的配置. (如果下拉刷新和上拉加载处理的逻辑是一样的,则mescrollDown可不用写了)
+        mescrollUp: { // 上拉加载的配置.
+          callback: this.getOrderList, // 上拉回调,此处简写; 相当于 callback: function(page, mescroll) { }
+          page: {
+            num: 0, // 当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+            size: 15 // 每页数据条数,默认10
+          },
+          htmlLoading: '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>', // 上拉加载中的布局
+          htmlNodata: '<p class="upwarp-nodata">-- 加载完毕 --</p>' // 无数据的布局
+        },
+        list: []
       }
     },
     methods: {
-      onClick () {
-        this.$store.dispatch('login')
+      mescrollInit (mescroll) {
+        this.mescroll = mescroll
       },
-      getData () {
-        let data = this.$store.state.data
-        this.$http.get('/official/activities', data).then(({data}) => {
+      getMessageNum () {
+        let paas = this.$store.state.paas
+        this.$http.get(`/official/notice/num?paas=${paas}`).then(({data}) => {
+          localStorage.setItem('chat_num', data.chat_message_num.toString())
+          localStorage.setItem('notice_num', data.notice_num.toString())
+        })
+      },
+      getOrderList (page, mescroll) {
+        let paas = this.$store.state.paas
+        this.$http.get(`/official/activities?paas=${paas}&page=${page.num}`).then(({data}) => {
+          let dataV = page.num === 1 ? [] : this.list
+          dataV.push(...data.data)
+          this.list = dataV
+          this.$nextTick(() => {
+            mescroll.endSuccess(data.data.length)
+          })
           console.log(data)
         }).catch((error) => {
           console.log(error)
         })
+      },
+      gotoDetail (id) {
+        this.$router.push({name: 'activityDetail', params: {id: id}})
       }
     },
     mounted () {
       console.log(this.$store.state.route)
       console.log(this.$store.state.data)
-      this.getData()
+      this.getMessageNum()
     }
   }
 </script>
@@ -85,9 +115,15 @@
     .image{
       width: 646px;
       height: 328px;
+      background-size: cover;
+      background-repeat: no-repeat;
     }
     .name{
       margin-top: 30px;
+    }
+    .icon{
+      width: 26px;
+      margin-top: 8px;
     }
   }
 </style>
