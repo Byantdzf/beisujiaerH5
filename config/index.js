@@ -55,7 +55,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: 'http://love.ufutx.com/mobile/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
