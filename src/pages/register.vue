@@ -28,7 +28,7 @@
 <script>
   import {$toastSuccess} from '../../src/config/util'
   export default {
-    name: 'register',
+    name: 'registerMobile',
     components: {},
     data () {
       return {

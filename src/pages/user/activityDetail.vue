@@ -86,7 +86,8 @@
         mobile: '',
         information: {}, // 数据
         members: {}, // 报名成员
-        showModal: false
+        showModal: false,
+        trade_no: ''
       }
     },
     methods: {
@@ -117,20 +118,62 @@
           name: this.name,
           mobile: this.mobile
         }
+        let vm = this
         this.$http.post(`/official/join/activity/${this.id}`, data).then(({data}) => {
-          console.log(data)
-          debugger
+          vm.trade_no = data.trade_no
+          // if (data.wx_pay.length === 0) {
+            // that.$post({url: `${service.orderpay}/${that.trade_no}/v2`}, {
+            //   success: ({code, data}) => {
+            //     that.$Toast_success('支付成功')
+            //     setTimeout(() => {
+            //       that.$gotoTab('/pages/tabBar/user')
+            //     }, 1200)
+            //   },
+            //   fail: ({code, data}) => {
+            //   },
+            //   complete: () => {
+            //   }
+            // })
+          // } else {
+            let wxconfig = data.wx_pay.config
+//            wx.config(JSON.parse(response.data.data.order.wx_pay.js));
+//             if (wxconfig.payment_debug) {
+              // return that.$post({url: `${service.orderpay}/${that.trade_no}/v2`}, {
+              //   success: ({code, data}) => {
+              //     that.$Toast_success('支付成功')
+              //     setTimeout(() => {
+              //       that.$gotoTab('/pages/tabBar/user')
+              //     }, 1200)
+              //   },
+              //   fail: ({code, data}) => {
+              //   },
+              //   complete: () => {
+              //   }
+              // })
+            // }
+            vm.$wechat.chooseWXPay({
+              timestamp: wxconfig.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+              nonceStr: wxconfig.nonceStr, // 支付签名随机串，不长于 32 位
+              package: wxconfig.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+              signType: wxconfig.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+              paySign: wxconfig.paySign, // 支付签名
+              success: function (res) {
+                vm.$router.push({
+                  name: 'activityPaySuccess',
+                  params: {
+                    id: this.id
+                  }
+                })
+              },
+              fail: function (res) {
+                console.log(res)
+              }
+            })
+          // }
+          // console.log(vm.$wechat.chooseWXPay())
         }).catch((error) => {
           console.log(error)
         })
-        // console.log(this.$wechat.config({}))
-        // this.$router.push({
-        //   name: 'activityPaySuccess',
-        //   params: {
-        //     id: this.id
-        //   }
-        // })
-        $toastText('未调接口')
       }
     },
     mounted () {
