@@ -53,12 +53,12 @@
       <popup v-model="showModal">
         <div class="bc_popup ff">
           <p class="list bold">活动报名信息</p>
-          <p class="price list">报名费用： 0.00</p>
+          <p class="price list">报名费用： <span style="color: #f66924;">{{information.fee}}</span></p>
           <p class="list">联系人：
-            <input type="text" class="flo_r" />
+            <input type="text" class="flo_r"  v-model="name"/>
           </p>
           <p class="list">联系方式：
-            <input type="number" class="flo_r" />
+            <input type="number" class="flo_r" v-model="mobile"/>
           </p>
         </div>
         <div class="applyNow" style="width: 100%" @click="confirmPay">确定支付</div>
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-  import {$toastText} from '../../config/util'
+  import {$toastText, $toastWarn} from '../../config/util'
   import { TransferDom, Popup } from 'vux'
 
   export default {
@@ -82,6 +82,8 @@
     data () {
       return {
         id: '',
+        name: '',
+        mobile: '',
         information: {}, // 数据
         members: {}, // 报名成员
         showModal: false
@@ -105,6 +107,29 @@
       },
       confirmPay () { // 报名
         this.showModal = !this.showModal
+        if (!this.name) {
+          return $toastWarn('请填写联系人')
+        }
+        if (!this.mobile) {
+          return $toastWarn('请填写联系方式')
+        }
+        let data = {
+          name: this.name,
+          mobile: this.mobile
+        }
+        this.$http.post(`/official/join/activity/${this.id}`, data).then(({data}) => {
+          console.log(data)
+          debugger
+        }).catch((error) => {
+          console.log(error)
+        })
+        // console.log(this.$wechat.config({}))
+        // this.$router.push({
+        //   name: 'activityPaySuccess',
+        //   params: {
+        //     id: this.id
+        //   }
+        // })
         $toastText('未调接口')
       }
     },
@@ -119,9 +144,7 @@
 <style scoped lang="less">
   .head_picture{
     width: 750px;
-    /*height: 495px;*/
   }
-  /*vertical-align: middle;*/
   .SummitDetails{
     width: 714px;
     border-radius: 10px;
@@ -138,6 +161,8 @@
   }
   .icon_choiceness{
     width: 68px;
+    vertical-align: middle;
+    margin-bottom: 8px;
   }
   .choiceness{
     font-size: 36px;
@@ -181,6 +206,7 @@
   .plenaryLecture{
     width: 714px;
     padding: 0px 18px 0px 18px;
+    margin-top: -8px;
   }
   .For_more_details{
     width: 714px;

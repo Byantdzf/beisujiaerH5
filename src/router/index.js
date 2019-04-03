@@ -82,6 +82,32 @@ export default new Router({
       path: '/activityDetail/:id',
       name: 'activityDetail',
       component: (resolve) => require(['@/pages/user/activityDetail'], resolve)
+    },
+    {
+      path: '/activityPaySuccess/:id',
+      name: 'activityPaySuccess',
+      component: (resolve) => require(['@/pages/user/activityPaySuccess'], resolve)
+    },
+    {
+      path: '/PreviewData',
+      name: 'PreviewData',
+      component: (resolve) => require(['@/pages/user/PreviewData'], resolve)
+    },
+    {
+      path: '/uploadImage',
+      name: 'uploadImage',
+      component: (resolve) => require(['@/pages/user/uploadImage'], resolve)
+    },
+    {
+      path: '/myFriend',
+      name: 'myFriend',
+      component: (resolve) => require(['@/pages/user/myFriend'], resolve)
+    },
+    {
+      path: '/chatList',
+      name: 'chatList',
+      component: (resolve) => require(['@/pages/user/chatList'], resolve)
     }
+
   ]
 })

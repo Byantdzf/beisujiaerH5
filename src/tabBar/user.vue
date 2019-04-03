@@ -1,7 +1,7 @@
 <template>
   <div id="user">
     <div class="wrapper ff">
-      <div class="avatar flo_l" @click="routeToDetail"  :style="{backgroundImage:'url(' + user.photo + ')'}"></div>
+      <div class="avatar flo_l" @click="routeToDetail('PreviewData')"  :style="{backgroundImage:'url(' + user.photo + ')'}"></div>
       <div class="name inline-block">
         <span class="font36 bold">{{user.name}}</span><br/>
         <span class="font26">
@@ -9,12 +9,12 @@
           {{user.rank_name}}
         </span>
       </div>
-      <div class="editData flo_r font26">编辑资料</div>
+      <div class="editData flo_r font26" @click="routeToDetail('PreviewData')">编辑资料</div>
       <div class="clearfloat"></div>
       <ul class="mutual text-center">
-        <li class="after"><p class="bold color6">{{user.fans_count}}</p>喜欢我</li>
-        <li class="after"><p class="bold color6">{{user.follow_count}}</p>我喜欢</li>
-        <li><p class="bold color6">{{user.friend_count}}</p>好友</li>
+        <li class="after"><p class="bold color6" @click="routeToDetail('myFriend', 'fans')">{{user.fans_count}}</p>喜欢我</li>
+        <li class="after"><p class="bold color6" @click="routeToDetail('myFriend', 'attention')">{{user.follow_count}}</p>我喜欢</li>
+        <li><p class="bold color6" @click="routeToDetail('myFriend', 'friend')">{{user.friend_count}}</p>好友</li>
       </ul>
     </div>
     <group title=" " >
@@ -24,12 +24,14 @@
         <span class="be">2019-03-22到期</span>
       </cell>
     </group>
-    <group title=" ">
-      <cell title="实名认证" is-link>
-        <!--<badge text="1"></badge>-->
-        <img slot="icon" width="20" class="icon" src="http://images.ufutx.com/201904/02/22ae44de7e489989752d4091d4e4bada.png">
-      </cell>
-    </group>
+    <div  @click="routeToDetail('authentication')">
+      <group title=" " >
+        <cell title="实名认证" is-link >
+          <!--<badge text="1"></badge>-->
+          <img slot="icon" width="20" class="icon" src="http://images.ufutx.com/201904/02/22ae44de7e489989752d4091d4e4bada.png">
+        </cell>
+      </group>
+    </div>
     <group title=" ">
       <cell title="意见反馈" is-link>
         <!--<badge text="1"></badge>-->
@@ -60,17 +62,16 @@
     },
     data () {
       return {
-        value: '',
-        search: '',
-        user: {},
-        list: [
-          {}, {}, {}, {}, {}, {}, {}
-        ]
+        user: {}
       }
     },
     methods: {
-      routeToDetail () {
-        this.$router.push({name: 'information', params: {id: 1}})
+      routeToDetail (name, type) {
+        if (type) {
+          this.$router.push({name: name, params: {type: type}})
+        } else {
+          this.$router.push({name: name})
+        }
       },
       getMessageNum () {
         let paas = this.$store.state.paas

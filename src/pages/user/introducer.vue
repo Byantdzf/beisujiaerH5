@@ -1,13 +1,226 @@
 <template>
-    <div>介绍人</div>
+  <div class="introducer">
+    <div class="bc_swiper">
+      <swiper :list="life_photos" :min-moving-distance="120" :show-desc-mask="false" height="320px" :auto="true"
+              dots-position="center" :interval="2000"></swiper>
+      <span class="like colorff font28">
+      <img src="http://images.ufutx.com/201904/01/2748b2373009c307d86f3750d85a812e.png" alt="" class="icon">
+      {{information.fans_count}}
+    </span>
+    </div>
+    <div class="bc_detail">
+      <span class="name bold">{{information.name}}</span>
+      <img src="http://images.ufutx.com/201904/02/6e9d7b41f9ff9ec9588d0a7f910deb02.png" alt="" class="icon">
+      <span class="font20">{{information.rank_name}}</span>
+      <div class="bc_love flo_r">
+        <img src="http://images.ufutx.com/201904/03/76d6a32c1cb5e51f63de5e059624eb27.png" @click="attention"
+             v-if="information.is_followed == 1" :class="{'btn_active': btnActive}" class="love">
+        <img src="http://images.ufutx.com/201904/03/56bd712f02b06933f936f76cb6ac9a2a.png" @click="attention"
+             :class="{'btn_active': btnActive}" v-else class="love">
+      </div>
+      <p class="message">
+        <span class="font26 colorbe">{{information.age}}</span>
+      </p>
+    </div>
+    <!--<div class="introduction">-->
+      <!--<p style="width: 20%" class="font28 flo_l">服务格言</p>-->
+      <!--<p class="colorbe flo_r font26" style="width: 80%">{{information.slogan}}</p>-->
+      <!--<p class="clearfloat"></p>-->
+    <!--</div>-->
+    <div class="basics">
+      <p style="width: 20%" class="font28 flo_l">基本资料</p>
+      <div class="colorbe flo_r basicsData" style="width: 80%">
+        <p class="item font26">{{information.age}}</p>
+        <p class="item font26">{{information.birthday}}</p>
+        <p class="item font26">{{'行业：'+information.industry+'-'+information.industry_sub}}</p>
+        <p class="item font26">{{'公司：'+information.company}}</p>
+        <p class="item font26">{{'公司职位：'+information.post}}</p>
+        <p class="item font26">{{'信仰：'+information.belief}}</p>
+      </div>
+      <p class="clearfloat"></p>
+      <div class="idealLove">
+        <p style="width: 20%" class="font28 flo_l">服务格言</p>
+        <p class="colorbe flo_r font26" style="width: 80%;margin-top: 0.8vw;">{{information.slogan}}</p>
+        <p class="clearfloat"></p>
+      </div>
+    </div>
+    <div class="height160"></div>
+    <div class="submit" v-if="information.is_friend === 1">聊天</div>
+    <div class="submit" v-else @click="addFriend">加为好友</div>
+  </div>
 </template>
 
 <script>
+  import {Group, Cell, XHeader, XInput, Swiper} from 'vux'
+  import {$toastSuccess} from '../../config/util'
   export default {
-    name: 'introducer'
+    name: 'introducer',
+    components: {
+      Group,
+      Cell,
+      XHeader,
+      XInput,
+      Swiper
+    },
+    data () {
+      return {
+        id: '',
+        btnActive: false,
+        information: {},
+        life_photos: [],
+        imgList: [{
+          url: 'javascript:',
+          img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2622829061,2227432350&fm=26&gp=0.jpg'
+        }, {
+          url: 'javascript:',
+          img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=685006216,2192383313&fm=26&gp=0.jpg',
+          fallbackImg: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2622829061,2227432350&fm=26&gp=0.jpg'
+        }]
+      }
+    },
+    watch: {
+      information () {
+        if (this.information.is_followed === 1) {
+          this.btnActive = true
+          return
+        }
+        this.btnActive = false
+      }
+    },
+    methods: {
+      attention () {
+        let paas = this.$store.state.paas
+        this.$http.post(`/follow/users/${this.id}?paas=${paas}`).then(({data}) => {
+          this.btnActive = !this.btnActive
+          this.information.is_followed = !this.information.is_followed
+          if (data.is_followed) {
+            this.information.fans_count++
+          } else {
+            this.information.fans_count--
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      addFriend () {
+        this.$http.get(`/official/users/${this.id}/answer/questions`).then(({data}) => {
+          $toastSuccess('请求已发送')
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      getData () {
+        let paas = this.$store.state.paas
+        this.$http.get(`/official/users/${this.id}?paas=${paas}`).then(({data}) => {
+          this.information = data
+          this.life_photos = data.life_photos.map((item) => {
+            return {
+              img: item.photo
+            }
+          })
+          this.life_photos.unshift({img: this.information.photo})
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+    },
+    mounted () {
+      console.log(this.$store.state.route)
+      this.id = this.$route.params.id
+      this.getData()
+    }
   }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+  body {
+    background: #f5f5f5 !important;
 
+    .like {
+      padding: 6px 22px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 24px;
+      margin-top: -80px;
+      z-index: 999999;
+      position: absolute;
+      right: 35px;
+
+      .icon {
+        width: 28px;
+        margin-right: 2px;
+      }
+    }
+
+    .bc_detail {
+      padding: 30px;
+
+      .name {
+        font-size: 36px;
+      }
+
+      .icon {
+        width: 32px;
+        margin: 0 -2px 0 16px;
+      }
+
+      .bc_love {
+        margin-top: -10px;
+
+        .love {
+          width: 120px;
+        }
+      }
+
+      .message {
+        border-bottom: 1px solid #D2D2D2;
+        padding-bottom: 30px;
+      }
+    }
+
+    .introduction, .basics {
+      padding: 0 30px 30px 30px;
+      border-bottom: 2px solid #D2D2D2;
+    }
+
+    .idealLove {
+      padding: 42px 30px 42px 0px;
+      border-bottom: 2px solid #D2D2D2;
+    }
+    .basics {
+      padding: 20px 30px 30px 30px;
+      padding-right: 0;
+      border: none;
+      .basicsData {
+        border-bottom: 2px solid #D2D2D2;
+        padding-bottom: 22px;
+        .item {
+          padding: 8px 18px;
+          background: #f7f7f7;
+          display: inline-block;
+          border: 2px solid #D2D2D2;
+          border-radius: 8px;
+          color: black;
+          margin: 0px 20px 20px 0;
+        }
+      }
+    }
+
+    .submit {
+      height: 105px;
+      line-height: 105px;
+      text-align: center;
+      font-size: 34px;
+      color: #fffffd;
+      background-color: #344a5d;
+      position: fixed;
+      bottom: 0;
+      width: 100vw;
+      letter-spacing: 3px;
+    }
+
+    .bc_dist {
+      background: #F5F5F5;
+      height: 20px;
+    }
+  }
 </style>

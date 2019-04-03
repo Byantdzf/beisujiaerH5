@@ -14,10 +14,10 @@
       <swiper  :min-moving-distance="120" :show-desc-mask="true" height="320px" :auto="true" dots-position="center"
                :interval="2000">
         <swiper-item v-for="item in recommend" :key="item.id">
-          <div class="image" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}"></div>
+          <div class="image" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}" @click="routeToDetail(item.user.type, item.user.id)"></div>
         </swiper-item>
       </swiper>
-      <div class="list-item" v-for="item in list">
+      <div class="list-item" v-for="item in list" @click="routeToDetail(item.type, item.id)">
         <div class="image" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}"></div>
         <p style="margin-top: 8px;">
           <span class="font32">{{item.name}}</span>
@@ -68,6 +68,13 @@
       }
     },
     methods: {
+      routeToDetail (type, id) {
+        if (type === 'single') {
+          this.$router.push({name: 'information', params: {id: id}})
+        } else {
+          this.$router.push({name: 'introducer', params: {id: id}})
+        }
+      },
       mescrollInit (mescroll) {
         this.mescroll = mescroll
       },
