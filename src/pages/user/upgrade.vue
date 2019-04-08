@@ -59,12 +59,12 @@
       </div>
       <div class="box_bottom">
         <p class="month">
-          <span class="ic_month">￥70/月</span>
-          <span class="original">原价￥299</span>
+          <span class="ic_month">￥{{rank.sub_ranks[0].month_price}}/年</span>
+          <span class="original">原价￥{{rank.sub_ranks[0].price}}</span>
         </p>
         <p class="year">
-          <span class="ic_year">￥365/年</span>
-          <span class="original">原价￥1999</span>
+          <span class="ic_year">￥{{rank.sub_ranks[1].month_price}}/月</span>
+          <span class="original">原价￥{{rank.sub_ranks[1].price}}</span>
         </p>
       </div>
     </div>
@@ -93,6 +93,7 @@ export default {
     tabItem (type, index) {
       this.type = type
       this.tabIndex = index
+      this.getOrderList()
     },
     getOrderList () {
       this.$http.get(`/official/ranks?paas=${this.paas}&name=${this.type}`).then(({data}) => {

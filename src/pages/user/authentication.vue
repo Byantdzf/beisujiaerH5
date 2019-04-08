@@ -47,7 +47,7 @@
 <style scoped lang="less">
   .homepage{
     width: 750px;
-    height: 100vh;
+    /*height: 100vh;*/
     background: white;
     position: relative;
   }
