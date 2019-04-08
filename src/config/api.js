@@ -35,9 +35,9 @@ const api = () => {
   AjaxPlugin.$http.interceptors.response.use(response => {
     $loadingHide()
     if (response.status === 200 && response.data.code === 2) { // token过期
-      localStorage.removeItem('ACCESS_TOKEN')
+      // localStorage.removeItem('ACCESS_TOKEN')
       // console.log(window.location.pathname)
-      window.location.href = 'mobile/#/registerMobile'
+      window.location.href = `${window.location.pathname}register`
       // this.$router.push({
       //       //   name: 'register'
       //       // })
