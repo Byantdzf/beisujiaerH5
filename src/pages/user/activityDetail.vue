@@ -124,7 +124,8 @@
           vm.trade_no = data.trade_no
           console.log(window.location.href)
           if (data.wx_pay.mweb_url) {
-            window.location.href = data.wx_pay.mweb_url + '?redirect_url=' + window.location.href
+            // window.location.href = data.wx_pay.mweb_url + '?redirect_url=' + window.location.href
+            window.location.href = data.wx_pay.mweb_url
           }
           // if (data.wx_pay.length === 0) {
           // that.$post({url: `${service.orderpay}/${that.trade_no}/v2`}, {
