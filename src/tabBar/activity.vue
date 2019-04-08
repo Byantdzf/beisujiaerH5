@@ -66,6 +66,7 @@
           this.$nextTick(() => {
             mescroll.endSuccess(data.data.length)
           })
+          this.getMessageNum()
           console.log(data)
         }).catch((error) => {
           console.log(error)
@@ -78,7 +79,6 @@
     mounted () {
       console.log(this.$store.state.route)
       console.log(this.$store.state.data)
-      this.getMessageNum()
     }
   }
 </script>

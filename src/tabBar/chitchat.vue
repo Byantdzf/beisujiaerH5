@@ -115,7 +115,7 @@
           this.single_woman_count = data.single_woman_count
           this.maker_count = data.maker_count
           this.marriage_count = data.marriage_count
-          console.log(this.list)
+          this.getMessageNum()
         }).catch((error) => {
           console.log(error)
         })
@@ -124,7 +124,6 @@
     mounted () {
       console.log(this.$store.state.route)
       this.getOrderList()
-      this.getMessageNum()
     }
   }
 </script>

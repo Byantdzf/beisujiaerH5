@@ -6,12 +6,11 @@ import FastClick from 'fastclick'
 import App from './App'
 import store from '../src/vuex/store'
 import router from '../src/router/index.js'
-import {LoadingPlugin, DatetimePlugin, WechatPlugin} from 'vux'
+import {LoadingPlugin, WechatPlugin} from 'vux'
 import '../src/config/api'
+// require('es6-promise').polyfill()
 
-require('es6-promise').polyfill()
 Vue.use(LoadingPlugin)
-Vue.use(DatetimePlugin)
 Vue.use(WechatPlugin)
 Vue.use(Vuex)
 

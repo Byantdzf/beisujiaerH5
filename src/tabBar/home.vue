@@ -98,14 +98,17 @@
           vm.announcements = data.announcements
           vm.recommend = data.recommend
           console.log(vm.recommend)
+          vm.getMessageNum()
         }).catch((error) => {
           console.log(error)
         })
       }
     },
     mounted () {
-      console.log(this.$store.state.route)
-      this.getMessageNum()
+      console.log(this.$store.state.intercept)
+      if (this.$store.state.intercept === 'true') {
+        return false
+      }
     }
   }
 </script>

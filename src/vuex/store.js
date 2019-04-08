@@ -13,6 +13,7 @@ const state = {
   paas: localStorage.getItem('paas'),
   chat_message_num: '',
   notice_num: '',
+  intercept: localStorage.getItem('intercept'),
   data: {
     XDEBUG_SESSION_START: 1,
     paas: window.localStorage.getItem('paas')

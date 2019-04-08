@@ -84,7 +84,7 @@
         let paas = this.$store.state.paas
         this.$http.get(`/official/mine?paas=${paas}`).then(({data}) => {
           this.user = data
-          console.log(data)
+          this.getMessageNum()
         }).catch((error) => {
           console.log(error)
         })
@@ -96,7 +96,6 @@
     },
     mounted () {
       console.log(this.$store.state.route)
-      this.getMessageNum()
       this.getUser()
     }
   }
