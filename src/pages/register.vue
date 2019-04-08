@@ -1,5 +1,6 @@
 <template>
   <div id="register" class="wrapper text-center">
+    <div class="center"></div>
     <div style="position: relative;">
       <input type="number" v-model="mobile" class="font30 colorff mobile" placeholder="手机号">
       <img src="http://images.ufutx.com/201903/28/8026e39a4bd864b41293b4276203026d.png" alt="icon" class="icon">
@@ -113,9 +114,7 @@
       background: #1a1a1a;
       background-size: contain;
       background-repeat: no-repeat;
-      padding-top: 300px;
       background-image: url('http://images.ufutx.com/201903/27/eab72e299990c7264ed4385556e471b6.jpeg');
-
       input {
         width: 488px;
         height: 100px;
@@ -124,7 +123,9 @@
         border-radius: 4px;
         margin-top: 20px;
       }
-
+      .center{
+        padding-top: 300px;
+      }
       .mobile {
         padding: 0 50px 0 76px;
       }
