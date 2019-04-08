@@ -126,7 +126,6 @@
           if (data.wx_pay.mweb_url) {
             window.location.href = data.wx_pay.mweb_url + '?redirect_url=' + window.location.href
           }
-          return
           // if (data.wx_pay.length === 0) {
           // that.$post({url: `${service.orderpay}/${that.trade_no}/v2`}, {
           //   success: ({code, data}) => {

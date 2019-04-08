@@ -16,11 +16,11 @@
     </p>
     <div>
       <p class="text_name" >姓名：</p>
-      <input class="input_name" type="text" placeholder="请输入">
+      <input class="input_name" type="text" v-model="name" placeholder="请输入">
     </div>
     <div>
       <p class="text_IdNumber">身份证号:</p>
-      <input class="input_IdNumber"  type="number" placeholder="请输入">
+      <input class="input_IdNumber"  type="number" v-model="card_num" placeholder="请输入">
     </div>
     <div class="handld_box">
       <img class="handld" src="http://images.ufutx.com/201904/01/5a452e852b95786089aaf573a58261b8.png" alt="">
@@ -32,14 +32,32 @@
       <img class="photo_pictures" src="http://images.ufutx.com/201904/01/89de349ae645eab7ea0e64759089400c.png" alt=""><!--照相机-->
     </p>
     <div class="dist"></div>
-    <div class="submit">提交</div>
+    <div class="submit" @click="save">提交</div>
   </div>
 </template>
 <script>
+  import {$toastSuccess} from '../../config/util'
+
   export default {
     name: 'authentication',
     data () {
       return {
+        name: '',
+        card_num: ''
+      }
+    },
+    methods: {
+      save () {
+        let data = {
+          name: this.name,
+          card_num: this.card_num
+        }
+        console.log(data)
+        this.$http.post(`/official/user/approve`, data).then(({data}) => {
+          $toastSuccess('认证成功')
+        }).catch((error) => {
+          console.log(error)
+        })
       }
     }
   }
