@@ -74,14 +74,14 @@
         }
       },
       getMessageNum () {
-        let paas = this.$store.state.paas
+        let paas = localStorage.getItem('paas')
         this.$http.get(`/official/notice/num?paas=${paas}`).then(({data}) => {
           localStorage.setItem('chat_num', data.chat_message_num.toString())
           localStorage.setItem('notice_num', data.notice_num.toString())
         })
       },
       getUser () {
-        let paas = this.$store.state.paas
+        let paas = localStorage.getItem('paas')
         this.$http.get(`/official/mine?paas=${paas}`).then(({data}) => {
           this.user = data
           this.getMessageNum()

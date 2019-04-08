@@ -98,14 +98,14 @@
         this.$router.push({name: 'chatList', params: {type: type}})
       },
       getMessageNum () {
-        let paas = this.$store.state.paas
+        let paas = localStorage.getItem('paas')
         this.$http.get(`/official/notice/num?paas=${paas}`).then(({data}) => {
           localStorage.setItem('chat_num', data.chat_message_num.toString())
           localStorage.setItem('notice_num', data.notice_num.toString())
         })
       },
       getOrderList (page, mescroll) {
-        let paas = this.$store.state.paas
+        let paas = localStorage.getItem('paas')
         this.$http.get(`/official/message/linkman/list?paas=${paas}`).then(({data}) => {
           this.single_men = data.single_men
           this.single_women = data.single_women

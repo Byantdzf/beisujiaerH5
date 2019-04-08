@@ -77,7 +77,7 @@
         let data = {
           mobile: this.mobile,
           code: this.code,
-          paas: '测试'
+          paas: localStorage.getItem('paas')
         }
         this.$http.post('/official/login/mobile', data).then(({data}) => {
           localStorage.setItem('ACCESS_TOKEN', data.token)
