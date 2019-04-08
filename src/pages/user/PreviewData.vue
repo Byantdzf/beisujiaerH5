@@ -47,7 +47,7 @@
         }
       },
       getUser () {
-        let paas = this.$store.state.paas
+        let paas = localStorage.getItem('paas')
         this.$http.get(`/official/mine?paas=${paas}`).then(({data}) => {
           this.user = data
           console.log(data)

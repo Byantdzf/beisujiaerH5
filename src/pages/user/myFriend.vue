@@ -58,7 +58,7 @@
       },
       getList (page, mescroll) {
         let url = ''
-        let paas = this.$store.state.paas
+        let paas = localStorage.getItem('paas')
         if (this.type === 'fans') {
           url = `/official/followers?paas=${paas}$page=${page.num}`
         } else if (this.type === 'friend') {

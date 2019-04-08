@@ -96,7 +96,7 @@
           belief: this.belief,
           type: type,
           photo: 'hasajs',
-          paas: this.$store.state.paas
+          paas: localStorage.getItem('paas')
         }
         console.log(data)
         this.$http.put('/official/users/profile', data).then(({data}) => {

@@ -57,7 +57,7 @@
         this.mescroll = mescroll
       },
       getList (page, mescroll) {
-        let paas = this.$store.state.paas
+        let paas = localStorage.getItem('paas')
         let url = `/official/message/linkmen?type=${this.type}&paas=${paas}&page=${page.num}`
         this.$http.get(url).then(({data}) => {
           let dataV = page.num === 1 ? [] : this.list

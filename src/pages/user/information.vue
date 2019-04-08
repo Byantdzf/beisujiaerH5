@@ -98,7 +98,7 @@
     },
     methods: {
       attention () {
-        let paas = this.$store.state.paas
+        let paas = localStorage.getItem('paas')
         this.$http.post(`/follow/users/${this.id}?paas=${paas}`).then(({data}) => {
           this.btnActive = !this.btnActive
           this.information.is_followed = !this.information.is_followed
@@ -119,7 +119,7 @@
         })
       },
       getData () {
-        let paas = this.$store.state.paas
+        let paas = localStorage.getItem('paas')
         this.$http.get(`/official/users/${this.id}?paas=${paas}`).then(({data}) => {
           this.information = data
           this.life_photos = data.life_photos.map((item) => {

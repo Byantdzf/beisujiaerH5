@@ -11,7 +11,7 @@
     <div class="SummitDetailV">
       <div class="time">
         <img class="icon flo_l" style="margin-top: 1vw;" src="http://images.ufutx.com/201904/02/16ace8949356fd1796e9b56e5ad454bd.png" alt="">
-        <p style="width: 82vw" class="">{{information.created_at}} 至 {{information.updated_at}}</p>
+        <p style="width: 82vw" class="">{{information.created_at}} 至 {{information.end_time}}</p>
       </div>
       <div class="site">
         <img class="icon flo_l" src="http://images.ufutx.com/201904/02/4240186a184e36f6cad310b21a7f05b1.png" alt="">
@@ -153,7 +153,7 @@
           // })
           // }
           vm.$wechat.chooseWXPay({
-            appId: wxconfig.appId,
+            appId: 'wxc41491431733671e',
             timestamp: wxconfig.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
             nonceStr: wxconfig.nonceStr, // 支付签名随机串，不长于 32 位
             package: wxconfig.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
