@@ -58,7 +58,7 @@ export default new Router({
       },
       component: (resolve) => require(['@/pages/information/singleData'], resolve)
     },
-    {
+    { // 编辑资料
       path: '/textareaData',
       name: 'textareaData',
       component: (resolve) => require(['@/pages/information/textareaData'], resolve)
@@ -68,42 +68,47 @@ export default new Router({
       name: 'authentication',
       component: (resolve) => require(['@/pages/user/authentication'], resolve)
     },
-    {
+    { // 单身详情
       path: '/information/:id',
       name: 'information',
       component: (resolve) => require(['@/pages/user/information'], resolve)
     },
-    {
+    { // 介绍人详情
       path: '/introducer/:id',
       name: 'introducer',
       component: (resolve) => require(['@/pages/user/introducer'], resolve)
     },
-    {
+    { // 活动详情
       path: '/activityDetail/:id',
       name: 'activityDetail',
       component: (resolve) => require(['@/pages/user/activityDetail'], resolve)
     },
-    {
+    { // 活动报名成功
       path: '/activityPaySuccess/:id',
       name: 'activityPaySuccess',
       component: (resolve) => require(['@/pages/user/activityPaySuccess'], resolve)
     },
-    {
+    { // 完善资料
       path: '/PreviewData',
       name: 'PreviewData',
       component: (resolve) => require(['@/pages/user/PreviewData'], resolve)
     },
-    {
+    { // 生活照
       path: '/uploadImage',
       name: 'uploadImage',
       component: (resolve) => require(['@/pages/user/uploadImage'], resolve)
     },
-    {
+    { // 好友列表
       path: '/myFriend',
       name: 'myFriend',
       component: (resolve) => require(['@/pages/user/myFriend'], resolve)
     },
-    {
+    {  // 升级VIP
+      path: '/upgrade',
+      name: 'upgrade',
+      component: (resolve) => require(['@/pages/user/upgrade'], resolve)
+    },
+    { // 聊天列表
       path: '/chatList',
       name: 'chatList',
       component: (resolve) => require(['@/pages/user/chatList'], resolve)

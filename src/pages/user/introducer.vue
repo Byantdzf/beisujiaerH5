@@ -103,7 +103,7 @@
         })
       },
       addFriend () {
-        this.$http.get(`/official/users/${this.id}/answer/questions`).then(({data}) => {
+        this.$http.post(`/official/add/friend/${this.id}`).then(({data}) => {
           $toastSuccess('请求已发送')
         }).catch((error) => {
           console.log(error)

@@ -1,0 +1,278 @@
+<template>
+  <div class="upgrade">
+    <div>
+      <img class="diamondPicture" src="http://images.ufutx.com/201904/03/0c266b91baffd71e415fbba91c13c468.png" alt="">
+      <div class="head_card">
+        <div class="box_card">
+          <img class="card" src="http://images.ufutx.com/201904/08/27037f4d3337d6929aebef8c80b1685a.png" alt="">
+        </div>
+        <div class="head_portrait">
+          <div class="portrait_name_diamond">
+            <div class="portrait"></div>
+            <span class="ic_name">高粱</span>
+            <span class="ic_diamond">钻石VIP</span>
+          </div>
+          <p class="ic_text">成为VIP，拥有尊享特权</p>
+          <div class="icon_vip">
+            <img class="icon_diamond" src="http://images.ufutx.com/201904/08/766edb1da9aacbc963c9dde4d669e123.png" alt="">
+            <img class="icon_noOpen" src="http://images.ufutx.com/201904/08/e4ff9dc96711210dcde89f13d63ccee8.png" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="ic_vip">
+        <div class="box_vip">
+          <p class="cityLevel" :class="{active: itemType == '1'}" @click="tabItem('1')">市级VIP</p>
+        </div>
+        <div class="box_vip">
+          <p class="gold" :class="{active: itemType == '2'}" @click="tabItem('2')">黄金VIP</p>
+        </div>
+        <div class="box_vip">
+          <p class="jewel" :class="{active: itemType == '3'}" @click="tabItem('3')">钻石VIP</p>
+        </div>
+      </div>
+      <hr class="hr"/>
+      <div class="ic_privilege">
+        <p class="privilege">会员特权</p>
+      </div>
+      <div class="box_privilege">
+        <div class="privilege_introduce">
+          <div class="membership">
+            <img class="icon_membership" src="http://images.ufutx.com/201904/08/31dc43f80f5272ca4d9547e6efe8662a.png" alt="">
+            <p class="ic_membership">会员资料</p>
+            <p class="ic_globa">可看全球</p>
+          </div>
+          <div class="addFriends">
+            <img class="icon_addFriends" src="http://images.ufutx.com/201904/08/0d580cca7df95b754ab20dc7af162c33.png" alt="">
+            <p class="ic_addFriends">添加好友</p>
+            <p class="ic_add">可加40位</p>
+          </div>
+          <div class="exchangePrivilege">
+            <img class="icon_exchangePrivilege" src="http://images.ufutx.com/201904/08/20d6f3b39bceb819b4326e4bd212b788.png" alt="">
+            <p class="ic_exchangePrivilege">交流特权</p>
+            <p class="ic_each">了解彼此</p>
+          </div>
+        </div>
+      </div>
+      <div class="explain">
+        <p class="ic_explain">
+          说明：<br>
+          · 1.<br>
+          · 2.<br>
+          · 3.<br>
+          · 4.<br>
+          · 5.<br>
+          · 6.<br>
+          · 7.<br>
+        </p>
+      </div>
+      <div class="box_bottom">
+        <p class="month">
+          <span class="ic_month">￥70/月</span>
+          <span class="original">原价￥299</span>
+        </p>
+        <p class="year">
+          <span class="ic_year">￥365/年</span>
+          <span class="original">原价￥1999</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'upgrade',
+  data () {
+    return {
+      itemType: '1'
+    }
+  },
+  methods: {
+    tabItem (item) {
+      this.itemType = item
+    }
+  }
+}
+</script>
+
+<style scoped>
+  .upgrade{
+    width: 100vw;
+    height: 100vh;
+    background-color: #f7f7f7;
+  }
+  .diamondPicture{
+    width: 100vw;
+    height: 190px;
+  }
+  .box_card{
+    width: 100vw;
+    text-align: center;
+  }
+  .card{
+    width: 328px;
+    height: 178px;
+    margin-top: -138px
+  }
+  .icon_diamond,.icon_noOpen{
+    width: 30px;
+  }
+  .head_portrait{
+    width: 100vw;
+    text-align: center;
+    margin-top: -236px;
+  }
+  .portrait{
+    width: 122px;
+    height: 122px;
+    border-radius: 50%;
+    background-color: #1b1b1b;
+    margin: auto;
+    position: relative;
+  }
+  .ic_text,.ic_diamond{
+    font-size: 18px;
+  }
+  .ic_name{
+    color: #ffffff;
+  }
+  .portrait_name_diamond{
+    margin-bottom: 12px;
+  }
+  .ic_diamond{
+    margin-left: 4px;
+    color: #f56a22;
+  }
+  .ic_text{
+    color: #024261;
+  }
+  .icon_vip{
+    position: absolute;
+    left: 410px;
+    top: 90px
+  }
+  .ic_vip{
+    width: 100vw;
+    padding-top: 44px;
+    text-align: center;
+  }
+  .box_vip{
+    width: 32%;
+    display: inline-block;
+    text-align: center;
+  }
+  .cityLevel, .gold, .jewel{
+    font-size: 26px;
+    display: inline-block;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+  .active{
+    color: #f56b25;
+    border-bottom: 4px solid #f56b25;
+  }
+  .hr{
+    margin-bottom: 30px;
+  }
+  .ic_privilege{
+    width: 100vw;
+    text-align: center;
+    position: relative;
+  }
+  .privilege{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .privilege:after, .privilege:before{
+    content: "";
+    width: 50px;
+    height: 2px;
+    position: absolute;
+    background-color: #000000;
+    top: 14px;
+    z-index: 1;
+    vertical-align: middle;
+  }
+  .privilege:after{
+    margin-left: 20px;
+  }
+  .privilege:before{
+    margin-left: -70px;
+  }
+  .box_privilege{
+    padding: 0 34px 30px 34px;
+  }
+  .privilege_introduce{
+    margin-top: 20px;
+    padding: 65px 0 72px 0;
+    border-radius: 12px;
+    box-shadow: 0 1px 32px #dedede;
+    text-align: center;
+  }
+  .membership, .addFriends, .exchangePrivilege{
+    display: inline-block;
+    width: 32%;
+    text-align: center;
+  }
+  .icon_membership{
+    width: 44px;
+  }
+  .icon_addFriends{
+    width: 53px;
+  }
+  .icon_exchangePrivilege{
+    width: 57px;
+  }
+  .ic_membership,.ic_addFriends, .ic_exchangePrivilege{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .ic_globa, .ic_add, .ic_each{
+    font-size: 20px;
+    color: #bebebe;
+  }
+  .explain{
+    padding: 0px 34px 0px 34px;
+  }
+  .ic_explain{
+    padding: 30px 0px 0px 30px;
+    border-radius: 12px;
+    box-shadow: 0px 1px 32px #dedede;
+    font-size: 20px;
+    color: #a9a9a9;
+  }
+  .box_bottom{
+    width: 100vw;
+    height: 105px;
+    background-color: #344a5d;
+    position: fixed;
+    bottom: 0px;
+  }
+  .month, .year{
+    width: 49%;
+    font-size: 34px;
+    color: #ffffff;
+    line-height: 105px;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+  }
+  .month:after{
+    content: '';
+    background-color: #ffffff;
+    width: 1px;
+    position: absolute;
+    height: 60px;
+    top: 26px;
+    z-index: 2;
+    right: 0;
+  }
+  .original{
+    font-size: 18px;
+    color: #ffffff;
+    text-decoration: line-through;
+  }
+</style>
