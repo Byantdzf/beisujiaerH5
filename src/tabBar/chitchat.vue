@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="flo_r count">
-        <p class="inline-block num colorff" v-if="single_man_count">{{single_man_count}}</p>
+        <p class="inline-block num colorff" v-if="single_man_count>0">{{single_man_count}}</p>
         <img src="http://images.ufutx.com/201812/05/879fe80db665c553d4cd57afa4d4273c.png" alt="">
       </div>
       <div class="clearfloat"></div>
@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="flo_r count">
-        <p class="inline-block num colorff" v-if="single_man_count">{{single_woman_count}}</p>
+        <p class="inline-block num colorff" v-if="single_man_count>0">{{single_woman_count}}</p>
         <img src="http://images.ufutx.com/201812/05/879fe80db665c553d4cd57afa4d4273c.png" alt="">
       </div>
       <div class="clearfloat"></div>
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="flo_r count">
-        <p class="inline-block num colorff" v-if="single_man_count">{{maker_count}}</p>
+        <p class="inline-block num colorff" v-if="single_man_count>0">{{maker_count}}</p>
         <img src="http://images.ufutx.com/201812/05/879fe80db665c553d4cd57afa4d4273c.png" alt="">
       </div>
       <div class="clearfloat"></div>
@@ -55,7 +55,7 @@
         </div>
       </div>
       <div class="flo_r count">
-        <p class="inline-block num colorff" v-if="single_man_count">{{marriage_count}}</p>
+        <p class="inline-block num colorff" v-if="single_man_count>0">{{marriage_count}}</p>
         <img src="http://images.ufutx.com/201812/05/879fe80db665c553d4cd57afa4d4273c.png" alt="">
       </div>
       <div class="clearfloat"></div>
