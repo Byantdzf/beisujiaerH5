@@ -162,7 +162,8 @@
                 'nonceStr': wxconfig.nonceStr, // 随机串
                 'package': wxconfig.package,
                 'signType': wxconfig.signType,         // 微信签名方式：
-                'paySign': wxconfig.paySign // 微信签名
+                'paySign': wxconfig.paySign, // 微信签名
+                'trade_type': 'JSAPI'
               },
               function (res) {
                 if (res.err_msg === 'get_brand_wcpay_request:ok') {
