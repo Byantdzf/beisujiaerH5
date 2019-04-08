@@ -10,7 +10,7 @@ const state = {
   isLoading: false,
   direction: 'forward',
   count: 0,
-  paas: localStorage.getItem('paas'),
+  paas: '',
   chat_message_num: '',
   notice_num: '',
   intercept: localStorage.getItem('intercept'),
@@ -24,6 +24,9 @@ let store = new Vuex.Store({
   mutations: {
     increment (state) {
       state.count++
+    },
+    setPaas (state, text) {
+      state.paas = text
     },
     UPDATE_LOADING (state, status) {
       state.isLoading = status

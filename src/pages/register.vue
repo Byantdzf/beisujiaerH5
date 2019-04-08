@@ -98,10 +98,6 @@
     mounted () {
       console.log(this.$store.state.route)
       console.log(this.$wechat)
-      if (this.$route.query.paas) {
-        this.paas = this.$route.query.paas
-        localStorage.setItem('paas', this.paas)
-      }
     }
   }
 </script>

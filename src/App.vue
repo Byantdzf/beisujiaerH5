@@ -153,6 +153,12 @@
           this.updateDemoPosition(this.box.scrollTop)
         }
       }
+      // if (this.$route.query) {
+      //   setTimeout(() => {
+      //     debugger
+      //     localStorage.setItem('paas', this.$route.query.paas)
+      //   })
+      // }
     }
   }
 </script>

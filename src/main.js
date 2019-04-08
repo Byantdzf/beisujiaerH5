@@ -32,6 +32,10 @@ router.beforeEach(function (to, from, next) {
 
 router.afterEach(function (to) {
   store.commit('updateLoadingStatus', {isLoading: false})
+  if (store.state.route.query.paas) {
+    store.commit('setPaas', store.state.route.query.paas)
+    localStorage.setItem('paas', store.state.route.query.paas)
+  }
 })
 
 FastClick.attach(document.body)

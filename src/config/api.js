@@ -18,7 +18,7 @@ const api = () => {
   // AjaxPlugin.$http.defaults.withCredentials = false
   AjaxPlugin.$http.defaults.data = {
     XDEBUG_SESSION_START: 1,
-    paas: window.localStorage.getItem('paas')
+    paas: localStorage.getItem('paas')
   }
 // POST传参序列化(添加请求拦截器)
 // http request 拦截器
