@@ -1,70 +1,60 @@
 <template>
   <div class="upgrade">
     <div>
-      <img class="diamondPicture" src="http://images.ufutx.com/201904/03/0c266b91baffd71e415fbba91c13c468.png" alt="">
+      <img class="diamondPicture"  src="http://images.ufutx.com/201904/03/0c266b91baffd71e415fbba91c13c468.png" alt="">
       <div class="head_card">
         <div class="box_card">
           <img class="card" src="http://images.ufutx.com/201904/08/27037f4d3337d6929aebef8c80b1685a.png" alt="">
         </div>
         <div class="head_portrait">
           <div class="portrait_name_diamond">
-            <div class="portrait"></div>
-            <span class="ic_name">高粱</span>
-            <span class="ic_diamond">钻石VIP</span>
+            <div class="portrait"  :style="{backgroundImage:'url(' + user.avatar + ')'}"></div>
+            <span class="ic_name">{{user.name}}</span>
+            <span class="ic_diamond">{{user.rank_name}}VIP</span>
           </div>
           <p class="ic_text">成为VIP，拥有尊享特权</p>
           <div class="icon_vip">
-            <img class="icon_diamond" src="http://images.ufutx.com/201904/08/766edb1da9aacbc963c9dde4d669e123.png" alt="">
-            <img class="icon_noOpen" src="http://images.ufutx.com/201904/08/e4ff9dc96711210dcde89f13d63ccee8.png" alt="">
+            <img class="icon_diamond" v-if="user.rank_id > 0" src="http://images.ufutx.com/201904/08/766edb1da9aacbc963c9dde4d669e123.png" alt="">
+            <img class="icon_noOpen" v-else src="http://images.ufutx.com/201904/08/e4ff9dc96711210dcde89f13d63ccee8.png" alt="">
           </div>
         </div>
       </div>
     </div>
     <div>
       <div class="ic_vip">
-        <div class="box_vip">
-          <p class="cityLevel" :class="{active: itemType == '1'}" @click="tabItem('1')">市级VIP</p>
-        </div>
-        <div class="box_vip">
-          <p class="gold" :class="{active: itemType == '2'}" @click="tabItem('2')">黄金VIP</p>
-        </div>
-        <div class="box_vip">
-          <p class="jewel" :class="{active: itemType == '3'}" @click="tabItem('3')">钻石VIP</p>
+        <div class="box_vip" v-for="item,index in tabs">
+          <p class="cityLevel" :class="{active: tabIndex == item.id}" @click="tabItem(item.type, item.id)">{{item.name}}</p>
         </div>
       </div>
       <hr class="hr"/>
       <div class="ic_privilege">
-        <p class="privilege">会员特权</p>
+        <p class="privilege font26">会员特权</p>
       </div>
       <div class="box_privilege">
         <div class="privilege_introduce">
           <div class="membership">
             <img class="icon_membership" src="http://images.ufutx.com/201904/08/31dc43f80f5272ca4d9547e6efe8662a.png" alt="">
-            <p class="ic_membership">会员资料</p>
-            <p class="ic_globa">可看全球</p>
+            <p class="font26">会员资料</p>
+            <p class="font22 colorbe">可看全球</p>
           </div>
           <div class="addFriends">
             <img class="icon_addFriends" src="http://images.ufutx.com/201904/08/0d580cca7df95b754ab20dc7af162c33.png" alt="">
-            <p class="ic_addFriends">添加好友</p>
-            <p class="ic_add">可加40位</p>
+            <p class="font26">添加好友</p>
+            <p class="font22 colorbe">可加40位</p>
           </div>
           <div class="exchangePrivilege">
             <img class="icon_exchangePrivilege" src="http://images.ufutx.com/201904/08/20d6f3b39bceb819b4326e4bd212b788.png" alt="">
-            <p class="ic_exchangePrivilege">交流特权</p>
-            <p class="ic_each">了解彼此</p>
+            <p class="font26">交流特权</p>
+            <p class="font22 colorbe">了解彼此</p>
           </div>
         </div>
       </div>
       <div class="explain">
-        <p class="ic_explain">
+        <p class="ic_explain font26">
           说明：<br>
-          · 1.<br>
-          · 2.<br>
-          · 3.<br>
-          · 4.<br>
-          · 5.<br>
-          · 6.<br>
-          · 7.<br>
+          <span v-for="item in rank.explain">
+          · {{item}}<br>
+          </span>
         </p>
       </div>
       <div class="box_bottom">
@@ -86,13 +76,36 @@ export default {
   name: 'upgrade',
   data () {
     return {
-      itemType: '1'
+      tabs: [
+        {name: '市级VIP', id: 0, type: '市级'},
+        {name: '黄金VIP', id: 1, type: '黄金'},
+        {name: '钻石VIP', id: 2, type: '钻石'}
+      ],
+      tabIndex: 0,
+      type: '市级',
+      paas: localStorage.getItem('paas'),
+      user: {},
+      rank: {},
+      score: {}
     }
   },
   methods: {
-    tabItem (item) {
-      this.itemType = item
+    tabItem (type, index) {
+      this.type = type
+      this.tabIndex = index
+    },
+    getOrderList () {
+      this.$http.get(`/official/ranks?paas=${this.paas}&name=${this.type}`).then(({data}) => {
+        this.user = data.user
+        this.rank = data.rank
+        this.score = data.score
+      }).catch((error) => {
+        console.log(error)
+      })
     }
+  },
+  mounted () {
+    this.getOrderList()
   }
 }
 </script>
@@ -128,9 +141,11 @@ export default {
     width: 122px;
     height: 122px;
     border-radius: 50%;
-    background-color: #1b1b1b;
+    background-color: #e9e9e9;
     margin: auto;
     position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   .ic_text,.ic_diamond{
     font-size: 18px;
@@ -157,6 +172,7 @@ export default {
     width: 100vw;
     padding-top: 44px;
     text-align: center;
+    /*border-bottom: 1px solid #cdcdcd;*/
   }
   .box_vip{
     width: 32%;
@@ -183,15 +199,14 @@ export default {
     position: relative;
   }
   .privilege{
-    font-size: 20px;
-    font-weight: bold;
+    position: relative;
   }
   .privilege:after, .privilege:before{
     content: "";
     width: 50px;
     height: 2px;
     position: absolute;
-    background-color: #000000;
+    background-color: #cdcdcd;
     top: 14px;
     z-index: 1;
     vertical-align: middle;
@@ -207,7 +222,7 @@ export default {
   }
   .privilege_introduce{
     margin-top: 20px;
-    padding: 65px 0 72px 0;
+    padding: 60px 0 60px 0;
     border-radius: 12px;
     box-shadow: 0 1px 32px #dedede;
     text-align: center;
@@ -216,6 +231,7 @@ export default {
     display: inline-block;
     width: 32%;
     text-align: center;
+    line-height: 1.5;
   }
   .icon_membership{
     width: 44px;
@@ -226,22 +242,13 @@ export default {
   .icon_exchangePrivilege{
     width: 57px;
   }
-  .ic_membership,.ic_addFriends, .ic_exchangePrivilege{
-    font-size: 20px;
-    font-weight: bold;
-  }
-  .ic_globa, .ic_add, .ic_each{
-    font-size: 20px;
-    color: #bebebe;
-  }
   .explain{
     padding: 0px 34px 0px 34px;
   }
   .ic_explain{
-    padding: 30px 0px 0px 30px;
+    padding: 30px;
     border-radius: 12px;
     box-shadow: 0px 1px 32px #dedede;
-    font-size: 20px;
     color: #a9a9a9;
   }
   .box_bottom{
