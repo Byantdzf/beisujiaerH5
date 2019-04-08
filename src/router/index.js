@@ -30,8 +30,8 @@ export default new Router({
       component: (resolve) => require(['@/tabBar/user'], resolve)
     },
     {
-      path: '/registerMobile',
-      name: 'registerMobile',
+      path: '/register',
+      name: 'register',
       component: (resolve) => require(['@/pages/register'], resolve)
     },
     {
