@@ -152,10 +152,10 @@
           //   }
           // })
           // }
-          this.$wechat.onMenuShareTimeline({
-            title: wxconfig.appId
-          })
-          // $toastWarn(wxconfig.appId)
+          // this.$wechat.onMenuShareTimeline({
+          //   title: wxconfig.appId
+          // })
+          $toastWarn(wxconfig.appId)
           vm.$wechat.chooseWXPay({
             appId: wxconfig.appId,
             timestamp: wxconfig.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
