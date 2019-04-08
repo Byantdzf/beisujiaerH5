@@ -166,7 +166,7 @@
 <style lang="less">
 @import '../src/assets/style/reset';
 body {
-  background-color: #fbf9fe;
+  /*background-color: #fbf9fe;*/
   input,button,select,textarea{outline:none}
   .weui-tabbar,.vux-header{
     position: fixed;

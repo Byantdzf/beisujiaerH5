@@ -20,7 +20,7 @@
     </div>
     <div>
       <p class="text_IdNumber">身份证号:</p>
-      <input class="input_IdNumber"  type="text" placeholder="请输入">
+      <input class="input_IdNumber"  type="number" placeholder="请输入">
     </div>
     <div class="handld_box">
       <img class="handld" src="http://images.ufutx.com/201904/01/5a452e852b95786089aaf573a58261b8.png" alt="">
