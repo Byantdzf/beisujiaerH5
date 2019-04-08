@@ -37,11 +37,7 @@ const api = () => {
     if (response.status === 200 && response.data.code === 2) { // token过期
       // localStorage.removeItem('ACCESS_TOKEN')
       console.log(window.location.pathname)
-      debugger
-      
       window.location.href = `${window.location.pathname}register`
-      debugger
-
       // this.$router.push({
       //       //   name: 'register'
       //       // })
