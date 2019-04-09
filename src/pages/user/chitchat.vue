@@ -3,7 +3,7 @@
       <div class="hint font26">请各位弟兄姊妹自觉遵守法律法规，遇到转款切勿相信谨防上当受骗；交友期保持必要的界限，保证自身安全，请勿轻易委身于人，请勿和网友发生借贷关系，否则后果自己承担。
       </div>
       <div class="text-center">
-        <p class="history font28 color6 inline-block"  @click="History">{{text}}</p>
+        <p class="history font26 color6 inline-block color6"  @click="History">{{text}}</p>
       </div>
       <div class="j_page" v-for="(item,index) in messages" :key="index">
         <p class="font26 text-center colorbe zy_time">{{item.time}}</p>

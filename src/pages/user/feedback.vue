@@ -7,17 +7,17 @@
           <p class="text">{{remnant}}/120</p>
         </div>
       </div>
-      <div class="icon_camera">
-        <div class="box_camera" v-for="(item,index) in list" :key="index">
-          <div :style="{ backgroundImage: 'url('+ item +')'}" class="camera_s"></div>
-        </div>
-        <div class="box_camera">
-          <img src="http://images.ufutx.com/201904/09/bb2fdcbe0524ea66203db1407618cc68.png" alt="" class="camera_s">
-        </div>
-        <div class="clearfloat"></div>
-      </div>
+      <!--<div class="icon_camera">-->
+        <!--<div class="box_camera" v-for="(item,index) in list" :key="index">-->
+          <!--<div :style="{ backgroundImage: 'url('+ item +')'}" class="camera_s"></div>-->
+        <!--</div>-->
+        <!--<div class="box_camera">-->
+          <!--<img src="http://images.ufutx.com/201904/09/bb2fdcbe0524ea66203db1407618cc68.png" alt="" class="camera_s">-->
+        <!--</div>-->
+        <!--<div class="clearfloat"></div>-->
+      <!--</div>-->
       <div class="camera_bottom">
-        <div class="save font28">提交</div>
+        <div class="save font28" @click="save">提交</div>
         <div class="clearfloat"></div>
       </div>
       <div class="clearfloat"></div>
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+  import {$toastSuccess, $toastWarn} from '../../config/util'
+
   export default {
     name: 'feedBack',
     data () {
@@ -43,6 +45,19 @@
         // let vm = this
         this.$http.get(`https://www.easy-mock.com/mock/5cac036b78c07c41509dde60/example/list_copy_1554777362218`).then(({data}) => {
           // vm.list = data.data.list
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      save () {
+        if (!this.desc) {
+          return $toastWarn('请输入反馈内容')
+        }
+        let data = {
+          content: this.desc
+        }
+        this.$http.post(`/official/feedback`, data).then(({data}) => {
+          $toastSuccess('感谢你的反馈！')
         }).catch((error) => {
           console.log(error)
         })
