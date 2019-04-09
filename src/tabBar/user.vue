@@ -10,6 +10,10 @@
         </span>
       </div>
       <div class="editData flo_r font26" @click="routeToDetail('PreviewData')">编辑资料</div>
+      <div class="news"  @click="routeToDetail('news')">
+        <img src="http://images.ufutx.com/201901/04/8fa5e8921c0dca549a1302af42c743c2.png"  class="flo_r"/>
+        <p class="inline-block dist" v-if="notice_num > 0"></p>
+      </div>
       <div class="clearfloat"></div>
       <ul class="mutual text-center">
         <li class="after"><p class="bold color6" @click="routeToDetail('myFriend', 'fans')">{{user.fans_count}}</p>喜欢我</li>
@@ -66,7 +70,8 @@
     },
     data () {
       return {
-        user: {}
+        user: {},
+        notice_num: ''
       }
     },
     methods: {
@@ -82,6 +87,7 @@
         this.$http.get(`/official/notice/num?paas=${paas}`).then(({data}) => {
           localStorage.setItem('chat_num', data.chat_message_num.toString())
           localStorage.setItem('notice_num', data.notice_num.toString())
+          this.notice_num = data.notice_num.toString()
         })
       },
       getUser () {
@@ -154,6 +160,24 @@
     border-radius: 32px;
     color: #35495e;
     border: 1px solid #35495e;
+  }
+  .news{
+    margin-top: -26px;
+    position: relative;
+    img{
+      width: 56px;
+      height: 56px;
+      margin: 0 12px;
+    }
+    .dist{
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: red;
+      position: absolute;
+      right: 8px;
+      top: 0;
+    }
   }
   .vux-label,.weui-cell__ft{
     font-size: 4vw;

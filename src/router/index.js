@@ -122,6 +122,11 @@ export default new Router({
       path: '/chitchat/:id',
       name: 'chitchatDetail',
       component: (resolve) => require(['@/pages/user/chitchat'], resolve)
+    },
+    { // 系统消息
+      path: '/news',
+      name: 'news',
+      component: (resolve) => require(['@/pages/user/news'], resolve)
     }
 
   ]

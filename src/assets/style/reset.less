@@ -66,6 +66,26 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+.doudun{
+  animation: tada 1800ms ease infinite;
+}
+@keyframes tada {
+  0% {
+    transform: scale(1);
+  }
+  10%, 20% {
+    transform: scale(0.9) rotate(-12deg)
+  }
+  30%, 50%, 70%, 90% {
+    transform: scale(1.1) rotate(12deg)
+  }
+  40%, 60%, 80% {
+    transform: scale(1.1) rotate(-12deg)
+  }
+  100% {
+    transform: scale(1) rotate(0)
+  }
+}
 @keyframes  myMove{
   0%{
     transform:scale(1,1);
