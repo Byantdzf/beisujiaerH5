@@ -112,6 +112,11 @@ export default new Router({
       path: '/chatList',
       name: 'chatList',
       component: (resolve) => require(['@/pages/user/chatList'], resolve)
+    },
+    { // 意见反馈
+      path: '/feedback',
+      name: 'feedback',
+      component: (resolve) => require(['@/pages/user/feedback'], resolve)
     }
 
   ]

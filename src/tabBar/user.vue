@@ -34,12 +34,14 @@
         </cell>
       </group>
     </div>
-    <group title=" ">
-      <cell title="意见反馈" is-link>
-        <!--<badge text="1"></badge>-->
-        <img slot="icon" width="20" class="icon" src="http://images.ufutx.com/201904/02/6b86b27ecd45bf9bdea13beff075b60f.png">
-      </cell>
-    </group>
+    <div @click="routeToDetail('feedback')">
+      <group title=" ">
+        <cell title="意见反馈" is-link>
+          <!--<badge text="1"></badge>-->
+          <img slot="icon" width="20" class="icon" src="http://images.ufutx.com/201904/02/6b86b27ecd45bf9bdea13beff075b60f.png">
+        </cell>
+      </group>
+    </div>
     <!--{{count}}-->
     <!--<button @click="onClick">ces</button>-->
   </div>

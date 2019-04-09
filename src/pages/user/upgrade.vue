@@ -4,7 +4,7 @@
       <img class="diamondPicture"  src="http://images.ufutx.com/201904/03/0c266b91baffd71e415fbba91c13c468.png" alt="">
       <div class="head_card">
         <div class="box_card">
-          <img class="card" src="http://images.ufutx.com/201904/08/27037f4d3337d6929aebef8c80b1685a.png" alt="">
+          <img class="card" src="http://images.ufutx.com/201904/09/5f6729651bddb1029bdf8b0a6414d8d5.png" alt="">
         </div>
         <div class="head_portrait">
           <div class="portrait_name_diamond">
@@ -58,11 +58,11 @@
         </p>
       </div>
       <div class="box_bottom">
-        <p class="month">
+        <p class="month" @click="conversion(rank.sub_ranks[0].id)">
           <span class="ic_month">￥{{rank.sub_ranks[0].month_price}}/年</span>
           <span class="original">原价￥{{rank.sub_ranks[0].price}}</span>
         </p>
-        <p class="year">
+        <p class="year" @click="conversion(rank.sub_ranks[1].id)">
           <span class="ic_year">￥{{rank.sub_ranks[1].month_price}}/月</span>
           <span class="original">原价￥{{rank.sub_ranks[1].price}}</span>
         </p>
@@ -94,6 +94,19 @@ export default {
       this.type = type
       this.tabIndex = index
       this.getOrderList()
+    },
+    conversion(id) {
+      let data = {
+        sub_rank_id: id
+      }
+      this.$http.post(`/official/member/recharge`, data).then(({data}) => {
+        if (data.wx_pay.mweb_url) {
+          // window.location.href = data.wx_pay.mweb_url + '?redirect_url=' + window.location.href
+          window.location.href = data.wx_pay.mweb_url
+        }
+      }).catch((error) => {
+        console.log(error)
+      })
     },
     getOrderList () {
       this.$http.get(`/official/ranks?paas=${this.paas}&name=${this.type}`).then(({data}) => {
@@ -173,14 +186,13 @@ export default {
     width: 100vw;
     padding-top: 44px;
     text-align: center;
-    /*border-bottom: 1px solid #cdcdcd;*/
   }
   .box_vip{
     width: 32%;
     display: inline-block;
     text-align: center;
   }
-  .cityLevel, .gold, .jewel{
+  .cityLevel{
     font-size: 26px;
     display: inline-block;
     font-weight: bold;
@@ -251,6 +263,7 @@ export default {
     border-radius: 12px;
     box-shadow: 0px 1px 32px #dedede;
     color: #a9a9a9;
+    line-height: 1.8;
   }
   .box_bottom{
     width: 100vw;
