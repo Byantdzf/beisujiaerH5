@@ -9,7 +9,7 @@
         <div class="head_portrait">
           <div class="portrait_name_diamond">
             <div class="portrait"  :style="{backgroundImage:'url(' + user.avatar + ')'}"></div>
-            <span class="ic_name">{{user.name}}</span>
+            <p class="ic_name colorff font34 ellipsis_1 inline-block">{{user.name}}</p>
             <span class="ic_diamond">{{user.rank_name}}VIP</span>
           </div>
           <p class="ic_text">成为VIP，拥有尊享特权</p>
@@ -57,6 +57,7 @@
           </span>
         </p>
       </div>
+      <div class="dist"></div>
       <div class="box_bottom" v-if="rank.sub_ranks.length > 1">
         <p class="month" @click="conversion(rank.sub_ranks[0].id)">
           <span class="ic_month">￥{{rank.sub_ranks[0].month_price}}/年</span>
@@ -171,7 +172,7 @@ export default {
     font-size: 18px;
   }
   .ic_name{
-    color: #ffffff;
+    max-width: 140px;
   }
   .portrait_name_diamond{
     margin-bottom: 12px;
@@ -182,6 +183,9 @@ export default {
   }
   .ic_text{
     color: #024261;
+  }
+  .dist{
+    height: 130px;
   }
   .icon_vip{
     position: absolute;
