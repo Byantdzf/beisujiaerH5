@@ -60,17 +60,17 @@
       <div class="dist"></div>
       <div class="box_bottom" v-if="rank.sub_ranks.length > 1">
         <p class="month" @click="conversion(rank.sub_ranks[0].id)">
-          <span class="ic_month">￥{{rank.sub_ranks[0].month_price}}/年</span>
+          <span class="ic_month">￥{{rank.sub_ranks[0].discount_price}}/年</span>
           <span class="original">原价￥{{rank.sub_ranks[0].price}}</span>
         </p>
         <p class="year" @click="conversion(rank.sub_ranks[1].id)">
-          <span class="ic_year">￥{{rank.sub_ranks[1].month_price}}/月</span>
+          <span class="ic_year">￥{{rank.sub_ranks[1].discount_price}}/月</span>
           <span class="original">原价￥{{rank.sub_ranks[1].price}}</span>
         </p>
       </div>
       <div class="box_bottom" v-else>
         <p class="year" style="width: 100%;" @click="conversion(rank.sub_ranks[0].id)">
-          <span class="ic_month">￥{{rank.sub_ranks[0].month_price}}/年</span>
+          <span class="ic_month">￥{{rank.sub_ranks[0].discount_price}}/年</span>
           <span class="original">原价￥{{rank.sub_ranks[0].price}}</span>
         </p>
       </div>
