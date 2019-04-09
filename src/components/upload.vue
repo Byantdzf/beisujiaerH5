@@ -47,9 +47,11 @@
       },
       uploadV () {
         let files = this.$refs.avatarInput.files
+        let data = {}
         console.log(files[0])
-        let data = {
-          fileData: files[0]
+        for (let item in files[0]) {
+          console.log(item)
+          data[item] = files[0][item]
         }
         console.log(data)
         this.$http.post(`/official/uploads`, data).then(({data}) => {
