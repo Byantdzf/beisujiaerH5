@@ -49,7 +49,7 @@
     },
     methods: {
       sendMsg () {
-        let url = `/official/send/chat/messages/to/users/${this.other_userId}?paas=${this.paas}&content=${this.content}`
+        let url = `/official/send/chat/messages/to/users/${this.other_userId}?paas=${this.paas}&content=${this.content}&max_id=${this.max_id}`
         this.$http.post(url).then(({data}) => {
           this.max_id = data[0].id
           console.log('发送成功')
