@@ -6,7 +6,7 @@
       </div>
     </div>
 
-    <upload :uploadType="`head`" :imgWidth="`85px`" :imgHeight="`104px`" :imgUrl="imgUrl"
+    <upload :uploadType="`head`" :imgWidth="`85px`" :imgHeight="`104px`" :imgUrl="list"
             @upload="getImgUrl"></upload>
     <div class="not_have"></div>
     <div v-transfer-dom>

@@ -1,7 +1,8 @@
 <template>
   <div class="avatar">
     <div @mouseover="showBg=true" @mouseleave="showBg=false">
-      <div class="bg" v-if="showBg" :style="`line-height:${imgHeight}`">点击上传</div>
+      点击上传
+      <!--<div class="bg" v-if="showBg" :style="`line-height:${imgHeight}`">点击上传</div>-->
       <input type="file" class="input-file" :style="`width:${imgWidth};height:${imgHeight};`" name="avatar" ref="avatarInput" @change="changeImage($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
       <img :src="avatar?avatar:'http://images.ufutx.com/201904/03/aa9d1353dda982cc12441192d67a0948.png'" alt="" :style="`width:${imgWidth};height: ${imgHeight};`" name="avatar">
     </div>
@@ -10,18 +11,24 @@
 </template>
 
 <script>
+  import {$toastWarn, $toastSuccess} from '../config/util'
+
   export default {
     name: 'upload',
     data () {
       return {
         avatar: '',
         file: '',
+        ossConfig: {},
+        host: '',
         showBg: false
       }
     },
     props: ['uploadType', 'imgUrl', 'imgWidth', 'imgHeight'],
     created () {
-      this.avatar = this.imgUrl
+      this.avatar = this.imgUrl.map((item) => {
+        return item.src
+      })
     },
     methods: {
       changeImage (e) {
@@ -40,16 +47,39 @@
       },
       upload () {
         let files = this.$refs.avatarInput.files
-        let fileData = {}
-        if (files instanceof Array) {
-          fileData = files[0]
-        } else {
-          fileData = this.file
-        }
+        console.log(files)
+        // let fileData = {}
+        // if (files instanceof Array) {
+        //   fileData = files[0]
+        // } else {
+        //   fileData = this.file
+        // }
         // console.log('fileData', typeof fileData, fileData)
-        let data = new FormData()
-        data.append('multfile', fileData)
-        data.append('operaType', this.uploadType)
+        // let data = new FormData()
+        // data.append('multfile', fileData)
+        // data.append('operaType', this.uploadType)
+        var self = this
+        var formData = new FormData()
+        var fileName = self.file.name + '.' + self.file.type.split('/').pop().toLowerCase()
+        var filePath = self.host + '/' + self.ossConfig.dir + fileName
+        formData.append('name', self.ossConfig.dir + fileName)
+        formData.append('key', self.ossConfig.dir + fileName)
+        formData.append('policy', self.ossConfig.policy)
+        formData.append('OSSAccessKeyId', self.ossConfig.accessid)
+        formData.append('success_action_status', '200')
+        formData.append('signature', self.ossConfig.signature)
+        formData.append('file', self.file)
+        formData.append('filename', self.file.name)
+        console.log(formData)
+        console.log(filePath)
+        this.$http.post(this.host, formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(({data}) => {
+          console.log(filePath)
+          console.log(data)
+          $toastSuccess('上传成功')
+          $toastSuccess(filePath)
+        }).catch((error) => {
+          $toastWarn(error)
+        })
         // this.$store.dispatch('UPLOAD_HEAD', data)
         //   .then(res => {
         //     console.log(res)
@@ -74,16 +104,26 @@
         //       })
         //     }
         //   })
+      },
+      getSignature () { // 获取上传签证
+        this.$http.get('/upload/signature').then(({data}) => {
+          this.ossConfig = data
+          this.host = data.host
+        }).catch((error) => {
+          console.log(error)
+        })
       }
+    },
+    mounted () {
+      this.getSignature()
     }
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .avatar {
     cursor: pointer;
     position: relative;
-
     .input-file {
       position: absolute;
       top: 0;
@@ -91,7 +131,6 @@
       opacity: 0;
       cursor: pointer;
     }
-
     .bg {
       width: 100%;
       height: 100%;
@@ -102,13 +141,10 @@
       position: absolute;
       top: 0;
       left: 0;
-
     }
-
     .text {
       padding-top: 10px;
       color: lightblue;
     }
-
   }
 </style>
