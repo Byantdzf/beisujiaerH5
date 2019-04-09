@@ -43,6 +43,7 @@
             // 这里的this 指向reader
             that.avatar = this.result
           }
+          console.log(reader)
         }
       },
       uploadV () {
@@ -53,6 +54,7 @@
           console.log(item)
           data[item] = files[0][item]
         }
+        data.result = this.avatar
         console.log(data)
         this.$http.post(`/official/uploads`, data).then(({data}) => {
           $toastSuccess('上传成功')
