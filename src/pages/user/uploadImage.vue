@@ -5,6 +5,9 @@
         <div class="perfect inline-block previewer-demo-img" v-for="(item, index) in list"  v-bind:style="{backgroundImage:'url(' + item.src + ')'}" @click="show(index)"></div>
       </div>
     </div>
+
+    <upload :uploadType="`head`" :imgWidth="`85px`" :imgHeight="`104px`" :imgUrl="imgUrl"
+            @upload="getImgUrl"></upload>
     <div class="not_have"></div>
     <div v-transfer-dom>
       <previewer :list="list" ref="previewer" :options="options" @on-index-change="logIndexChange"></previewer>
@@ -14,14 +17,15 @@
 </template>
 <script>
   import { Previewer, TransferDom } from 'vux'
-
+  import upload from '../../components/upload'
   export default {
     name: 'PreviewData',
     directives: {
       TransferDom
     },
     components: {
-      Previewer
+      Previewer,
+      upload
     },
     data () {
       return {
@@ -38,6 +42,10 @@
       }
     },
     methods: {
+      getImgUrl (data) {
+        debugger
+        // data  得到的就是返回的图片路径的相关参数
+      },
       logIndexChange (arg) {
         console.log(arg)
       },

@@ -18,6 +18,7 @@
       <previewer :list="list" ref="previewer" :options="options" @on-index-change="logIndexChange"></previewer>
     </div>
     <div class="not_have"></div>
+    <div class="height160"></div>
     <div class="box_bottom" @click="goUser">返回</div>
   </div>
 </template>
