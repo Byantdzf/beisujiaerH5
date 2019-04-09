@@ -22,7 +22,7 @@
         <cell title="VIP办理" is-link>
           <!--<badge text="1"></badge>-->
           <img slot="icon" width="20" class="icon" src="http://images.ufutx.com/201904/02/ff09a194b571b1fa88c7516af916b122.png">
-          <span class="be">2019-03-22到期</span>
+          <span class="be" v-if="user.rank_deadline">{{user.rank_deadline}}到期</span>
         </cell>
       </group>
     </div>

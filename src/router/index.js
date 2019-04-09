@@ -117,6 +117,11 @@ export default new Router({
       path: '/feedback',
       name: 'feedback',
       component: (resolve) => require(['@/pages/user/feedback'], resolve)
+    },
+    { // 聊天
+      path: '/chitchat/:id',
+      name: 'chitchatDetail',
+      component: (resolve) => require(['@/pages/user/chitchat'], resolve)
     }
 
   ]

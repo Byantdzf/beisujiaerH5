@@ -9,8 +9,9 @@
       </li>
       <li class="list-item vux-1px-t">
         <span class="title font32">行业</span>
-        <div class="flo_r">
-          <span class="font30" :class="{color6: industries.length!==0,colorbe:industries.length==0}" @click="show = !show">{{$refs.picker2&&$refs.picker2.getNameValues()?$refs.picker2&&$refs.picker2.getNameValues():'请选择'}}</span>
+        <div class="flo_r"  @click="show = !show">
+          <span class="font30 color6" v-if='industries.length > 1'>{{industries[0]}} {{industries[1]}}</span>
+          <span class="font30 colorbe" v-else>请选择</span>
           <img src="../../assets/icon/go.png" alt="icon" class="icon">
         </div>
       </li>
@@ -78,7 +79,8 @@
         industries: [],
         industriesList: [],
         show: false,
-        showTextarea: false
+        showTextarea: false,
+        paas: localStorage.getItem('paas')
       }
     },
     watch: {
@@ -87,31 +89,6 @@
       onChange (type, val) { //  行业
         this.industries = this.$refs.picker2 && this.$refs.picker2.getNameValues().split(' ')
         console.log(this.industries)
-      },
-      onClick (type) { // 提交
-        let data = {
-          birthday: this.birthday,
-          sex: this.sex === '男' ? 1 : 2,
-          name: this.name,
-          belief: this.belief,
-          type: type,
-          photo: 'hasajs',
-          paas: localStorage.getItem('paas')
-        }
-        console.log(data)
-        this.$http.put('/official/users/profile', data).then(({data}) => {
-          if (data.user && data.user.type) {
-            this.$router.push({
-              name: 'home'
-            })
-          } else {
-            this.$router.push({
-              name: 'personalData'
-            })
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
       },
       getIndustries () { // 初始化行业数据
         let vm = this
@@ -134,6 +111,7 @@
               )
             }
           }
+          this.getData()
         }).catch((error) => {
           console.log(error)
         })
@@ -157,6 +135,17 @@
           }, 800)
         }).catch((error) => {
           $toastWarn(error)
+        })
+      },
+      getData () {
+        this.$http.get(`/official/users/profile?paas=${this.paas}`).then(({data}) => {
+          console.log(data)
+          this.slogan = data.slogan
+          this.company = data.company
+          this.industries[0] = data.industry
+          this.industries[1] = data.industry_sub
+        }).catch((error) => {
+          console.log(error)
         })
       }
     },

@@ -5,9 +5,8 @@
       <div class="picture" v-bind:style="{backgroundImage:'url(' + user.photo + ')'}"></div>
       <p class="text">点击头像上传形象照</p>
       <div class="camera_perfect">
-        <router-link :to="{name: 'uploadImage'}">
-          <div class="perfect inline-block" v-for="item in list"  v-bind:style="{backgroundImage:'url(' + item + ')'}"></div>
-        </router-link>
+        <div class="perfect inline-block previewer-demo-img" v-for="(item, index) in list"  v-bind:style="{backgroundImage:'url(' + item.src + ')'}" @click="show(index)">
+        </div>
       </div>
     </div>
     <div class="notHave"></div>
@@ -15,27 +14,47 @@
       <div class="basic_data">基本资料</div>
       <div class="go_compile" @click="routeToDetail">去编辑</div>
     </div>
+    <div v-transfer-dom>
+      <previewer :list="list" ref="previewer" :options="options" @on-index-change="logIndexChange"></previewer>
+    </div>
     <div class="not_have"></div>
     <div class="box_bottom" @click="goUser">返回</div>
   </div>
 </template>
 <script>
+  import { Previewer, TransferDom } from 'vux'
   export default {
     name: 'PreviewData',
+    directives: {
+      TransferDom
+    },
+    components: {
+      Previewer
+    },
     data () {
       return {
         user: {},
-        list: [
-          'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2615432236,482279142&fm=27&gp=0.jpg',
-          'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2615432236,482279142&fm=27&gp=0.jpg',
-          'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2615432236,482279142&fm=27&gp=0.jpg',
-          'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2615432236,482279142&fm=27&gp=0.jpg',
-          'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2615432236,482279142&fm=27&gp=0.jpg',
-          'http://images.ufutx.com/201904/03/aa9d1353dda982cc12441192d67a0948.png'
-        ]
+        list: [],
+        options: {
+          getThumbBoundsFn (index) {
+            let thumbnail = document.querySelectorAll('.previewer-demo-img')[index]
+            let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
+            let rect = thumbnail.getBoundingClientRect()
+            return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
+          }
+        }
       }
     },
     methods: {
+      logIndexChange (arg) {
+        console.log(arg)
+      },
+      show (index) {
+        this.$refs.previewer.show(index)
+        if (index === this.list.length - 1) {
+          this.$router.push({name: 'uploadImage'})
+        }
+      },
       goUser () {
         this.$router.push({name: 'user'})
       },
@@ -50,6 +69,13 @@
         let paas = localStorage.getItem('paas')
         this.$http.get(`/official/mine?paas=${paas}`).then(({data}) => {
           this.user = data
+          this.list = data.profile_photos.map((item) => {
+            return {
+              src: item.photo
+            }
+          })
+          this.list.push({src: 'http://images.ufutx.com/201904/03/aa9d1353dda982cc12441192d67a0948.png'})
+          console.log(data.profile_photos)
           console.log(data)
         }).catch((error) => {
           console.log(error)
@@ -92,13 +118,8 @@
     padding-bottom: 40px;
     background-color: #ffffff;
   }
-  .camera{
-    width: 215px;
-    height: 215px;
-  }
   .camera_perfect{
     width: 706px;
-    height: 470px;
     padding: 0px 25px 35px 25px;
     background-color: #ffffff;
   }

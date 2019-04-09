@@ -47,7 +47,8 @@
       </li>
       <li class="list-item">
         <span class="title font32">行业~</span>
-        <input type="text" class="text-right font30 flo_r color6" readonly :value="$refs.picker2&&$refs.picker2.getNameValues()" placeholder="点击选择"  @click="show = !show">
+        <input type="text" class="text-right font30 flo_r color6" v-if='industries.length > 1'  readonly :value="industries[0]+ ' '+ industries[1]" placeholder="点击选择"  @click="show = !show">
+        <input type="text" class="text-right font30 flo_r color6" v-else readonly  placeholder="点击选择"  @click="show = !show">
       </li>
       <li class="list-item">
         <span class="title font32">微信号~</span>
@@ -276,7 +277,36 @@
               }
             }
           }
+          this.getUserData()
           console.log(vm.addressData)
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      getUserData () {
+        this.$http.get(`/official/users/profile?paas=${this.paas}`).then(({data}) => {
+          console.log(data)
+          this.slogan = data.slogan
+          this.stature = data.stature
+          this.weight = data.weight
+          this.post = data.post
+          this.wechat_id = data.wechat_id
+          this.graduate_school = data.graduate_school
+          this.introduction = data.introduction
+          this.ideal_mate = data.ideal_mate
+          this.degree = data.degree
+          this.work_sort = data.work_sort
+          this.state = data.state
+          this.address[0] = data.country
+          this.address[1] = data.province
+          this.address[2] = data.city
+          this.residentAddress[1] = data.resident_province
+          this.residentAddress[2] = data.resident_city
+          this.resident_type = data.resident_type
+          this.resident_type = data.resident_type
+          this.company = data.company
+          this.industries[0] = data.industry
+          this.industries[1] = data.industry_sub
         }).catch((error) => {
           console.log(error)
         })

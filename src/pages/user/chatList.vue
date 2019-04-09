@@ -47,11 +47,12 @@
     },
     methods: {
       routeToDetail (type, id) {
-        if (type === 'single') {
-          this.$router.push({name: 'information', params: {id: id}})
-        } else {
-          this.$router.push({name: 'introducer', params: {id: id}})
-        }
+        // if (type === 'single') {
+        //   this.$router.push({name: 'information', params: {id: id}})
+        // } else {
+        //   this.$router.push({name: 'introducer', params: {id: id}})
+        // }
+        this.$router.push({name: 'chitchatDetail', params: {id: id}})
       },
       mescrollInit (mescroll) {
         this.mescroll = mescroll

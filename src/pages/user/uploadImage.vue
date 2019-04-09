@@ -2,38 +2,62 @@
   <div class="whole">
     <div class="background">
       <div class="camera_perfect">
-        <div class="perfect inline-block" v-for="item in list"  v-bind:style="{backgroundImage:'url(' + item + ')'}"></div>
+        <div class="perfect inline-block previewer-demo-img" v-for="(item, index) in list"  v-bind:style="{backgroundImage:'url(' + item.src + ')'}" @click="show(index)"></div>
       </div>
     </div>
     <div class="not_have"></div>
+    <div v-transfer-dom>
+      <previewer :list="list" ref="previewer" :options="options" @on-index-change="logIndexChange"></previewer>
+    </div>
     <div class="box_bottom" @click="goUser">完成</div>
   </div>
 </template>
 <script>
+  import { Previewer, TransferDom } from 'vux'
+
   export default {
     name: 'PreviewData',
+    directives: {
+      TransferDom
+    },
+    components: {
+      Previewer
+    },
     data () {
       return {
-        user: {},
-        list: [
-          'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2615432236,482279142&fm=27&gp=0.jpg',
-          'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2615432236,482279142&fm=27&gp=0.jpg',
-          'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2615432236,482279142&fm=27&gp=0.jpg',
-          'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2615432236,482279142&fm=27&gp=0.jpg',
-          'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2615432236,482279142&fm=27&gp=0.jpg',
-          'http://images.ufutx.com/201904/03/aa9d1353dda982cc12441192d67a0948.png'
-        ]
+        paas: localStorage.getItem('paas'),
+        list: [],
+        options: {
+          getThumbBoundsFn (index) {
+            let thumbnail = document.querySelectorAll('.previewer-demo-img')[index]
+            let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
+            let rect = thumbnail.getBoundingClientRect()
+            return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
+          }
+        }
       }
     },
     methods: {
+      logIndexChange (arg) {
+        console.log(arg)
+      },
+      show (index) {
+        this.$refs.previewer.show(index)
+        if (index === this.list.length - 1) {
+          this.$router.push({name: 'uploadImage'})
+        }
+      },
       goUser () {
         this.$router.push({name: 'user'})
       },
       getUser () {
-        let paas = localStorage.getItem('paas')
-        this.$http.get(`/official/mine?paas=${paas}`).then(({data}) => {
-          this.user = data
-          console.log(data)
+        this.$http.get(`/official/users/profile/photos?paas=${this.paas}`).then(({data}) => {
+          this.list = data.map((item) => {
+            return {
+              src: item.photo
+            }
+          })
+          this.list.push({src: 'http://images.ufutx.com/201904/03/aa9d1353dda982cc12441192d67a0948.png'})
         }).catch((error) => {
           console.log(error)
         })
