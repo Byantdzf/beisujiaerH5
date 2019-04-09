@@ -1,5 +1,5 @@
 <template>
-    <div class="chitchat">
+    <div class="chitchat" id="chitchat">
       <div class="hint font26">请各位弟兄姊妹自觉遵守法律法规，遇到转款切勿相信谨防上当受骗；交友期保持必要的界限，保证自身安全，请勿轻易委身于人，请勿和网友发生借贷关系，否则后果自己承担。
       </div>
       <div class="text-center">
@@ -44,10 +44,37 @@
         max_id: '',
         other_userId: '',
         text: '',
+        Loadingtime: '',
         paas: localStorage.getItem('paas')
       }
     },
     methods: {
+      refreshV () {
+        let that = this
+        let url = `/official/refresh/chat/messages/${this.other_userId}?paas=${this.paas}&content=${this.content}&max_id=${this.max_id}`
+        this.$http.get(url).then(({data}) => {
+          if (data.length === 0) { return }
+          that.max_id = data[0].id
+          console.log('刷新成功')
+          let message = {}
+          data.forEach((item, index, arr) => {
+            console.log(arr[index].id)
+            message = {
+              id: 'id_' + Date.parse(new Date()) / 1000,
+              contents: arr[index].content,
+              me: arr[index].is_mine === 1 ? 'Y' : 'N',
+              avatar: arr[index].avatar,
+              time: arr[index].created_at
+            }
+            that.messages.push(message)
+            that.msg = ''
+            that.toView = 'id_' + Date.parse(new Date()) / 1000
+          })
+          console.log(message)
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
       sendMsg () {
         let url = `/official/send/chat/messages/to/users/${this.other_userId}?paas=${this.paas}&content=${this.content}&max_id=${this.max_id}`
         this.$http.post(url).then(({data}) => {
@@ -66,6 +93,7 @@
             }
             this.messages.push(message)
             this.content = ''
+            this.scrollToBottom()
           })
           console.log(message)
         }).catch((error) => {
@@ -122,11 +150,27 @@
         }).catch((error) => {
           console.log(error)
         })
+      },
+      scrollToBottom () {
+        this.$nextTick(() => {
+          let container = document.getElementById('chitchat')
+          container.scrollTop = container.scrollHeight
+        })
       }
+    },
+    updated () {
+      this.scrollToBottom()
+    },
+    beforeDestroy () {
+      clearInterval(this.Loadingtime)
     },
     mounted () {
       this.other_userId = this.$route.params.id
       this.getData()
+      this.scrollToBottom()
+      this.Loadingtime = setInterval(() => {
+        this.refreshV()
+      }, 8000)
     }
   }
 </script>

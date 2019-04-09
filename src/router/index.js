@@ -109,7 +109,7 @@ export default new Router({
       component: (resolve) => require(['@/pages/user/upgrade'], resolve)
     },
     { // 聊天列表
-      path: '/chatList',
+      path: '/chatList/:type',
       name: 'chatList',
       component: (resolve) => require(['@/pages/user/chatList'], resolve)
     },
