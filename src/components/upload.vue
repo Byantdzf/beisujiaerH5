@@ -6,7 +6,7 @@
       <input type="file" class="input-file" :style="`width:${imgWidth};height:${imgHeight};`" name="avatar" ref="avatarInput" @change="changeImage($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
       <img :src="avatar?avatar:'http://images.ufutx.com/201904/03/aa9d1353dda982cc12441192d67a0948.png'" alt="" :style="`width:${imgWidth};height: ${imgHeight};`" name="avatar">
     </div>
-    <div class="text" @click="upload" v-if="file">确定上传</div>
+    <div class="text" @click="uploadV" v-if="file">确定上传</div>
   </div>
 </template>
 
@@ -44,6 +44,20 @@
             that.avatar = this.result
           }
         }
+      },
+      uploadV () {
+        let files = this.$refs.avatarInput.files
+        console.log(files[0])
+        let data = {
+          fileData: files[0]
+        }
+        console.log(data)
+        this.$http.post(`/official/uploads`, data).then(({data}) => {
+          $toastSuccess('上传成功')
+          $toastSuccess(filePath)
+        }).catch((error) => {
+          $toastWarn(error)
+        })
       },
       upload () {
         let files = this.$refs.avatarInput.files
