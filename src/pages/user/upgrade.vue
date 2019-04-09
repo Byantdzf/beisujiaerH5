@@ -102,7 +102,7 @@ export default {
       this.tabIndex = index
       this.getOrderList()
     },
-    conversion(id) {
+    conversion (id) {
       let data = {
         sub_rank_id: id
       }

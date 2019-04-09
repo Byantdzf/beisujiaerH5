@@ -42,7 +42,7 @@
         </span>
         <span slot="label">活动</span>
       </tabbar-item>
-      <tabbar-item :link="{path:'/chitchat'}" :badge="chat_num" :selected="path === '/chitchat'">
+      <tabbar-item :link="{path:'/chitchat'}" :badge="chat_num == 0?'':chat_num" :selected="path === '/chitchat'">
         <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
           <img src="../src/assets/icon/message.png" alt="home">
         </span>
@@ -51,7 +51,7 @@
         </span>
         <span slot="label">聊天</span>
       </tabbar-item>
-      <tabbar-item :link="{path:'/user'}" :badge="notice_num" :selected="path === '/user'" >
+      <tabbar-item :link="{path:'/user'}" :badge="notice_num == 0?'':notice_num" :selected="path === '/user'" >
         <span class="demo-icon-22 vux-demo-tabbar-icon-home"  slot="icon" style="position:relative;top: -2px;">
           <img src="../src/assets/icon/my.png" alt="home">
         </span>
