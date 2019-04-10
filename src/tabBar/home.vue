@@ -89,7 +89,6 @@
         })
       },
       getOrderList (page, mescroll) {
-        this.$store.commit('updateLoadingStatus', {isLoading: true})
         let paas = ''
         let vm = this
         vm.$http.get(`/official/home?paas=${paas}&page=${page.num}`).then(({data}) => {
