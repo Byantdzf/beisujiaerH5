@@ -1,25 +1,25 @@
 <template>
   <div>
+    <Search placeholder="请搜索Ta的名字" v-model="search" @on-change="searchUser" @auto-scroll-to-top="true" position="absolute">
+      <img  slot="right" class="bc_search" src="http://images.ufutx.com/201904/10/da5d9f0ce577935d39864a7a348d3c0d.png" @click="showSearch = !showSearch" alt="">
+    </Search>
     <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit" class="scrollView">
-      <Search placeholder="请搜索Ta的名字" v-model="search" @on-change="searchUser" @auto-scroll-to-top="true" position="absolute">
-        <img  slot="right" class="bc_search" src="http://images.ufutx.com/201904/10/da5d9f0ce577935d39864a7a348d3c0d.png" @click="showSearch = !showSearch" alt="">
-      </Search>
       <!--<div id="box"></div>-->
       <!--<div class="text-center search-box">-->
         <!--<input type="text" class="homeSearch text-center" v-model="search" placeholder="请搜索Ta的名字">-->
       <!--</div>-->
       <div class="search-center ff" style="padding: 58px 16px 12px 16px;">
-        <p class="search-item font26">
-          健康
-          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="">
+        <p class="search-item font26" v-if="searchCity !== '不限' && searchCity">
+          区域：{{searchCity}}
+          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchCity')">
         </p>
-        <p class="search-item font26">
-          帅气
-          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="">
+        <p class="search-item font26" v-if="searchType !== '不限' && searchType">
+          人群：{{searchType}}
+          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchType')">
         </p>
-        <p class="search-item font26">
-          年轻
-          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="">
+        <p class="search-item font26" v-if="searchAge !== '不限' && searchAge">
+          年龄：{{searchAge}}
+          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchType')">
         </p>
       </div>
       <div class="height160"></div>
@@ -36,23 +36,23 @@
       <popup v-model="showSearch" position="right" width="70%">
         <div class="position-horizontal-demo">
           <div class="SearchCenter">
-            <div class="SearchCenter-item">
-              <p class="font28 bold">区域筛选</p>
-              <p class="SearchCenter-item-text font26 inline-block searchActive">不限</p>
-              <p class="SearchCenter-item-text font26 inline-block">选择...</p>
-            </div>
+            <!--<div class="SearchCenter-item">-->
+              <!--<p class="font28 bold">区域筛选</p>-->
+              <!--<p class="SearchCenter-item-text font26 inline-block searchActive">不限</p>-->
+              <!--<p class="SearchCenter-item-text font26 inline-block">选择...</p>-->
+            <!--</div>-->
             <div class="SearchCenter-item">
               <p class="font28 bold">人群筛选</p>
-              <p class="SearchCenter-item-text font26 inline-block" :class="{'searchActive':item.active}" v-for="(item,index) in typeArray" @click="selectText('typeArray', index)">{{item.title}}</p>
+              <p class="SearchCenter-item-text font26 inline-block" :class="{'searchActive':item.active}" v-for="(item,index) in typeArray" @click="selectText('typeArray','searchType', index)">{{item.title}}</p>
             </div>
             <div class="SearchCenter-item">
               <p class="font28 bold">年龄筛选</p>
-              <p class="SearchCenter-item-text font26 inline-block" :class="{'searchActive':item.active}" v-for="(item,index) in ageArray" @click="selectText('ageArray', index)">{{item.title}}</p>
+              <p class="SearchCenter-item-text font26 inline-block" :class="{'searchActive':item.active}" v-for="(item,index) in ageArray" @click="selectText('ageArray','searchAge', index)">{{item.title}}</p>
             </div>
           </div>
           <div class="submit">
-            <p style="width: 49%" class="inline-block reset">重置</p>
-            <p style="width: 49%" class="flo_r">确定</p>
+            <p style="width: 49%" class="inline-block reset" @click="reset">取消</p>
+            <p style="width: 49%" class="flo_r" @click="searchSave">确定</p>
           </div>
         </div>
       </popup>
@@ -79,9 +79,12 @@
         value: '',
         search: '',
         init: false,
-        showSearch: true,
+        showSearch: false,
         recommend: [],
         noData: false,
+        searchArray: {},
+        searchCity: '不限',
+        searchAge: '不限',
         ageArray: [
           {title: '不限', active: true},
           {title: '00后', active: false},
@@ -91,6 +94,7 @@
           {title: '60后', active: false},
           {title: '50后', active: false}
         ],
+        searchType: '不限',
         typeArray: [
           {title: '不限', type: '不限', active: true},
           {title: '良人', type: 'single_man', active: false},
@@ -118,14 +122,36 @@
     watch: {
     },
     methods: {
-      selectText (type, index) { // 选择筛选内容
+      del (name) {
+        this[name] = '不限'
+        this.getOrderList(1)
+      },
+      reset () {
+        this.showSearch = !this.showSearch
+      },
+      searchSave () { // search
+        for (let item in this.searchArray) {
+          this[item] = this.searchArray[item]
+        }
+        this.getOrderList(1)
+        this.showSearch = !this.showSearch
+      },
+      selectText (type, name, index) { // 选择筛选内容
         for (let item of this[type]) {
           item.active = false
         }
+        if (name === 'searchAge') {
+          this.searchArray[name] = this[type][index].title
+        } else {
+          this.searchArray[name] = this[type][index].title
+        }
         this[type][index].active = true
+        console.log(name, this[type][index].title)
+        console.log(this.searchArray)
       },
       searchUser () {
         console.log(this.search)
+        this.getOrderList(1)
       },
       routeToDetail (type, id) {
         if (type === 'single') {
@@ -137,25 +163,23 @@
       mescrollInit (mescroll) {
         this.mescroll = mescroll
       },
-      getMessageNum () {
-        let paas = localStorage.getItem('paas')
-        this.$http.get(`/official/notice/num?paas=${paas}`).then(({data}) => {
-          localStorage.setItem('chat_num', data.chat_message_num.toString())
-          localStorage.setItem('notice_num', data.notice_num.toString())
-        })
-      },
       getOrderList (page, mescroll) {
+        let pageV = 1
+        pageV = page.num
+        if (!page.num) {
+          pageV = 1
+        }
         let paas = ''
         let vm = this
-        vm.$http.get(`/official/users?paas=${paas}&page=${page.num}`).then(({data}) => {
-          vm.init = true
-          let dataV = page.num === 1 ? [] : this.list
+        vm.$http.get(`/official/users?paas=${paas}&keyword=${this.search}&page=${pageV}&city=${vm.searchCity}&age=${vm.searchAge}&type=${vm.searchType}`).then(({data}) => {
+          let dataV = pageV === 1 ? [] : vm.list
           dataV.push(...data.data)
           vm.list = dataV
-          vm.$nextTick(() => {
-            mescroll.endSuccess(data.data.length)
-          })
-          vm.getMessageNum()
+          if (mescroll) {
+            vm.$nextTick(() => {
+              mescroll.endSuccess(data.data.length)
+            })
+          }
         }).catch((error) => {
           console.log(error)
         })

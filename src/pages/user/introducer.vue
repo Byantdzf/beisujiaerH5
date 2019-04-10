@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="height160"></div>
-    <div class="submit" v-if="information.is_friend === 1">聊天</div>
+    <div class="submit" v-if="information.is_friend === 1" @click="routeToDetail(information.type, information.id)">聊天</div>
     <div class="submit" v-else @click="addFriend">加为好友</div>
   </div>
 </template>
@@ -88,6 +88,9 @@
       }
     },
     methods: {
+      routeToDetail (type, id) {
+        this.$router.push({name: 'chitchatDetail', params: {id: id}})
+      },
       attention () {
         let paas = localStorage.getItem('paas')
         this.$http.post(`/follow/users/${this.id}?paas=${paas}`).then(({data}) => {
