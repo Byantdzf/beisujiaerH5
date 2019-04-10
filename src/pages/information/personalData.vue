@@ -5,7 +5,7 @@
         <div class="avatar" style="background-image: url('http://images.ufutx.com/201903/26/000319417f22842bd8c7989d608b3871.png');" ></div>
         <p class="font26">添加个人形象照</p>
       </div>
-      <input @change="uploadPhoto" type="file" class="kyc-passin">
+      <!--<input @change="uploadPhoto" type="file" class="kyc-passin">-->
     </div>
     <ul>
       <li class="list-item">
@@ -24,22 +24,22 @@
       <!--</li>-->
       <li class="list-item">
         <span class="title font32">性别 <span class="font26">（性别选择后无法修改）</span></span>
-        <div class="flo_r">
-          <span class="font30 " :class="{color6: sex.length!==0,colorbe:sex.length==0}" @click="showSex = !showSex">{{sex.length==0?'请选择':sex}}</span>
+        <div class="flo_r" @click="showSex = !showSex">
+          <span class="font30 " :class="{color6: sex.length!==0,colorbe:sex.length==0}" >{{sex.length==0?'请选择':sex}}</span>
           <img src="../../assets/icon/go.png" alt="icon" class="icon">
         </div>
       </li>
       <li class="list-item">
         <span class="title font32">出生日期</span>
-        <div class="flo_r">
-          <span class="font30" :class="{color6: birthday.length!==0,colorbe:birthday.length==0}"  @click="showDate">{{birthday.length==0?'请选择':birthday}}</span>
+        <div class="flo_r" @click="showDate">
+          <span class="font30" :class="{color6: birthday.length!==0,colorbe:birthday.length==0}"  >{{birthday.length==0?'请选择':birthday}}</span>
           <img src="../../assets/icon/go.png" alt="icon" class="icon">
         </div>
       </li>
       <li class="list-item">
         <span class="title font32">信仰</span>
-        <div class="flo_r">
-          <span class="font30" :class="{color6: belief.length!==0,colorbe:belief.length==0}"  @click="showBelief = !showBelief">{{belief.length==0?'请选择':belief}}</span>
+        <div class="flo_r" @click="showBelief = !showBelief">
+          <span class="font30" :class="{color6: belief.length!==0,colorbe:belief.length==0}"  >{{belief.length==0?'请选择':belief}}</span>
           <img src="../../assets/icon/go.png" alt="icon" class="icon">
         </div>
       </li>
@@ -59,13 +59,13 @@
 </template>
 
 <script>
-  import {Datetime, Group, XButton, XAddress, ChinaAddressV4Data, PopupPicker} from 'vux'
+  import {DatetimePlugin, Group, XButton, XAddress, ChinaAddressV4Data, PopupPicker} from 'vux'
   // import {$toastSuccess, $toastWarn} from '../../config/util'
 
   export default {
     name: 'personalData',
     components: {
-      Datetime,
+      DatetimePlugin,
       Group,
       XButton,
       XAddress,
