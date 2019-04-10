@@ -86,19 +86,22 @@
         })
       },
       getOrderList (page, mescroll) {
-        let paas = localStorage.getItem('paas')
+        let paas = ''
         let vm = this
-        this.$http.get(`/official/home?paas=${paas}&page=${page.num}`).then(({data}) => {
-          let dataV = page.num === 1 ? [] : this.list
-          dataV.push(...data.likers.data)
-          this.list = dataV
-          this.$nextTick(() => {
-            mescroll.endSuccess(data.likers.data.length)
-          })
+        vm.$http.get(`/official/home?paas=${paas}&page=${page.num}`).then(({data}) => {
           vm.announcements = data.announcements
           vm.recommend = data.recommend
-          console.log(vm.recommend)
-          vm.getMessageNum()
+          vm.$http.get(`/official/home/likers?paas=${paas}&page=${page.num}`).then(({data}) => {
+            let dataV = page.num === 1 ? [] : this.list
+            dataV.push(...data.data)
+            vm.list = dataV
+            vm.$nextTick(() => {
+              mescroll.endSuccess(data.data.length)
+            })
+            vm.getMessageNum()
+          }).catch((error) => {
+            console.log(error)
+          })
         }).catch((error) => {
           console.log(error)
         })
