@@ -7,9 +7,11 @@
           <swiper-item v-for="item in announcements" :key="item.id"><p class="ellipsis_1">{{item.title}}</p></swiper-item>
         </swiper>
       </div>
-      <div class="text-center search-box">
-        <input type="text" class="homeSearch text-center" v-model="search" placeholder="请搜索Ta的名字">
-      </div>
+      <router-link to="userList">
+        <div class="text-center search-box">
+          <input type="text" class="homeSearch text-center" v-model="search" placeholder="请搜索Ta的名字">
+        </div>
+      </router-link>
       <p class="bc_title font34 bold">征婚</p>
       <swiper  :min-moving-distance="120" :show-desc-mask="true" height="320px" :auto="true" dots-position="center"
                :interval="2000">
@@ -48,6 +50,7 @@
       return {
         value: '',
         search: '',
+        init: false,
         recommend: [],
         noData: false,
         page: 1,
@@ -86,12 +89,14 @@
         })
       },
       getOrderList (page, mescroll) {
+        this.$store.commit('updateLoadingStatus', {isLoading: true})
         let paas = ''
         let vm = this
         vm.$http.get(`/official/home?paas=${paas}&page=${page.num}`).then(({data}) => {
           vm.announcements = data.announcements
           vm.recommend = data.recommend
           vm.$http.get(`/official/home/likers?paas=${paas}&page=${page.num}`).then(({data}) => {
+            vm.init = true
             let dataV = page.num === 1 ? [] : this.list
             dataV.push(...data.data)
             vm.list = dataV
@@ -108,7 +113,7 @@
       }
     },
     mounted () {
-      console.log(this.$store.state.intercept)
+      // console.log(this.$store.state.intercept)
       if (this.$store.state.intercept === 'true') {
         return false
       }

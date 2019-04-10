@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import {AjaxPlugin} from 'vux'
 import qs from 'qs'
-import {$toastWarn, $loadingHide, $loadingShow} from '../../src/config/util'
+import {$toastWarn, $loadingHide} from '../../src/config/util'
 
 const api = () => {
   const baseURL = process.env.NODE_ENV === 'development' ? 'http://love.hankin.ufutx.cn/api' : 'http://love.ufutx.com/api/'
@@ -27,13 +27,13 @@ const api = () => {
     if (config.method === 'post') {
       config.data = qs.stringify(config.data)
     }
-    $loadingShow()
+    // $loadingShow()
     return config
   }, (error) => {
     return error
   })
   AjaxPlugin.$http.interceptors.response.use(response => {
-    $loadingHide()
+    // $loadingHide()
     if (response.status === 200 && response.data.code === 2) { // token过期
       localStorage.removeItem('ACCESS_TOKEN')
       console.log(window.location)

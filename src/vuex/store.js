@@ -7,7 +7,7 @@ import router from '../../src/router/index.js'
 Vue.use(Vuex)
 
 const state = {
-  isLoading: false,
+  // isLoading: false,
   direction: 'forward',
   count: 0,
   paas: '',
@@ -27,9 +27,6 @@ let store = new Vuex.Store({
     },
     setPaas (state, text) {
       state.paas = text
-    },
-    UPDATE_LOADING (state, status) {
-      state.isLoading = status
     },
     UPDATE_DIRECTION (state, direction) {
       state.direction = direction

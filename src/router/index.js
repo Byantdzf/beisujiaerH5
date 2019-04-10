@@ -132,6 +132,11 @@ export default new Router({
       path: '/uploadIdCard',
       name: 'uploadIdCard',
       component: (resolve) => require(['@/pages/user/uploadIdCard'], resolve)
+    },
+    { // 用户列表
+      path: '/userList',
+      name: 'userList',
+      component: (resolve) => require(['@/pages/user/userList'], resolve)
     }
   ]
 })

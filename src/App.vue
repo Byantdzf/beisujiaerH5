@@ -2,12 +2,14 @@
   <div id="app">
     <div v-transfer-dom>
       <loading v-model="isLoading"></loading>
+      <!--<loadingPage :init="!isLoading"></loadingPage>-->
     </div>
     <div class="layout">
       <keep-alive>
         <router-view v-if="$route.meta.keepAlive"></router-view>
       </keep-alive>
       <router-view v-if="!$route.meta.keepAlive"></router-view>
+
     </div>
     <div style="height: 50px;" v-show="!isTabbarDemo"></div>
     <!--{{entryUrl}}-->
@@ -67,6 +69,7 @@
 <script>
   import {XHeader, Tabbar, TabbarItem, ViewBox, Loading, TransferDom} from 'vux'
   import {mapState, mapActions} from 'vuex'
+  import loadingPage from './components/loading'
 
   export default {
     name: 'app',
@@ -78,7 +81,8 @@
       Tabbar,
       TabbarItem,
       ViewBox,
-      Loading
+      Loading,
+      loadingPage
     },
     data () {
       return {
@@ -166,7 +170,6 @@
 <style lang="less">
 @import '../src/assets/style/reset';
 body {
-  /*background-color: #fbf9fe;*/
   input,button,select,textarea{outline:none}
   .weui-tabbar,.vux-header{
     position: fixed;
