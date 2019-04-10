@@ -127,7 +127,11 @@ export default new Router({
       path: '/news',
       name: 'news',
       component: (resolve) => require(['@/pages/user/news'], resolve)
+    },
+    { // 上传身份证
+      path: '/uploadIdCard',
+      name: 'uploadIdCard',
+      component: (resolve) => require(['@/pages/user/uploadIdCard'], resolve)
     }
-
   ]
 })

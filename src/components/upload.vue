@@ -6,7 +6,7 @@
       <input type="file" class="input-file" :style="`width:${imgWidth};height:${imgHeight};`" name="avatar" ref="avatarInput" @change="changeImage($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
       <img :src="avatar?avatar:'http://images.ufutx.com/201904/03/aa9d1353dda982cc12441192d67a0948.png'" alt="" :style="`width:${imgWidth};height: ${imgHeight};`" name="avatar">
     </div>
-    <div class="text" @click="uploadV" v-if="file">确定上传</div>
+    <div class="text" @click="upload" v-if="file">确定上传</div>
   </div>
 </template>
 
@@ -54,7 +54,11 @@
           console.log(item)
           data[item] = files[0][item]
         }
-        data.result = this.avatar
+        const file = files[0]
+        const imgURL = window.URL.createObjectURL(file) // imgURL就是你的图片的本地路径，两部就能解决问题
+        console.log(imgURL)
+        data.result = imgURL
+        // console.log(files[0].name + '.' + files[0].type.split('/').pop().toLowerCase())
         console.log(data)
         this.$http.post(`/official/uploads`, data).then(({data}) => {
           $toastSuccess('上传成功')

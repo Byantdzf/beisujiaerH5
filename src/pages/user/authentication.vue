@@ -1,12 +1,12 @@
 <template>
   <div class="homepage">
     <div class="caution">
-      <img class="icon_caution" style="transform: rotate(180deg);" src="http://images.ufutx.com/201904/01/06b9a01df541d3ec740acf812de80ae1.png" alt="">
+      <img class="icon_caution" src="http://images.ufutx.com/201904/01/d8c9f0d8b48c0621f9843a6df7008c34.png" alt="">
       <span class="font30 bold">为什么要身份认证</span>
       <p class="caution_particulars font28">福恋作为一个真实、严肃的婚恋平台，我们要求用户必须完成身份认证，对于以结婚为目的的用户。</p>
     </div>
     <div class="caution">
-      <img class="icon_caution" src="http://images.ufutx.com/201904/01/d8c9f0d8b48c0621f9843a6df7008c34.png" alt="">
+      <img class="icon_caution" style="transform: rotate(180deg);" src="http://images.ufutx.com/201904/01/06b9a01df541d3ec740acf812de80ae1.png" alt="">
       <span class="font30 bold">关于隐私安全</span>
       <p class="caution_particulars font28">您上传的任何身份证照片等资料，仅供审核使用且TA人无法看到，此外，我们会对照片进行安全处理，敬请放心。</p>
     </div>
@@ -22,35 +22,79 @@
       <p class="text_IdNumber">身份证号:</p>
       <input class="input_IdNumber"  type="number" v-model="card_num" placeholder="请输入">
     </div>
-    <div class="ff">
-      <div class="bc_box text-center inline-block">
-        <img class="" src="http://images.ufutx.com/201904/01/5a452e852b95786089aaf573a58261b8.png" alt="">
-        <p class="font26">手持身份证正面照</p>
-      </div>
-      <div class="bc_box text-center inline-block">
-        <img class="identiyCard" src="http://images.ufutx.com/201904/01/8dc7658b9b3effcd1740b9e9e1d5f315.png" alt="">
-        <p class="font26">身份证正面照</p>
-      </div>
-      <div class="bc_box text-center inline-block">
-        <img class="photo_pictures" src="http://images.ufutx.com/201904/01/89de349ae645eab7ea0e64759089400c.png" alt="">
-      </div>
+    <div class=" font26 state info ff">
+      <p class="font28 title bold">注意事项</p>
+      <p class="color6">
+        <p>1、购买成功后，你将有三次提交机会，每次提交会消耗一次机会，若三次均未能通过,请<span class="orange" >上传身份证</span>人工认证；
+        </p>
+        <p>2、请输入用您自己的身份证登记的手机号；</p>
+        <p>3、如没有自己身份登记的手机号，请按点击红色字体，按要求上传个人证件；</p>
+        <p>4、实名认证是平台的基本要求，只有认证的用户才能互看信息和交流互动；</p>
+        <p>5、认证成功后将不能更改，请务必确认信息准确无误；</p>
+        <p>6、由阿里去提供实名认证服务，安全可靠！</p>
+      </p>
     </div>
     <div class="dist"></div>
-    <div class="submit" @click="save">提交</div>
+    <div class="submit ok" v-if="user.is_approved == 1">已成功认证!<img src="http://images.ufutx.com/201904/10/872192ded66adf0c822215e1544f01ee.png" alt=""></div>
+    <div v-else>
+      <div class="submit" @click="save" v-if="user.approve_time > 0">提交 <span class="font26">（剩余{{user.approve_time}}次）</span></div>
+      <div class="submit" @click="buyAuthentication" v-if="user.approve_time == 0 && user.approve_time == 0">购买认证</div>
+      <div class="submit" @click="routeTo('uploadIdCard')" v-if="user.approve_time == 0 && user.approve_order == 1">人工认证</div>
+    </div>
+    <div v-transfer-dom>
+      <popup v-model="show">
+        <div class="popup_center">
+          <div class="center">
+            <p class="bold">福恋平台提示</p>
+            <p>您还剩{{user.approve_time}}次认证</p>
+          </div>
+          <div class="height160"></div>
+          <div class="submit" @click="save">提交</div>
+        </div>
+      </popup>
+    </div>
   </div>
 </template>
 <script>
   import {$toastSuccess} from '../../config/util'
-
+  import {TransferDom, Popup} from 'vux'
   export default {
     name: 'authentication',
+    directives: {
+      TransferDom
+    },
+    components: {
+      Popup
+    },
     data () {
       return {
         name: '',
-        card_num: ''
+        card_num: '',
+        user: {},
+        show: false
       }
     },
     methods: {
+      routeTo (name) {
+        this.$router.push({name: name})
+      },
+      getUser () {
+        let paas = localStorage.getItem('paas')
+        this.$http.get(`/official/mine?paas=${paas}`).then(({data}) => {
+          this.user = data
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      buyAuthentication () {
+        this.$http.post(`/official/user/buy/approve`).then(({data}) => {
+          if (data.wx_pay.mweb_url) {
+            window.location.href = data.wx_pay.mweb_url
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
       save () {
         let data = {
           name: this.name,
@@ -59,10 +103,15 @@
         console.log(data)
         this.$http.post(`/official/user/approve`, data).then(({data}) => {
           $toastSuccess('认证成功')
+          this.getUser()
         }).catch((error) => {
           console.log(error)
+          this.getUser()
         })
       }
+    },
+    mounted () {
+      this.getUser()
     }
   }
 </script>
@@ -74,10 +123,17 @@
     background: white;
     position: relative;
   }
+  .info{
+    width: 86%;
+    margin: 62px auto;
+    box-shadow: 1px 1px 12px #dedede;
+    padding: 22px;
+    line-height: 1.8em;
+  }
   .caution{
     color: #2c2c2c;
-    margin-bottom: 40px;
-    padding: 40px 30px 0px 30px;
+    margin-bottom: 20px;
+    padding: 20px 30px 0px 30px;
     p{
       margin-top: 12px;
     }
@@ -109,7 +165,7 @@
   }
   .certificate{
     font-weight: bold;
-    padding: 0px 30px 0px 30px;
+    padding: 20px 30px 0px 30px;
   }
   .certificate_id{
     font-size: 30px;
@@ -212,5 +268,19 @@
     bottom: 0;
     width: 100vw;
     letter-spacing: 3px;
+  }
+  .ok{
+    background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898; background-blend-mode: multiply,multiply;
+    img{
+      width: 46px;
+      vertical-align: middle;
+      margin-bottom: 8px;
+    }
+  }
+  .popup_center{
+    position: relative;
+    .center{
+      padding: 22px;
+    }
   }
 </style>

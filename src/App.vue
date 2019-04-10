@@ -204,5 +204,11 @@ body {
     height: auto;
     font-size: 32px;
   }
+  a {
+    text-decoraction: none !important;
+  }
+  .router-link-active {
+    text-decoration: none;
+  }
 }
 </style>
