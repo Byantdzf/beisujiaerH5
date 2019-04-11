@@ -47,6 +47,10 @@
     <div class="fixed_bot subjectColor colorff bc_box font32">
       <ul>
         <li class="inline-block after" @click="onClick('single')">我是单身</li>
+
+
+
+
         <li class="inline-block" @click="onClick('marriage')">我是介绍人</li>
       </ul>
     </div>
