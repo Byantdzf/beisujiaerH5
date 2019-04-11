@@ -50,7 +50,8 @@
         paas: localStorage.getItem('paas'),
         list: [],
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('ACCESS_TOKEN')
+          'Authorization': 'Bearer ' + localStorage.getItem('ACCESS_TOKEN'),
+          'Content-Type': 'multipart/form-data'
         },
         images: [],
         imgData: [],
