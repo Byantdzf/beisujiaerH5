@@ -8,6 +8,7 @@ import store from '../src/vuex/store'
 import router from '../src/router/index.js'
 import {LoadingPlugin, WechatPlugin, DatetimePlugin} from 'vux'
 import '../src/config/api'
+FastClick.attach(document.body)
 // require('es6-promise').polyfill()
 
 Vue.use(DatetimePlugin)
@@ -25,6 +26,19 @@ store.registerModule('vux', { // 名字自己定义
     }
   }
 })
+// Vue.wechat.config({
+//   /* debug: true,  */
+//   appId: appid,
+//   timestamp: timestamp,
+//   nonceStr: nonceStr,
+//   signature: signature,
+//   jsApiList: [
+//     'chooseImage',//拍照或从手机相册中选图接口
+//     'previewImage',//预览图片接口
+//     'uploadImage',//上传图片接口
+//     'downloadImage'//下载图片接口
+//   ]
+// })
 
 router.beforeEach(function (to, from, next) {
   store.commit('updateLoadingStatus', {isLoading: true})

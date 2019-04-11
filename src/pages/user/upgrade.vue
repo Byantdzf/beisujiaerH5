@@ -58,20 +58,20 @@
         </p>
       </div>
       <div class="dist"></div>
-      <div class="box_bottom" v-if="rank.sub_ranks.length > 1">
-        <p class="month" @click="conversion(rank.sub_ranks[0].id)">
-          <span class="ic_month">￥{{rank.sub_ranks[0].discount_price}}/年</span>
-          <span class="original">原价￥{{rank.sub_ranks[0].price}}</span>
+      <div class="box_bottom" v-if="sub_ranks.length > 1">
+        <p class="month" @click="conversion(sub_ranks[0].id)">
+          <span class="ic_month">￥{{sub_ranks[0].discount_price}}/年</span>
+          <span class="original">原价￥{{sub_ranks[0].price}}</span>
         </p>
-        <p class="year" @click="conversion(rank.sub_ranks[1].id)">
-          <span class="ic_year">￥{{rank.sub_ranks[1].discount_price}}/月</span>
-          <span class="original">原价￥{{rank.sub_ranks[1].price}}</span>
+        <p class="year" @click="conversion(sub_ranks[1].id)">
+          <span class="ic_year">￥{{sub_ranks[1].discount_price}}/月</span>
+          <span class="original">原价￥{{sub_ranks[1].price}}</span>
         </p>
       </div>
-      <div class="box_bottom" v-else>
-        <p class="year" style="width: 100%;" @click="conversion(rank.sub_ranks[0].id)">
-          <span class="ic_month">￥{{rank.sub_ranks[0].discount_price}}/年</span>
-          <span class="original">原价￥{{rank.sub_ranks[0].price}}</span>
+      <div class="box_bottom" v-if="sub_ranks.length == 1">
+        <p class="year" style="width: 100%;" @click="conversion(sub_ranks[0].id)">
+          <span class="ic_month">￥{{sub_ranks[0].discount_price}}/年</span>
+          <span class="original">原价￥{{sub_ranks[0].price}}</span>
         </p>
       </div>
     </div>
@@ -93,6 +93,7 @@ export default {
       paas: localStorage.getItem('paas'),
       user: {},
       rank: {},
+      sub_ranks: [],
       score: {}
     }
   },
@@ -120,11 +121,15 @@ export default {
         this.user = data.user
         this.rank = data.rank
         this.score = data.score
+        this.sub_ranks = data.rank.sub_ranks
       }).catch((error) => {
         console.log(error)
       })
     }
   },
+  // created () {
+  //   this.getOrderList()
+  // },
   mounted () {
     this.getOrderList()
   }

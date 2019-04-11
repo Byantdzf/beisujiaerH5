@@ -5,7 +5,20 @@
         <div class="perfect inline-block previewer-demo-img" v-for="(item, index) in list"  v-bind:style="{backgroundImage:'url(' + item.src + ')'}" @click="show(index)"></div>
       </div>
     </div>
-
+    <vux-upload
+      url="http://love.hankin.ufutx.cn/api/official/uploads"
+      :headers="headers"
+      :images="images"
+      :readonly="false"
+      :max="2"
+      :withCredentials="false"
+      :span="4"
+      :preview="true"
+      @success="onSuccess"
+      @error="onError"
+      @remove="onRemove"
+    >
+    </vux-upload>
     <upload :uploadType="`head`" :imgWidth="`85px`" :imgHeight="`104px`" :imgUrl="list"
             @upload="getImgUrl"></upload>
     <div class="not_have"></div>
@@ -17,7 +30,11 @@
 </template>
 <script>
   import { Previewer, TransferDom } from 'vux'
+  import {$toastWarn} from '../../config/util'
   import upload from '../../components/upload'
+  import VuxUpload from 'vux-upload'
+  import axios from 'axios'
+
   export default {
     name: 'PreviewData',
     directives: {
@@ -25,12 +42,20 @@
     },
     components: {
       Previewer,
+      VuxUpload,
       upload
     },
     data () {
       return {
         paas: localStorage.getItem('paas'),
         list: [],
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('ACCESS_TOKEN')
+        },
+        images: [],
+        imgData: [],
+        ossConfig: {},
+        host: '',
         options: {
           getThumbBoundsFn (index) {
             let thumbnail = document.querySelectorAll('.previewer-demo-img')[index]
@@ -42,6 +67,40 @@
       }
     },
     methods: {
+      onSuccess (res, file) {
+        alert('成功')
+      },
+      onError (res, file) {
+        console.log(file)
+        this.file = file
+        let self = this
+        var formData = new FormData()
+        var fileName = self.file.name + '.' + self.file.type.split('/').pop().toLowerCase()
+        var filePath = self.host + '/' + self.ossConfig.dir + fileName
+        formData.append('name', self.ossConfig.dir + fileName)
+        formData.append('key', self.ossConfig.dir + fileName)
+        formData.append('policy', self.ossConfig.policy)
+        formData.append('OSSAccessKeyId', self.ossConfig.accessid)
+        formData.append('success_action_status', '200')
+        formData.append('signature', self.ossConfig.signature)
+        formData.append('file', self.file)
+        formData.append('filename', self.file.name)
+        console.log(formData)
+        console.log(axios)
+        let config = {
+          headers: {'Content-Type': 'multipart/form-data'}
+        }
+        axios.post(this.ossConfig.host, formData, config).then(({data}) => {
+          console.log(data)
+        }).catch((error) => {
+          console.log(error)
+          $toastWarn('失败++')
+        })
+        console.log(filePath)
+      },
+      onRemove (res, file) {
+        console.log('删除')
+      },
       getImgUrl (data) {
         debugger
         // data  得到的就是返回的图片路径的相关参数
@@ -58,6 +117,14 @@
       goUser () {
         this.$router.push({name: 'user'})
       },
+      getSignature () { // 获取上传签证
+        this.$http.get('/upload/signature').then(({data}) => {
+          this.ossConfig = data
+          this.host = data.host
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
       getUser () {
         this.$http.get(`/official/users/profile/photos?paas=${this.paas}`).then(({data}) => {
           this.list = data.map((item) => {
@@ -73,6 +140,7 @@
     },
     mounted () {
       this.getUser()
+      this.getSignature()
     }
   }
 </script>

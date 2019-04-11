@@ -19,7 +19,7 @@
         </p>
         <p class="search-item font26" v-if="searchAge !== '不限' && searchAge">
           年龄：{{searchAge}}
-          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchType')">
+          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchAge')">
         </p>
       </div>
       <div class="height160"></div>
@@ -86,15 +86,16 @@
         searchCity: '不限',
         searchAge: '不限',
         ageArray: [
-          {title: '不限', active: true},
-          {title: '00后', active: false},
-          {title: '90后', active: false},
-          {title: '80后', active: false},
-          {title: '70后', active: false},
-          {title: '60后', active: false},
-          {title: '50后', active: false}
+          {title: '不限', type: '不限', active: true},
+          {title: '00后', type: '00后', active: false},
+          {title: '90后', type: '90后', active: false},
+          {title: '80后', type: '80后', active: false},
+          {title: '70后', type: '70后', active: false},
+          {title: '60后', type: '60后', active: false},
+          {title: '50后', type: '50后', active: false}
         ],
         searchType: '不限',
+        searchTypeV2: '不限',
         typeArray: [
           {title: '不限', type: '不限', active: true},
           {title: '良人', type: 'single_man', active: false},
@@ -116,14 +117,25 @@
           htmlLoading: '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>', // 上拉加载中的布局
           htmlNodata: '<p class="upwarp-nodata">-- 加载完毕 --</p>' // 无数据的布局
         },
+        arr: [],
         list: []
       }
     },
     watch: {
+      searchArray () {
+        if (this.searchArray.searchType) {
+          for (let item of this.typeArray) {
+            if (item.title === this.searchArray.searchType) {
+              this.searchTypeV2 = item.type
+            }
+          }
+        }
+      }
     },
     methods: {
       del (name) {
         this[name] = '不限'
+        this.searchTypeV2 = '不限'
         this.getOrderList(1)
       },
       reset () {
@@ -141,12 +153,14 @@
           item.active = false
         }
         if (name === 'searchAge') {
-          this.searchArray[name] = this[type][index].title
+          this.arr[name] = this[type][index].title
         } else {
-          this.searchArray[name] = this[type][index].title
+          this.arr[name] = this[type][index].title
         }
         this[type][index].active = true
-        console.log(name, this[type][index].title)
+        console.log(this.arr)
+        // console.log(name, this[type][index].title)
+        this.searchArray = this.arr
         console.log(this.searchArray)
       },
       searchUser () {
@@ -171,7 +185,7 @@
         }
         let paas = ''
         let vm = this
-        vm.$http.get(`/official/users?paas=${paas}&keyword=${this.search}&page=${pageV}&city=${vm.searchCity}&age=${vm.searchAge}&type=${vm.searchType}`).then(({data}) => {
+        vm.$http.get(`/official/users?paas=${paas}&keyword=${this.search}&page=${pageV}&city=${vm.searchCity}&age=${vm.searchAge}&type=${vm.searchTypeV2}`).then(({data}) => {
           let dataV = pageV === 1 ? [] : vm.list
           dataV.push(...data.data)
           vm.list = dataV
