@@ -9,7 +9,7 @@
     <!--<div class="text" @click="upload" v-if="file">确定上传</div>-->
   <!--</div>-->
   <vux-upload
-    url="http://love.hankin.ufutx.cn/api/official/uploads"
+    :url="url"
     :headers="headers"
     :images="images"
     :readonly="false"
@@ -41,7 +41,8 @@
         imgData: [],
         ossConfig: {},
         host: '',
-        showBg: false
+        showBg: false,
+        url: process.env.NODE_ENV === 'development' ? 'http://love.hankin.ufutx.cn/api/official/uploads' : 'http://love.ufutx.com/api/official/uploads'
       }
     },
     components: {

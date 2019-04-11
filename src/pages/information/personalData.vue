@@ -1,9 +1,11 @@
 <template>
   <div id="personalData">
     <div class="wrapper ff">
-      <div class="bc_avatar text-center" @click="chooseImage">
+      <div class="bc_avatar text-center" >
         <div class="avatar" style="background-image: url('http://images.ufutx.com/201903/26/000319417f22842bd8c7989d608b3871.png');" ></div>
-        <p class="font26">添加个人形象照</p>
+        <router-link to="upload">
+          <p class="font26">添加个人形象照</p>
+        </router-link>
       </div>
       <!--<input @change="uploadPhoto" type="file" class="kyc-passin">-->
     </div>
@@ -64,8 +66,6 @@
 
 <script>
   import {DatetimePlugin, Group, XButton, XAddress, ChinaAddressV4Data, PopupPicker} from 'vux'
-  // import {$toastSuccess, $toastWarn} from '../../config/util'
-
   export default {
     name: 'personalData',
     components: {
