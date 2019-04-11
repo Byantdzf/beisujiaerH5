@@ -1,27 +1,14 @@
 <template>
   <div class="whole">
     <div class="background">
-      <div class="camera_perfect">
-        <div class="perfect inline-block previewer-demo-img" v-for="(item, index) in list"  v-bind:style="{backgroundImage:'url(' + item.src + ')'}" @click="show(index)"></div>
+      <div class="camera_perfect"  >
+        <div class="perfect inline-block previewer-demo-img" v-for="(item, index) in list" v-bind:style="{backgroundImage:'url(' + item.src + ')'}" @click="show(index)">
+          <div class="del text-center" @click.stop="delImage(item.src, index)">删除</div>
+        </div>
       </div>
     </div>
-    <vux-upload
-      url="http://love.hankin.ufutx.cn/api/official/uploads"
-      :headers="headers"
-      :images="images"
-      :readonly="false"
-      :max="2"
-      :withCredentials="false"
-      :span="4"
-      :preview="true"
-      @success="onSuccess"
-      @error="onError"
-      @remove="onRemove"
-    >
-    </vux-upload>
-    <upload :uploadType="`head`" :imgWidth="`85px`" :imgHeight="`104px`" :imgUrl="list"
-            @upload="getImgUrl"></upload>
-    <div class="not_have"></div>
+    <upload @upload="getImgUrl"></upload>
+    <div class="height160"></div>
     <div v-transfer-dom>
       <previewer :list="list" ref="previewer" :options="options" @on-index-change="logIndexChange"></previewer>
     </div>
@@ -30,10 +17,8 @@
 </template>
 <script>
   import { Previewer, TransferDom } from 'vux'
-  import {$toastWarn} from '../../config/util'
+  import {$toastSuccess} from '../../config/util'
   import upload from '../../components/upload'
-  import VuxUpload from 'vux-upload'
-  import axios from 'axios'
 
   export default {
     name: 'PreviewData',
@@ -42,21 +27,12 @@
     },
     components: {
       Previewer,
-      VuxUpload,
       upload
     },
     data () {
       return {
         paas: localStorage.getItem('paas'),
         list: [],
-        headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('ACCESS_TOKEN'),
-          'Content-Type': 'multipart/form-data'
-        },
-        images: [],
-        imgData: [],
-        ossConfig: {},
-        host: '',
         options: {
           getThumbBoundsFn (index) {
             let thumbnail = document.querySelectorAll('.previewer-demo-img')[index]
@@ -68,43 +44,26 @@
       }
     },
     methods: {
-      onSuccess (res, file) {
-        alert('成功')
-      },
-      onError (res, file) {
-        console.log(file)
-        this.file = file
-        let self = this
-        var formData = new FormData()
-        var fileName = self.file.name + '.' + self.file.type.split('/').pop().toLowerCase()
-        var filePath = self.host + '/' + self.ossConfig.dir + fileName
-        formData.append('name', self.ossConfig.dir + fileName)
-        formData.append('key', self.ossConfig.dir + fileName)
-        formData.append('policy', self.ossConfig.policy)
-        formData.append('OSSAccessKeyId', self.ossConfig.accessid)
-        formData.append('success_action_status', '200')
-        formData.append('signature', self.ossConfig.signature)
-        formData.append('file', self.file)
-        formData.append('filename', self.file.name)
-        console.log(formData)
-        console.log(axios)
-        let config = {
-          headers: {'Content-Type': 'multipart/form-data'}
-        }
-        axios.post(this.ossConfig.host, formData, config).then(({data}) => {
-          console.log(data)
+      delImage (item, index) {
+        this.$http.delete(`/official/users/profile/photos?photo=${item}`).then(({data}) => {
+          this.list.splice(index, 1)
+          $toastSuccess('已删除')
         }).catch((error) => {
           console.log(error)
-          $toastWarn('失败++')
         })
-        console.log(filePath)
-      },
-      onRemove (res, file) {
-        console.log('删除')
       },
       getImgUrl (data) {
-        debugger
-        // data  得到的就是返回的图片路径的相关参数
+        let arr = [data]
+        this.list.push({src: data})
+        let dataV = {
+          photos: arr
+        }
+        this.$http.post(`/official/users/profile/photos`, dataV).then(({data}) => {
+          console.log('更新成功')
+          this.getUser()
+        }).catch((error) => {
+          console.log(error)
+        })
       },
       logIndexChange (arg) {
         console.log(arg)
@@ -118,14 +77,6 @@
       goUser () {
         this.$router.push({name: 'user'})
       },
-      getSignature () { // 获取上传签证
-        this.$http.get('/upload/signature').then(({data}) => {
-          this.ossConfig = data
-          this.host = data.host
-        }).catch((error) => {
-          console.log(error)
-        })
-      },
       getUser () {
         this.$http.get(`/official/users/profile/photos?paas=${this.paas}`).then(({data}) => {
           this.list = data.map((item) => {
@@ -133,7 +84,6 @@
               src: item.photo
             }
           })
-          this.list.push({src: 'http://images.ufutx.com/201904/03/aa9d1353dda982cc12441192d67a0948.png'})
         }).catch((error) => {
           console.log(error)
         })
@@ -141,48 +91,20 @@
     },
     mounted () {
       this.getUser()
-      this.getSignature()
     }
   }
 </script>
 
 <style scoped>
   .whole{
-    height: 100vh;
+    min-height: 100vh;
     background-color: #f0f3f5;
   }
   .background{
     background-color: #ffffff;
   }
-  .diamond{
-    width: 750px;
-    height: 200px;
-  }
-  .picture{
-    width: 176px;
-    height: 176px;
-    margin: -88px auto 35px;
-    position: relative;
-    background-size: cover;
-    background-repeat: no-repeat;
-    box-shadow: 1px 1px 12px #d3d3d3;
-    border-radius: 50%;
-  }
-  .text{
-    width: 100%;
-    font-size: 30px;
-    text-align: center;
-    color: #bebebe;
-    padding-bottom: 40px;
-    background-color: #ffffff;
-  }
-  .camera{
-    width: 215px;
-    height: 215px;
-  }
   .camera_perfect{
     width: 706px;
-    height: 470px;
     padding: 35px 25px 35px 25px;
     background-color: #ffffff;
   }
@@ -192,36 +114,17 @@
     margin: 0 12px 12px 0;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
   }
-  .notHave{
+  .del{
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    height: 20px;
-    background-color: #f8f8f8;
-  }
-  .compile{
-    width: 100%;
-    height: 100px;
-    background-color: #ffffff;
-  }
-  .basic_data{
-    height: 100px;
-    line-height: 100px;
-    text-align: center;
-    font-size: 30px;
-    display: inline-block;
-    margin-left: 40px;
-    letter-spacing: 1px;
-  }
-  .go_compile{
-    width: 140px;
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    font-size: 26px;
-    border: 1px solid #344a5d;
-    border-radius: 30px;
-    display: inline-block;
-    margin-left: 390px;
+    height: 50px;
+    line-height: 50px;
+    background: rgba(0,0,0,0.4);
+    color: #ceced0;
   }
   .box_bottom{
     width: 100%;

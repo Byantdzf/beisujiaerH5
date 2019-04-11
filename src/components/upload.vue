@@ -1,85 +1,68 @@
 <template>
-  <div class="avatar">
-    <div @mouseover="showBg=true" @mouseleave="showBg=false">
-      点击上传
-      <!--<div class="bg" v-if="showBg" :style="`line-height:${imgHeight}`">点击上传</div>-->
-      <input type="file" class="input-file" :style="`width:${imgWidth};height:${imgHeight};`" name="avatar" ref="avatarInput" @change="changeImage($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
-      <img :src="avatar?avatar:'http://images.ufutx.com/201904/03/aa9d1353dda982cc12441192d67a0948.png'" alt="" :style="`width:${imgWidth};height: ${imgHeight};`" name="avatar">
-    </div>
-    <div class="text" @click="upload" v-if="file">确定上传</div>
-  </div>
+  <!--<div class="avatar">-->
+    <!--<div @mouseover="showBg=true" @mouseleave="showBg=false">-->
+      <!--点击上传-->
+      <!--&lt;!&ndash;<div class="bg" v-if="showBg" :style="`line-height:${imgHeight}`">点击上传</div>&ndash;&gt;-->
+      <!--<input type="file" class="input-file" :style="`width:${imgWidth};height:${imgHeight};`" name="avatar" ref="avatarInput" @change="changeImage($event)" accept="image/gif,image/jpeg,image/jpg,image/png">-->
+      <!--<img :src="avatar?avatar:'http://images.ufutx.com/201904/03/aa9d1353dda982cc12441192d67a0948.png'" alt="" :style="`width:${imgWidth};height: ${imgHeight};`" name="avatar">-->
+    <!--</div>-->
+    <!--<div class="text" @click="upload" v-if="file">确定上传</div>-->
+  <!--</div>-->
+  <vux-upload
+    url="http://love.hankin.ufutx.cn/api/official/uploads"
+    :headers="headers"
+    :images="images"
+    :readonly="false"
+    :max="9"
+    :withCredentials="false"
+    :span="4"
+    :preview="true"
+    @success="onSuccess"
+    @error="onError"
+    @remove="onRemove"
+  >
+  </vux-upload>
 </template>
 
 <script>
   import {$toastWarn, $toastSuccess} from '../config/util'
-
+  import VuxUpload from 'vux-upload'
   export default {
     name: 'upload',
     data () {
       return {
         avatar: '',
         file: '',
+        images: [],
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('ACCESS_TOKEN'),
+          'Content-Type': 'multipart/form-data'
+        },
+        imgData: [],
         ossConfig: {},
         host: '',
         showBg: false
       }
     },
-    props: ['uploadType', 'imgUrl', 'imgWidth', 'imgHeight'],
-    created () {
-      this.avatar = this.imgUrl.map((item) => {
-        return item.src
-      })
+    components: {
+      VuxUpload
     },
+    props: ['uploadType', 'imgUrl', 'imgWidth', 'imgHeight'],
     methods: {
-      changeImage (e) {
-        let file = e.target.files[0]
-        if (file) {
-          this.file = file
-          console.log(this.file)
-          let reader = new FileReader()
-          let that = this
-          reader.readAsDataURL(file)
-          reader.onload = function (e) {
-            // 这里的this 指向reader
-            that.avatar = this.result
-          }
-          console.log(reader)
-        }
+      onSuccess (res, file) {
+        $toastSuccess('上传成功')
+        this.$emit('upload', res.data)
       },
-      uploadV () {
-        let files = this.$refs.avatarInput.files
-        let data = {}
-        console.log(files[0])
-        for (let item in files[0]) {
-          console.log(item)
-          data[item] = files[0][item]
-        }
-        const file = files[0]
-        const imgURL = window.URL.createObjectURL(file) // imgURL就是你的图片的本地路径，两部就能解决问题
-        console.log(imgURL)
-        data.result = imgURL
-        // console.log(files[0].name + '.' + files[0].type.split('/').pop().toLowerCase())
-        console.log(data)
-        this.$http.post(`/official/uploads`, data).then(({data}) => {
-          $toastSuccess('上传成功')
-          $toastSuccess(filePath)
-        }).catch((error) => {
-          $toastWarn(error)
-        })
+      onError (event, file) {
+        $toastWarn('上传失败')
+        console.log(event)
+      },
+      onRemove (index) {
+        console.log('删除')
       },
       upload () {
         let files = this.$refs.avatarInput.files
         console.log(files)
-        // let fileData = {}
-        // if (files instanceof Array) {
-        //   fileData = files[0]
-        // } else {
-        //   fileData = this.file
-        // }
-        // console.log('fileData', typeof fileData, fileData)
-        // let data = new FormData()
-        // data.append('multfile', fileData)
-        // data.append('operaType', this.uploadType)
         var self = this
         var formData = new FormData()
         var fileName = self.file.name + '.' + self.file.type.split('/').pop().toLowerCase()
@@ -102,30 +85,6 @@
         }).catch((error) => {
           $toastWarn(error)
         })
-        // this.$store.dispatch('UPLOAD_HEAD', data)
-        //   .then(res => {
-        //     console.log(res)
-        //     this.file = ''
-        //     let data = res.data.data
-        //     this.$emit('upload', data)
-        //     this.$message({
-        //       type: 'success',
-        //       message: '上传成功！'
-        //     })
-        //   }).catch(err => {
-        //     console.log(err)
-        //     if (err.data.msg) {
-        //       this.$message({
-        //         type: 'error',
-        //         message: err.data.msg
-        //       })
-        //     } else {
-        //       this.$message({
-        //         type: 'error',
-        //         message: '上传失败'
-        //       })
-        //     }
-        //   })
       },
       getSignature () { // 获取上传签证
         this.$http.get('/upload/signature').then(({data}) => {
