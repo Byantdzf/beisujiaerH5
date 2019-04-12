@@ -96,7 +96,7 @@
       //   this.$router.push({name: 'user'})
       // },
       getUser () {
-        this.$http.get(`/official/users/profile/photos?paas=${this.paas}`).then(({data}) => {
+        this.$http.get(`/official/users/profile/photos`).then(({data}) => {
           this.list = data.map((item) => {
             return {
               src: item.photo
