@@ -2,7 +2,9 @@
   <div class="whole">
     <div class="background">
       <img class="diamond" src="http://images.ufutx.com/201904/03/0c266b91baffd71e415fbba91c13c468.png" alt="">
-      <div class="picture backCover" v-bind:style="{backgroundImage:'url(' + user.photo + ')'}"></div>
+      <div class="picture backCover" v-bind:style="{backgroundImage:'url(' + avatar + ')'}">
+        <uploadOss @onSuccess="onSuccess"></uploadOss>
+      </div>
       <p class="text">点击头像上传形象照</p>
       <div class="camera_perfect">
         <div class="perfect inline-block previewer-demo-img" v-for="(item, index) in list"  v-bind:style="{backgroundImage:'url(' + item.src + ')'}" @click="show(index)">
@@ -24,17 +26,21 @@
 </template>
 <script>
   import { Previewer, TransferDom } from 'vux'
+  import uploadOss from '../../components/upload_oss'
+
   export default {
     name: 'PreviewData',
     directives: {
       TransferDom
     },
     components: {
-      Previewer
+      Previewer,
+      uploadOss
     },
     data () {
       return {
         user: {},
+        avatar: '',
         list: [],
         options: {
           getThumbBoundsFn (index) {
@@ -47,6 +53,17 @@
       }
     },
     methods: {
+      onSuccess (val) {
+        this.avatar = val
+        let data = {
+          photo: this.avatar
+        }
+        this.$http.put('/official/users/photo', data).then(({data}) => {
+          console.log('等待审核...')
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
       logIndexChange (arg) {
         console.log(arg)
       },
@@ -70,6 +87,7 @@
         let paas = localStorage.getItem('paas')
         this.$http.get(`/official/mine?paas=${paas}`).then(({data}) => {
           this.user = data
+          this.avatar = data.photo
           this.list = data.profile_photos.map((item) => {
             return {
               src: item.photo

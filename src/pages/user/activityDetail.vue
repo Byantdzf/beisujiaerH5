@@ -1,7 +1,7 @@
 <template>
   <div class="activiyDetails">
     <img class="head_picture" :src="information.poster" alt="">
-    <img src="http://images.ufutx.com/201904/12/10fca54ca8213b21a9bab95a69e16b14.gif" alt="" class="bc_icon">
+    <img src="http://images.ufutx.com/201904/12/002f37bc7664ed2ad996b97188f33a87.gif" v-if="members.length>0" alt="" class="bc_icon">
     <div class="menberList" v-if="members.length>0">
       <marquee>
         <marquee-item v-for="(item,index) in members" :key="index" @click.native="onClick(index)" class="align-middle">

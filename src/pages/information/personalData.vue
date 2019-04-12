@@ -2,10 +2,11 @@
   <div id="personalData">
     <div class="wrapper ff">
       <div class="bc_avatar text-center" >
-        <div class="avatar backCover" v-bind:style="{backgroundImage:'url(' + avatar + ')'}" ></div>
+        <div class="avatar backCover" v-bind:style="{backgroundImage:'url(' + avatar + ')'}" >
+          <uploadOss @onSuccess="onSuccess"></uploadOss>
+        </div>
         <!--<router-link to="upload">-->
           <p class="font26">添加个人形象照</p>
-          <uploadOss @onSuccess="onSuccess"></uploadOss>
         <!--</router-link>-->
       </div>
       <!--<input @change="uploadPhoto" type="file" class="kyc-passin">-->
@@ -151,7 +152,7 @@
           name: this.name,
           belief: this.belief,
           type: type,
-          photo: 'hasajs'
+          photo: this.avatar
         }
         this.$http.put('/official/users/profile', data).then(({data}) => {
           if (type === 'single') {
