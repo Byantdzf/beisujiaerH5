@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import { Flexbox, FlexboxItem, Previewer, InlineLoading, base64 } from 'vux'
+  import { Flexbox, FlexboxItem, Previewer, InlineLoading } from 'vux'
   // import lrz from 'lrz'
   import {$toastWarn, $toastSuccess, $loadingShow, $loadingHide} from '../config/util'
 
@@ -143,7 +143,8 @@
         this.loading = true
         var self = this
         var formData = new FormData()
-        var fileName = base64.encode(self.file.name) + '.' + self.file.type.split('/').pop().toLowerCase()
+        console.log(this.$md5(self.file.name))
+        var fileName = this.$md5(self.file.name) + '.' + self.file.type.split('/').pop().toLowerCase()
         var filePath = self.host + '/' + self.ossConfig.dir + fileName
         formData.append('name', self.ossConfig.dir + fileName)
         formData.append('key', self.ossConfig.dir + fileName)

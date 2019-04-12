@@ -2,7 +2,7 @@
   <div id="personalData">
     <div class="wrapper ff">
       <div class="bc_avatar text-center" >
-        <div class="avatar" v-bind:style="{backgroundImage:'url(' + avatar + ')'}" ></div>
+        <div class="avatar backCover" v-bind:style="{backgroundImage:'url(' + avatar + ')'}" ></div>
         <!--<router-link to="upload">-->
           <p class="font26">添加个人形象照</p>
           <uploadOss @onSuccess="onSuccess"></uploadOss>
