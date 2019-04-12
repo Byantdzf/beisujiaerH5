@@ -4,19 +4,19 @@
       <swiper :list="life_photos" :min-moving-distance="120" :show-desc-mask="false" height="320px" :auto="true"
               dots-position="center" :interval="2000"></swiper>
       <span class="like colorff font28">
-      <img src="http://images.ufutx.com/201904/01/2748b2373009c307d86f3750d85a812e.png" alt="" class="icon">
+      <img src="http://images.ufutx.com/201904/01/2748b2373009c307d86f3750d85a812e.png" alt="" class="like_icon">
       {{information.fans_count}}
     </span>
     </div>
     <div class="bc_detail">
       <span class="name bold">{{information.name}}</span>
-      <img src="http://images.ufutx.com/201904/02/6e9d7b41f9ff9ec9588d0a7f910deb02.png" alt="" class="icon">
+      <img src="http://images.ufutx.com/201904/02/6e9d7b41f9ff9ec9588d0a7f910deb02.png" alt="" class="bc_icon">
       <span class="font20">{{information.rank_name}}</span>
       <div class="bc_love flo_r">
         <img src="http://images.ufutx.com/201904/03/76d6a32c1cb5e51f63de5e059624eb27.png" @click="attention"
-             v-if="information.is_followed == 1" :class="{'btn_active': btnActive}" class="love">
+             v-if="information.is_followed == 1" :class="{'btn_active_V': btnActive}" class="love">
         <img src="http://images.ufutx.com/201904/03/56bd712f02b06933f936f76cb6ac9a2a.png" @click="attention"
-             :class="{'btn_active': btnActive}" v-else class="love">
+             :class="{'btn_active_V': btnActive}" v-else class="love">
       </div>
       <p class="message">
         <span class="font26 colorbe">{{information.age}} · {{information.city}} · {{information.stature}}cm</span>
@@ -29,8 +29,8 @@
     </div>
     <p class="bc_dist"></p>
     <div class="basics">
-      <p style="width: 20%" class="font28 flo_l">基本资料</p>
-      <div class="colorbe flo_r basicsData" style="width: 80%">
+      <p style="width: 20%" class="font28 flo_l" >基本资料</p>
+      <div class="colorbe flo_r basicsData" style="width: 80%" v-if="(JSON.stringify(information) !== '{}')">
         <p class="item font26">{{information.age}}</p>
         <p class="item font26">{{information.birthday}}</p>
         <p class="item font26">{{information.stature+'cm'}}</p>
@@ -157,7 +157,7 @@
       position: absolute;
       right: 35px;
 
-      .icon {
+      .like_icon {
         width: 28px;
         margin-right: 2px;
       }
@@ -170,7 +170,7 @@
         font-size: 36px;
       }
 
-      .icon {
+      .bc_icon {
         width: 32px;
         margin: 0 -2px 0 16px;
       }

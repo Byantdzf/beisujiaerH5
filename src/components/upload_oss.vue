@@ -1,23 +1,23 @@
 <template>
   <!--<div class="vux-upload">-->
-    <!--<flexbox :gutter="0" wrap="wrap">-->
-      <!--<flexbox-item :span="span" v-for="(item, index) in images" :key="index" @click.native="onPreview(index)">-->
-        <!--<div class="vux-upload-bg">-->
-          <!--<div class="vux-upload-content" :style="{ backgroundImage: `url(${item.src})` }">-->
-            <!--<x-icon v-if="!readonly" type="ios-close" class="red" @click.native="onRemove(index, $event)"></x-icon>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</flexbox-item>-->
-      <!--<flexbox-item :span="span" v-show="!readonly && images.length < max">-->
-        <!--<div class="vux-upload-bg">-->
-          <!--<div class="weui-uploader__input-box vux-upload-content" :class="{ loading: loading }">-->
-            <!--<input v-show="!loading" ref="file" class="weui-uploader__input" value="" type="file" :accept="accept" :capture="capture" @change="onChange">-->
-            <!--<inline-loading v-show="loading"></inline-loading>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</flexbox-item>-->
-    <!--</flexbox>-->
-    <!--<previewer :list="images" ref="previewer"></previewer>-->
+  <!--<flexbox :gutter="0" wrap="wrap">-->
+  <!--<flexbox-item :span="span" v-for="(item, index) in images" :key="index" @click.native="onPreview(index)">-->
+  <!--<div class="vux-upload-bg">-->
+  <!--<div class="vux-upload-content" :style="{ backgroundImage: `url(${item.src})` }">-->
+  <!--<x-icon v-if="!readonly" type="ios-close" class="red" @click.native="onRemove(index, $event)"></x-icon>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</flexbox-item>-->
+  <!--<flexbox-item :span="span" v-show="!readonly && images.length < max">-->
+  <!--<div class="vux-upload-bg">-->
+  <!--<div class="weui-uploader__input-box vux-upload-content" :class="{ loading: loading }">-->
+  <!--<input v-show="!loading" ref="file" class="weui-uploader__input" value="" type="file" :accept="accept" :capture="capture" @change="onChange">-->
+  <!--<inline-loading v-show="loading"></inline-loading>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</flexbox-item>-->
+  <!--</flexbox>-->
+  <!--<previewer :list="images" ref="previewer"></previewer>-->
   <!--</div>-->
 
   <input type="file" @change="onChange" class="weui-uploader__input" />
@@ -26,7 +26,7 @@
 <script>
   import { Flexbox, FlexboxItem, Previewer, InlineLoading, base64 } from 'vux'
   // import lrz from 'lrz'
-  import {$toastWarn, $toastSuccess, $loadingShow, $loadingHide} from '../../config/util'
+  import {$toastWarn, $toastSuccess, $loadingShow, $loadingHide} from '../config/util'
 
   export default {
     components: {
@@ -155,7 +155,7 @@
         formData.append('filename', self.file.name)
         this.$http.post(this.host, formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(({data}) => {
           console.log(filePath)
-          this.$emit('filePath', filePath)
+          this.$emit('onSuccess', filePath)
           $toastSuccess('上传成功')
           $loadingHide()
         }).catch((error) => {

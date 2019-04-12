@@ -54,6 +54,7 @@
         recommend: [],
         noData: false,
         page: 1,
+        paas: '',
         announcements: [],
         mescroll: null, //  mescroll实例对象
         mescrollDown: {}, // 下拉刷新的配置. (如果下拉刷新和上拉加载处理的逻辑是一样的,则mescrollDown可不用写了)
@@ -82,19 +83,17 @@
         this.mescroll = mescroll
       },
       getMessageNum () {
-        let paas = localStorage.getItem('paas')
-        this.$http.get(`/official/notice/num?paas=${paas}`).then(({data}) => {
+        this.$http.get(`/official/notice/num?paas=${this.paas}`).then(({data}) => {
           localStorage.setItem('chat_num', data.chat_message_num.toString())
           localStorage.setItem('notice_num', data.notice_num.toString())
         })
       },
       getOrderList (page, mescroll) {
-        let paas = ''
         let vm = this
-        vm.$http.get(`/official/home?paas=${paas}&page=${page.num}`).then(({data}) => {
+        vm.$http.get(`/official/home?paas=${this.paas}&page=${page.num}`).then(({data}) => {
           vm.announcements = data.announcements
           vm.recommend = data.recommend
-          vm.$http.get(`/official/home/likers?paas=${paas}&page=${page.num}`).then(({data}) => {
+          vm.$http.get(`/official/home/likers?paas=${this.paas}&page=${page.num}`).then(({data}) => {
             vm.init = true
             let dataV = page.num === 1 ? [] : this.list
             dataV.push(...data.data)
@@ -115,6 +114,9 @@
       // console.log(this.$store.state.intercept)
       if (this.$store.state.intercept === 'true') {
         return false
+      }
+      if (localStorage.getItem('paas')) {
+        this.paas = localStorage.getItem('paas')
       }
     }
   }

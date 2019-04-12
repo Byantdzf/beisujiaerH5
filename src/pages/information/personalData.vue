@@ -2,10 +2,11 @@
   <div id="personalData">
     <div class="wrapper ff">
       <div class="bc_avatar text-center" >
-        <div class="avatar" style="background-image: url('http://images.ufutx.com/201903/26/000319417f22842bd8c7989d608b3871.png');" ></div>
-        <router-link to="upload">
+        <div class="avatar" v-bind:style="{backgroundImage:'url(' + avatar + ')'}" ></div>
+        <!--<router-link to="upload">-->
           <p class="font26">添加个人形象照</p>
-        </router-link>
+          <uploadOss @onSuccess="onSuccess"></uploadOss>
+        <!--</router-link>-->
       </div>
       <!--<input @change="uploadPhoto" type="file" class="kyc-passin">-->
     </div>
@@ -49,10 +50,6 @@
     <div class="fixed_bot subjectColor colorff bc_box font32">
       <ul>
         <li class="inline-block after" @click="onClick('single')">我是单身</li>
-
-
-
-
         <li class="inline-block" @click="onClick('marriage')">我是介绍人</li>
       </ul>
     </div>
@@ -66,6 +63,7 @@
 
 <script>
   import {DatetimePlugin, Group, XButton, XAddress, ChinaAddressV4Data, PopupPicker} from 'vux'
+  import uploadOss from '../../components/upload_oss'
   export default {
     name: 'personalData',
     components: {
@@ -74,12 +72,14 @@
       XButton,
       XAddress,
       ChinaAddressV4Data,
-      PopupPicker
+      PopupPicker,
+      uploadOss
     },
     data () {
       return {
         birthday: '',
         sex: '',
+        avatar: 'http://images.ufutx.com/201903/26/000319417f22842bd8c7989d608b3871.png',
         sexList: [['男', '女']],
         belief: '',
         beliefList: [['基督教', '佛教', '伊斯兰教', '其他']],
@@ -96,7 +96,17 @@
     watch: {
     },
     methods: {
-
+      onSuccess (val) {
+        this.avatar = val
+        let data = {
+          photo: this.avatar
+        }
+        this.$http.put('/official/users/photo', data).then(({data}) => {
+          console.log('等待审核...')
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
       uploadPhoto (e) {
         this.file = e.target.files[0]
         this.chooseImage()
@@ -214,7 +224,9 @@
           height: 225px;
           border-radius: 50%;
           margin: auto;
-          background-size: contain;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position-x: center;
         }
         p{
           color: #787878;

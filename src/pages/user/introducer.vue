@@ -4,13 +4,13 @@
       <swiper :list="life_photos" :min-moving-distance="120" :show-desc-mask="false" height="320px" :auto="true"
               dots-position="center" :interval="2000"></swiper>
       <span class="like colorff font28">
-      <img src="http://images.ufutx.com/201904/01/2748b2373009c307d86f3750d85a812e.png" alt="" class="icon">
+      <img src="http://images.ufutx.com/201904/01/2748b2373009c307d86f3750d85a812e.png" alt="" class="like_icon">
       {{information.fans_count}}
     </span>
     </div>
-    <div class="bc_detail">
+    <div class="bc_detail" v-if="(JSON.stringify(information) !== '{}')">
       <span class="name bold">{{information.name}}</span>
-      <img src="http://images.ufutx.com/201904/02/6e9d7b41f9ff9ec9588d0a7f910deb02.png" alt="" class="icon">
+      <img src="http://images.ufutx.com/201904/02/6e9d7b41f9ff9ec9588d0a7f910deb02.png" alt="" class="bc_icon">
       <span class="font20">{{information.rank_name}}</span>
       <div class="bc_love flo_r">
         <img src="http://images.ufutx.com/201904/03/76d6a32c1cb5e51f63de5e059624eb27.png" @click="attention"
@@ -148,7 +148,7 @@
       position: absolute;
       right: 35px;
 
-      .icon {
+      .like_icon {
         width: 28px;
         margin-right: 2px;
       }
@@ -161,7 +161,7 @@
         font-size: 36px;
       }
 
-      .icon {
+      .bc_icon {
         width: 32px;
         margin: 0 -2px 0 16px;
       }
