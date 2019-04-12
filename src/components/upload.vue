@@ -1,23 +1,23 @@
 <template>
-  <vux-upload
-    :url="url"
-    :headers="headers"
-    :images="images"
-    :readonly="false"
-    :max="9"
-    :withCredentials="false"
-    :span="4"
-    :preview="true"
-    @success="onSuccess"
-    @error="onError"
-    @remove="onRemove"
-  >
-  </vux-upload>
+  <!--<vux-upload-->
+    <!--:url="url"-->
+    <!--:headers="headers"-->
+    <!--:images="images"-->
+    <!--:readonly="false"-->
+    <!--:max="9"-->
+    <!--:withCredentials="false"-->
+    <!--:span="4"-->
+    <!--:preview="true"-->
+    <!--@success="onSuccess"-->
+    <!--@error="onError"-->
+    <!--@remove="onRemove"-->
+  <!--&gt;-->
+  <!--</vux-upload>-->
 </template>
 
 <script>
   import {$toastWarn, $toastSuccess} from '../config/util'
-  import VuxUpload from 'vux-upload'
+  // import VuxUpload from 'vux-upload'
   export default {
     name: 'upload',
     data () {
@@ -37,7 +37,7 @@
       }
     },
     components: {
-      VuxUpload
+      // VuxUpload
     },
     props: ['uploadType', 'imgUrl', 'imgWidth', 'imgHeight'],
     methods: {
