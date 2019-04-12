@@ -78,6 +78,7 @@
         slogan: '为何喜欢做介绍人？',
         industries: [],
         industriesList: [],
+        firstTime: false, // 首次访问
         show: false,
         showTextarea: false
       }
@@ -114,7 +115,9 @@
               )
             }
           }
-          this.getData()
+          if (!this.firstTime) {
+            this.getData()
+          }
         }).catch((error) => {
           console.log(error)
         })
@@ -155,6 +158,9 @@
     mounted () {
       console.log(this.$store.state.route)
       this.getIndustries()
+      if (this.$route.params.firstTime) {
+        this.firstTime = this.$route.params.firstTime
+      }
     }
   }
 </script>

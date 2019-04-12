@@ -158,6 +158,7 @@
         addressData: [],
         residentAddress: [],
         showTextarea: false,
+        firstTime: false, // 首次访问
         title: '',
         text: '', // 自我介绍
         textType: ''
@@ -277,7 +278,9 @@
               }
             }
           }
-          this.getUserData()
+          if (!this.firstTime) {
+            this.getUserData()
+          }
           console.log(vm.addressData)
         }).catch((error) => {
           console.log(error)
@@ -330,6 +333,9 @@
       console.log(this.$store.state.route)
       this.getIndustries() // 行业
       this.getCity() // 地址
+      if (this.$route.params.firstTime) {
+        this.firstTime = this.$route.params.firstTime
+      }
     }
   }
 </script>
