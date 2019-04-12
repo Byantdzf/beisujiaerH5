@@ -9,8 +9,8 @@
       </li>
       <li class="list-item vux-1px-t">
         <span class="title font32">行业</span>
-        <div class="flo_r"  @click="show = !show">
-          <span class="font30 color6" v-if='industries.length > 1'>{{industries[0]}} {{industries[1]}}</span>
+        <div class="flo_r"  @click="showModal">
+          <span class="font30 color6" v-if='industries && industries.length > 1'>{{industries[0]}} {{industries[1]}}</span>
           <span class="font30 colorbe" v-else>请选择</span>
           <img src="../../assets/icon/go.png" alt="icon" class="icon">
         </div>
@@ -79,13 +79,16 @@
         industries: [],
         industriesList: [],
         show: false,
-        showTextarea: false,
-        paas: localStorage.getItem('paas')
+        showTextarea: false
       }
     },
     watch: {
+
     },
     methods: {
+      showModal () {
+        this.show = !this.show
+      },
       onChange (type, val) { //  行业
         this.industries = this.$refs.picker2 && this.$refs.picker2.getNameValues().split(' ')
         console.log(this.industries)
