@@ -11,7 +11,7 @@ import '../src/config/api'
 import md5 from 'js-md5'
 Vue.prototype.$md5 = md5
 FastClick.attach(document.body)
-// require('es6-promise').polyfill()
+require('es6-promise').polyfill()
 
 Vue.use(DatetimePlugin)
 Vue.use(LoadingPlugin)

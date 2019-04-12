@@ -286,7 +286,6 @@
       getUserData () {
         this.$http.get(`/official/users/profile?paas=${this.paas}`).then(({data}) => {
           console.log(data)
-          this.slogan = data.slogan
           this.stature = data.stature
           this.weight = data.weight
           this.post = data.post
