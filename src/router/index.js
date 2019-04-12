@@ -137,6 +137,11 @@ export default new Router({
       path: '/userList',
       name: 'userList',
       component: (resolve) => require(['@/pages/user/userList'], resolve)
+    },
+    { // 用户列表
+      path: '/upload',
+      name: 'upload',
+      component: (resolve) => require(['@/pages/user/upload'], resolve)
     }
   ]
 })

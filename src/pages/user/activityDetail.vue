@@ -1,6 +1,13 @@
 <template>
   <div class="activiyDetails">
     <img class="head_picture" :src="information.poster" alt="">
+    <div class="menberList" v-if="members.length>0">
+      <marquee>
+        <marquee-item v-for="(item,index) in members" :key="index" @click.native="onClick(index)" class="align-middle">
+          {{item.name}} 报名了
+        </marquee-item>
+      </marquee>
+    </div>
     <div class="clear_both"></div>
     <div class="SummitDetails">
       <div class="choiceness">
@@ -31,8 +38,8 @@
     <div v-for="item in information.detail">
       <img class="plenaryLecture" :src="item" alt="">
     </div>
-    <div class="For_more_details">
-      展开更多详情
+    <div class="For_more_details" @click="goDetail">
+      查看更多详情
       <img class="icon_arrows_bottom" src="http://images.ufutx.com/201904/02/0715881d01f9ac79e4a200192df45684.png" alt="">
     </div>
     <div class="height105"></div>
@@ -69,7 +76,7 @@
 
 <script>
   import {$toastText, $toastWarn} from '../../config/util'
-  import { TransferDom, Popup } from 'vux'
+  import { TransferDom, Marquee, MarqueeItem, Popup } from 'vux'
 
   export default {
     name: 'activiyDetails',
@@ -77,7 +84,9 @@
       TransferDom
     },
     components: {
-      Popup
+      Popup,
+      Marquee,
+      MarqueeItem
     },
     data () {
       return {
@@ -92,6 +101,16 @@
       }
     },
     methods: {
+      onClick (i) {
+        console.log(i)
+      },
+      goDetail () {
+        if (!this.information.detail_path) {
+          $toastWarn('暂无详情链接')
+          return
+        }
+        window.location.href = this.information.detail_path
+      },
       getOrderList () {
         let paas = this.paas
         this.$http.get(`/official/activities/${this.id}?paas=${paas}`).then(({data}) => {
@@ -223,6 +242,18 @@
 </script>
 
 <style scoped lang="less">
+  .activiyDetails{
+    position: relative;
+    .menberList{
+      background: rgba(0,0,0,0.4);
+      padding: 8px 22px;
+      color: white;
+      border-radius: 12px;
+      position: absolute;
+      right: 12px;
+      top: 120px;
+    }
+  }
   .head_picture{
     width: 750px;
   }

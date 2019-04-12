@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import {AjaxPlugin} from 'vux'
-import qs from 'qs'
+// import qs from 'qs'
 import {$toastWarn, $loadingHide} from '../../src/config/util'
 
 const api = () => {
@@ -9,24 +9,24 @@ const api = () => {
   AjaxPlugin.$http.defaults.baseURL = baseURL
 //   AjaxPlugin.$http.defaults.headers = {'X-Custom-Header': 'foobar'}
   AjaxPlugin.$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-  AjaxPlugin.$http.defaults.timeout = 5000
+  AjaxPlugin.$http.defaults.timeout = 8000
   // AjaxPlugin.$http.defaults.withCredent
   // ials = false
   // AjaxPlugin.$http.defaults.responseType = 'json'
   // AjaxPlugin.$http.defauduilts.maxContentLength = 2000
   // AjaxPlugin.$http.defaults.dataType = 'jsonp'
   // AjaxPlugin.$http.defaults.withCredentials = false
-  AjaxPlugin.$http.defaults.data = {
-    XDEBUG_SESSION_START: 1,
-    paas: localStorage.getItem('paas')
-  }
+  // AjaxPlugin.$http.defaults.data = {
+  //   XDEBUG_SESSION_START: 1,
+  //   paas: localStorage.getItem('paas')
+  // }
 // POST传参序列化(添加请求拦截器)
 // http request 拦截器
   AjaxPlugin.$http.interceptors.request.use((config) => {
     config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('ACCESS_TOKEN')
-    if (config.method === 'post') {
-      config.data = qs.stringify(config.data)
-    }
+    // if (config.method === 'post') {
+    //   config.data = qs.stringify(config.data)
+    // }
     // $loadingShow()
     return config
   }, (error) => {
