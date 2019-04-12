@@ -19,8 +19,11 @@
   <!--</flexbox>-->
   <!--<previewer :list="images" ref="previewer"></previewer>-->
   <!--</div>-->
-
+<div>
   <input type="file" @change="onChange" class="weui-uploader__input" />
+  <slot name="text"></slot>
+</div>
+
 </template>
 
 <script>
@@ -29,6 +32,7 @@
   import {$toastWarn, $toastSuccess, $loadingShow, $loadingHide} from '../config/util'
 
   export default {
+    name: 'UploadOss',
     components: {
       Flexbox,
       FlexboxItem,
