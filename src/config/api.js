@@ -10,8 +10,6 @@ const api = () => {
 //   AjaxPlugin.$http.defaults.headers = {'X-Custom-Header': 'foobar'}
   AjaxPlugin.$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
   AjaxPlugin.$http.defaults.timeout = 8000
-  console.log(AjaxPlugin.$http.defaults)
-  // debugger
   // AjaxPlugin.$http.defaults.withCredent
   // ials = false
   // AjaxPlugin.$http.defaults.responseType = 'json'
@@ -26,6 +24,13 @@ const api = () => {
 // http request 拦截器
   AjaxPlugin.$http.interceptors.request.use((config) => {
     config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('ACCESS_TOKEN')
+    if (config.url.includes('?')) {
+      config.url = config.url + '&XDEBUG_SESSION_START=1&paas=' + localStorage.getItem('paas')
+    } else {
+      config.url = config.url + '?XDEBUG_SESSION_START=1&paas=' + localStorage.getItem('paas')
+    }
+    console.log(config)
+
     // if (config.method === 'post') {
     //   config.data = qs.stringify(config.data)
     // }

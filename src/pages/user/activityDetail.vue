@@ -97,8 +97,7 @@
         information: {}, // 数据
         members: {}, // 报名成员
         showModal: false,
-        trade_no: '',
-        paas: localStorage.getItem('paas')
+        trade_no: ''
       }
     },
     methods: {
@@ -113,8 +112,7 @@
         window.location.href = this.information.detail_path
       },
       getOrderList () {
-        let paas = this.paas
-        this.$http.get(`/official/activities/${this.id}?paas=${paas}`).then(({data}) => {
+        this.$http.get(`/official/activities/${this.id}`).then(({data}) => {
           this.information = data
           this.members = data.members
         }).catch((error) => {
