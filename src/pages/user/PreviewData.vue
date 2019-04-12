@@ -77,6 +77,7 @@
         this.$router.push({name: 'user'})
       },
       routeToDetail () {
+        localStorage.setItem('firstTime', false)
         if (this.user.type === 'single') {
           this.$router.push({name: 'singleData'})
         } else {
