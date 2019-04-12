@@ -1,7 +1,7 @@
 <template>
   <div id="user">
     <div class="wrapper ff">
-      <div class="avatar flo_l" @click="routeToDetail('PreviewData')"  :style="{backgroundImage:'url(' + user.photo + ')'}"></div>
+      <div class="avatar flo_l backCover" @click="routeToDetail('PreviewData')"  :style="{backgroundImage:'url(' + user.photo + ')'}"></div>
       <div class="name inline-block">
         <span class="font36 bold">{{user.name}}</span><br/>
         <span class="font26">

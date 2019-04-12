@@ -8,6 +8,8 @@ import store from '../src/vuex/store'
 import router from '../src/router/index.js'
 import {LoadingPlugin, WechatPlugin, DatetimePlugin} from 'vux'
 import '../src/config/api'
+import md5 from 'js-md5'
+Vue.prototype.$md5 = md5
 FastClick.attach(document.body)
 // require('es6-promise').polyfill()
 

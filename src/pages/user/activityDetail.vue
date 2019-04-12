@@ -1,6 +1,7 @@
 <template>
   <div class="activiyDetails">
     <img class="head_picture" :src="information.poster" alt="">
+    <img src="http://images.ufutx.com/201904/12/10fca54ca8213b21a9bab95a69e16b14.gif" alt="" class="bc_icon">
     <div class="menberList" v-if="members.length>0">
       <marquee>
         <marquee-item v-for="(item,index) in members" :key="index" @click.native="onClick(index)" class="align-middle">
@@ -245,13 +246,20 @@
   .activiyDetails{
     position: relative;
     .menberList{
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.6);
       padding: 8px 22px;
       color: white;
       border-radius: 12px;
+      position: relative;
+      position: absolute;
+      right: -12px;
+      top: 120px;
+    }
+    .bc_icon{
       position: absolute;
       right: 12px;
-      top: 120px;
+      top: 10px;
+      width: 120px;
     }
   }
   .head_picture{

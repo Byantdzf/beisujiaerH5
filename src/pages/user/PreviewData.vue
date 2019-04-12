@@ -2,7 +2,7 @@
   <div class="whole">
     <div class="background">
       <img class="diamond" src="http://images.ufutx.com/201904/03/0c266b91baffd71e415fbba91c13c468.png" alt="">
-      <div class="picture" v-bind:style="{backgroundImage:'url(' + user.photo + ')'}"></div>
+      <div class="picture backCover" v-bind:style="{backgroundImage:'url(' + user.photo + ')'}"></div>
       <p class="text">点击头像上传形象照</p>
       <div class="camera_perfect">
         <div class="perfect inline-block previewer-demo-img" v-for="(item, index) in list"  v-bind:style="{backgroundImage:'url(' + item.src + ')'}" @click="show(index)">
@@ -51,10 +51,10 @@
         console.log(arg)
       },
       show (index) {
-        this.$refs.previewer.show(index)
         if (index === this.list.length - 1) {
           this.$router.push({name: 'uploadImage'})
         }
+        this.$refs.previewer.show(index)
       },
       goUser () {
         this.$router.push({name: 'user'})
@@ -108,7 +108,7 @@
     position: relative;
     background-size: cover;
     background-repeat: no-repeat;
-    box-shadow: 1px 1px 12px #d3d3d3;
+    box-shadow: 0 0 18px #bebebe;
     border-radius: 50%;
   }
   .text{
