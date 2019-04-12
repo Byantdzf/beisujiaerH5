@@ -278,7 +278,7 @@
               }
             }
           }
-          if (!this.firstTime) {
+          if (this.firstTime === 'false') {
             this.getUserData()
           }
           console.log(vm.addressData)
@@ -294,8 +294,8 @@
           this.post = data.post
           this.wechat_id = data.wechat_id
           this.graduate_school = data.graduate_school
-          this.introduction = data.introduction
-          this.ideal_mate = data.ideal_mate
+          this.introduction = data.introduction ? data.introduction : ''
+          this.ideal_mate = data.ideal_mate ? data.ideal_mate : ''
           this.degree = data.degree
           this.work_sort = data.work_sort
           this.state = data.state
@@ -319,6 +319,7 @@
         vm.$http.put('/official/users/profile', data).then(({data}) => {
           console.log(data)
           $toastSuccess('完成')
+          localStorage.setItem('firstTime', false)
           setTimeout(() => {
             this.$router.push({
               name: 'home'
@@ -333,8 +334,8 @@
       console.log(this.$store.state.route)
       this.getIndustries() // 行业
       this.getCity() // 地址
-      if (this.$route.params.firstTime) {
-        this.firstTime = this.$route.params.firstTime
+      if (localStorage.getItem('firstTime')) {
+        this.firstTime = localStorage.getItem('firstTime')
       }
     }
   }

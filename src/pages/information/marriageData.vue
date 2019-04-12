@@ -115,7 +115,7 @@
               )
             }
           }
-          if (!this.firstTime) {
+          if (this.firstTime === 'false') {
             this.getData()
           }
         }).catch((error) => {
@@ -146,7 +146,7 @@
       getData () {
         this.$http.get(`/official/users/profile?paas=${this.paas}`).then(({data}) => {
           console.log(data)
-          this.slogan = data.slogan
+          this.slogan = data.slogan ? data.slogan : '为何喜欢做介绍人？'
           this.company = data.company
           this.industries[0] = data.industry
           this.industries[1] = data.industry_sub
@@ -158,8 +158,8 @@
     mounted () {
       console.log(this.$store.state.route)
       this.getIndustries()
-      if (this.$route.params.firstTime) {
-        this.firstTime = this.$route.params.firstTime
+      if (localStorage.getItem('firstTime')) {
+        this.firstTime = localStorage.getItem('firstTime')
       }
     }
   }

@@ -155,19 +155,14 @@
           photo: this.avatar
         }
         this.$http.put('/official/users/profile', data).then(({data}) => {
+          localStorage.setItem('firstTime', true)
           if (type === 'single') {
             this.$router.push({
-              name: 'singleData',
-              params: {
-                firstTime: true
-              }
+              name: 'singleData'
             })
           } else {
             this.$router.push({
-              name: 'marriageData',
-              params: {
-                firstTime: true
-              }
+              name: 'marriageData'
             })
           }
         }).catch((error) => {
