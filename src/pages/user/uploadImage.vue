@@ -1,9 +1,11 @@
 <template>
-  <div class="whole">
+  <div class="whole" >
     <div class="background">
       <div class="camera_perfect"  >
         <div class="perfect inline-block previewer-demo-img" v-for="(item, index) in list" v-bind:style="{backgroundImage:'url(' + item.src + ')'}" @click="show(index)">
-          <div class="del text-center" @click.stop="delImage(item.src, index)">删除</div>
+          <div class="del text-center" @click.stop="delImage(item.src, index)">
+            <img src="http://images.ufutx.com/201904/12/ca40def7da4fd6657359809d73c83543.png" alt="">
+          </div>
         </div>
       </div>
     </div>
@@ -12,22 +14,28 @@
     <div v-transfer-dom>
       <previewer :list="list" ref="previewer" :options="options" @on-index-change="logIndexChange"></previewer>
     </div>
-    <div class="box_bottom" @click="goUser">完成</div>
+    <div class="box_bottom">
+      <uploadOss @onSuccess="onSuccess">
+        <span slot="text">
+          <img src="http://images.ufutx.com/201904/12/8e7c4dcc70d6ab18f78bd3fe60da504b.png" alt="">
+          点击上传
+        </span>
+      </uploadOss>
+    </div>
   </div>
 </template>
 <script>
   import { Previewer, TransferDom } from 'vux'
   import {$toastSuccess} from '../../config/util'
-  import upload from '../../components/upload'
+  import UploadOss from '@/components/upload_oss'
 
   export default {
-    name: 'PreviewData',
     directives: {
       TransferDom
     },
     components: {
       Previewer,
-      upload
+      UploadOss
     },
     data () {
       return {
@@ -44,6 +52,19 @@
       }
     },
     methods: {
+      onSuccess (val) {
+        let arr = [val]
+        this.list.push({src: val})
+        let dataV = {
+          photos: arr
+        }
+        this.$http.post(`/official/users/profile/photos`, dataV).then(({data}) => {
+          console.log('更新成功')
+          this.getUser()
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
       delImage (item, index) {
         this.$http.delete(`/official/users/profile/photos?photo=${item}`).then(({data}) => {
           this.list.splice(index, 1)
@@ -70,13 +91,10 @@
       },
       show (index) {
         this.$refs.previewer.show(index)
-        if (index === this.list.length - 1) {
-          this.$router.push({name: 'uploadImage'})
-        }
       },
-      goUser () {
-        this.$router.push({name: 'user'})
-      },
+      // goUser () {
+      //   this.$router.push({name: 'user'})
+      // },
       getUser () {
         this.$http.get(`/official/users/profile/photos?paas=${this.paas}`).then(({data}) => {
           this.list = data.map((item) => {
@@ -95,7 +113,7 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .whole{
     min-height: 100vh;
     background-color: #f0f3f5;
@@ -125,6 +143,9 @@
     line-height: 50px;
     background: rgba(0,0,0,0.4);
     color: #ceced0;
+    img{
+      width: 52px;
+    }
   }
   .box_bottom{
     width: 100%;
@@ -137,5 +158,10 @@
     position: fixed;
     bottom: 0;
     background-color: #35495e;
+    img{
+      width: 48px;
+      vertical-align: middle;
+      margin-bottom: 8px;
+    }
   }
 </style>
