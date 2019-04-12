@@ -157,11 +157,17 @@
         this.$http.put('/official/users/profile', data).then(({data}) => {
           if (type === 'single') {
             this.$router.push({
-              name: 'singleData'
+              name: 'singleData',
+              params: {
+                firstTime: true
+              }
             })
           } else {
             this.$router.push({
-              name: 'marriageData'
+              name: 'marriageData',
+              params: {
+                firstTime: true
+              }
             })
           }
         }).catch((error) => {
