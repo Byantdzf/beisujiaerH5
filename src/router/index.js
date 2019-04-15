@@ -138,10 +138,21 @@ export default new Router({
       name: 'userList',
       component: (resolve) => require(['@/pages/user/userList'], resolve)
     },
-    { // 用户列表
+    { // 上传调试页面
       path: '/upload',
       name: 'upload',
       component: (resolve) => require(['@/pages/user/upload'], resolve)
+    },
+    { // 福恋协议说明
+      path: '/protocol',
+      name: 'protocol',
+      component: (resolve) => require(['@/pages/user/protocol'], resolve)
+    },
+    { // 云盾身份认证服务合同
+      path: '/protocol2',
+      name: 'protocol2',
+      component: (resolve) => require(['@/pages/user/protocol2'], resolve)
     }
+
   ]
 })
