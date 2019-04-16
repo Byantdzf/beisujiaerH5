@@ -4,7 +4,12 @@
       <!--<div id="box"></div>-->
       <div style="background: #35495e;padding: 10px;padding-bottom: 0px;" class="font30">
         <swiper auto height="30px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false" >
-          <swiper-item v-for="item in announcements" :key="item.id"><p class="ellipsis_1">{{item.title}}</p></swiper-item>
+          <swiper-item v-for="item in announcements" :key="item.id">
+            <p class="ellipsis_1" @click="$method(item.path)">
+            <img src="http://images.ufutx.com/201904/15/356b40bdf7ff0172414c559449e14ee0.png" alt="" width="22px" class="announcementIcon">
+            {{item.title}}
+            </p>
+          </swiper-item>
         </swiper>
       </div>
       <router-link to="userList">
@@ -16,7 +21,7 @@
       <swiper  :min-moving-distance="120" :show-desc-mask="true" height="320px" :auto="true" dots-position="center"
                :interval="2000">
         <swiper-item v-for="item in recommend" :key="item.id">
-          <div class="image" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}" @click="routeToDetail(item.user.type, item.user.id)"></div>
+          <div class="image backCover" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}" @click="routeToDetail(item.user.type, item.user.id)"></div>
         </swiper-item>
       </swiper>
       <div class="list-item" v-for="item in list" @click="routeToDetail(item.type, item.id)">
@@ -125,6 +130,11 @@
 <style  lang="less" scoped>
   body{
     background: #f7f7f7 !important;
+
+    .announcementIcon {
+      margin-bottom: 8px;
+      vertical-align: middle;
+    }
   }
   .vux-demo {
     text-align: center;

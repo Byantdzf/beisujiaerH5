@@ -81,12 +81,12 @@ export default new Router({
     { // 活动详情
       path: '/activityDetail/:id',
       name: 'activityDetail',
-      component: (resolve) => require(['@/pages/user/activityDetail'], resolve)
+      component: (resolve) => require(['@/pages/activity/activityDetail'], resolve)
     },
     { // 活动报名成功
       path: '/activityPaySuccess/:id',
       name: 'activityPaySuccess',
-      component: (resolve) => require(['@/pages/user/activityPaySuccess'], resolve)
+      component: (resolve) => require(['@/pages/activity/activityPaySuccess'], resolve)
     },
     { // 完善资料
       path: '/PreviewData',

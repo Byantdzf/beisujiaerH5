@@ -1,11 +1,11 @@
 <template>
   <div id="user">
-    <div class="wrapper ff">
+    <div class="wrapper_user ff">
       <div class="avatar flo_l backCover" @click="routeToDetail('PreviewData')"  :style="{backgroundImage:'url(' + user.photo + ')'}"></div>
       <div class="name inline-block">
         <span class="font36 bold">{{user.name}}</span><br/>
         <span class="font26">
-          <img width="16" style="display:inline-block;margin-bottom: 2px;"  class="middle" src="http://images.ufutx.com/201904/02/6e9d7b41f9ff9ec9588d0a7f910deb02.png">
+          <img width="16" style="display:inline-block;margin-bottom: 4px;"  class="middle" src="http://images.ufutx.com/201904/15/45bfd2a6b4f2dd8bb227f6bafd8ca836.png">
           {{user.rank_name}}
         </span>
       </div>
@@ -25,7 +25,7 @@
       <group title=" " >
         <cell title="VIP办理" is-link>
           <!--<badge text="1"></badge>-->
-          <img slot="icon" width="20" class="icon" src="http://images.ufutx.com/201904/02/ff09a194b571b1fa88c7516af916b122.png">
+          <img slot="icon" width="20" class="item_icon" src="http://images.ufutx.com/201904/02/ff09a194b571b1fa88c7516af916b122.png">
           <span class="be" v-if="user.rank_deadline">{{user.rank_deadline}}到期</span>
         </cell>
       </group>
@@ -34,7 +34,7 @@
       <group title=" " >
         <cell title="实名认证" is-link >
           <!--<badge text="1"></badge>-->
-          <img slot="icon" width="20" class="icon" src="http://images.ufutx.com/201904/02/22ae44de7e489989752d4091d4e4bada.png">
+          <img slot="icon" width="20" class="item_icon" src="http://images.ufutx.com/201904/02/22ae44de7e489989752d4091d4e4bada.png">
         </cell>
       </group>
     </div>
@@ -42,12 +42,14 @@
       <group title=" ">
         <cell title="意见反馈" is-link>
           <!--<badge text="1"></badge>-->
-          <img slot="icon" width="20" class="icon" src="http://images.ufutx.com/201904/02/6b86b27ecd45bf9bdea13beff075b60f.png">
+          <img slot="icon" width="20" class="item_icon" src="http://images.ufutx.com/201904/02/6b86b27ecd45bf9bdea13beff075b60f.png">
         </cell>
       </group>
     </div>
     <!--{{count}}-->
-    <!--<button @click="onClick">ces</button>-->
+    <div class="text-center">
+      <div @click="onClick" class="outLogin color6 inline-block font28">退出登录</div>
+    </div>
   </div>
 </template>
 
@@ -70,7 +72,9 @@
     },
     data () {
       return {
-        user: {},
+        user: {
+          photo: 'https://images.ufutx.com/201904/15/6099fa31d31f5aa1f2c92986f45d3cfa.gif'
+        },
         notice_num: ''
       }
     },
@@ -100,8 +104,22 @@
         })
       },
       onClick () {
-        this.$store.dispatch('login')
-        this.$store.commit('increment')
+        let vm = this
+        vm.$vux.confirm.show({
+          // 组件除show外的属性
+          title: '提示',
+          content: '是否退出登录?',
+          dialogTransition: 'vux-dialog',
+          onCancel () {
+            console.log('取消')
+          },
+          onConfirm () {
+            localStorage.clear()
+            vm.$router.push({
+              name: 'register'
+            })
+          }
+        })
       }
     },
     mounted () {
@@ -115,7 +133,7 @@
   body{
     background: #f7f7f7 !important;
   }
-  .wrapper{
+  .wrapper_user{
     padding: 20px;
     .avatar{
       width: 130px;
@@ -153,37 +171,46 @@
         }
       }
     }
-  }
-  .maTop16{margin-top: 16px}
-  .editData{
-    padding: 8px 20px;
-    border-radius: 32px;
-    color: #35495e;
-    border: 1px solid #35495e;
-  }
-  .news{
-    margin-top: -26px;
-    position: relative;
-    img{
-      width: 56px;
-      height: 56px;
-      margin: 0 12px;
+    .maTop16{margin-top: 16px}
+    .editData{
+      padding: 8px 20px;
+      border-radius: 32px;
+      color: #35495e;
+      border: 1px solid #35495e;
     }
-    .dist{
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: red;
-      position: absolute;
-      right: 8px;
-      top: 0;
+    .news{
+      margin-top: -26px;
+      position: relative;
+      img{
+        width: 56px;
+        height: 56px;
+        margin: 0 12px;
+      }
+      .dist{
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: red;
+        position: absolute;
+        right: 8px;
+        top: 0;
+      }
     }
+  }
+  .outLogin{
+    box-shadow: 1px 1px 12px #c9c9c9;
+    border-radius: 12px;
+    margin: 80px auto;
+    /*letter-spacing: 2px;*/
+    padding: 14px 52px;
+    background-image: linear-gradient(-225deg, #FFFEFF 0%, #D7FFFE 100%);
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
   }
   .vux-label,.weui-cell__ft{
     font-size: 4vw;
   }
 
-  .icon {
+  .item_icon {
     display:block;
     margin-right: 20px;
   }

@@ -40,7 +40,7 @@
     data () {
       return {
         user: {},
-        avatar: '',
+        avatar: 'https://images.ufutx.com/201904/15/6099fa31d31f5aa1f2c92986f45d3cfa.gif',
         list: [],
         options: {
           getThumbBoundsFn (index) {
@@ -108,7 +108,7 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .whole{
     height: 100vh;
     background-color: #f0f3f5;

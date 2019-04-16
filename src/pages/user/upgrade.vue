@@ -21,12 +21,10 @@
       </div>
     </div>
     <div>
-      <div class="ic_vip">
-        <div class="box_vip" v-for="item,index in tabs">
-          <p class="cityLevel" :class="{active: tabIndex == item.id}" @click="tabItem(item.type, item.id)">{{item.name}}</p>
-        </div>
-      </div>
-      <hr class="hr"/>
+      <tab style="margin-top: 30px" class="text-center"  custom-bar-width="60px" >
+        <tab-item :selected="tabIndex == item.id" style="background: none;" @on-item-click="tabItem(item.type, item.id)" v-for="(item,index) in tabs" :key="index">{{item.name}}</tab-item>
+      </tab>
+      <!--<hr class="hr"/>-->
       <div class="ic_privilege">
         <p class="privilege font26">会员特权</p>
       </div>
@@ -79,236 +77,257 @@
 </template>
 
 <script>
-export default {
-  name: 'upgrade',
-  data () {
-    return {
-      tabs: [
-        {name: '市级VIP', id: 0, type: '市级'},
-        {name: '黄金VIP', id: 1, type: '黄金'},
-        {name: '钻石VIP', id: 2, type: '钻石'}
-      ],
-      tabIndex: 0,
-      type: '市级',
-      paas: localStorage.getItem('paas'),
-      user: {},
-      rank: {},
-      sub_ranks: [],
-      score: {}
-    }
-  },
-  methods: {
-    tabItem (type, index) {
-      this.type = type
-      this.tabIndex = index
-      this.getOrderList()
+  import {Tab, TabItem} from 'vux'
+
+  export default {
+    name: 'upgrade',
+    components: {
+      Tab,
+      TabItem
     },
-    conversion (id) {
-      let data = {
-        sub_rank_id: id
+    data () {
+      return {
+        tabs: [
+          {name: '市级VIP', id: 0, type: '市级'},
+          {name: '黄金VIP', id: 1, type: '黄金'},
+          {name: '钻石VIP', id: 2, type: '钻石'}
+        ],
+        tabIndex: 0,
+        type: '市级',
+        paas: localStorage.getItem('paas'),
+        user: {
+          avatar: 'https://images.ufutx.com/201904/15/6099fa31d31f5aa1f2c92986f45d3cfa.gif'
+        },
+        rank: {},
+        sub_ranks: [],
+        score: {}
       }
-      this.$http.post(`/official/member/recharge`, data).then(({data}) => {
-        if (data.wx_pay.mweb_url) {
-          // window.location.href = data.wx_pay.mweb_url + '?redirect_url=' + window.location.href
-          window.location.href = data.wx_pay.mweb_url
-        }
-      }).catch((error) => {
-        console.log(error)
-      })
     },
-    getOrderList () {
-      this.$http.get(`/official/ranks?paas=${this.paas}&name=${this.type}`).then(({data}) => {
-        this.user = data.user
-        this.rank = data.rank
-        this.score = data.score
-        this.sub_ranks = data.rank.sub_ranks
-      }).catch((error) => {
-        console.log(error)
-      })
+    methods: {
+      tabItem (type, index) {
+        this.type = type
+        this.tabIndex = index
+        this.getOrderList()
+      },
+      conversion (id) {
+        let data = {
+          sub_rank_id: id
+        }
+        this.$http.post(`/official/member/recharge`, data).then(({data}) => {
+          if (data.wx_pay.mweb_url) {
+            // window.location.href = data.wx_pay.mweb_url + '?redirect_url=' + window.location.href
+            window.location.href = data.wx_pay.mweb_url
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      getOrderList () {
+        this.$http.get(`/official/ranks?paas=${this.paas}&name=${this.type}`).then(({data}) => {
+          this.user = data.user
+          this.rank = data.rank
+          this.score = data.score
+          this.sub_ranks = data.rank.sub_ranks
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+    },
+    // created () {
+    //   this.getOrderList()
+    // },
+    mounted () {
+      this.getOrderList()
     }
-  },
-  // created () {
-  //   this.getOrderList()
-  // },
-  mounted () {
-    this.getOrderList()
   }
-}
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .upgrade{
     width: 100vw;
-    height: 100vh;
-    background-color: #f7f7f7;
-  }
-  .diamondPicture{
-    width: 100vw;
-    height: 190px;
-  }
-  .box_card{
-    width: 100vw;
-    text-align: center;
-  }
-  .card{
-    width: 328px;
-    height: 178px;
-    margin-top: -138px
-  }
-  .icon_diamond,.icon_noOpen{
-    width: 30px;
-  }
-  .head_portrait{
-    width: 100vw;
-    text-align: center;
-    margin-top: -236px;
-  }
-  .portrait{
-    width: 122px;
-    height: 122px;
-    border-radius: 50%;
-    background-color: #e9e9e9;
-    margin: auto;
-    position: relative;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  .ic_text,.ic_diamond{
-    font-size: 18px;
-  }
-  .ic_name{
-    max-width: 140px;
-  }
-  .portrait_name_diamond{
-    margin-bottom: 12px;
-  }
-  .ic_diamond{
-    margin-left: 4px;
-    color: #f56a22;
-  }
-  .ic_text{
-    color: #024261;
-  }
-  .dist{
-    height: 130px;
-  }
-  .icon_vip{
-    position: absolute;
-    left: 410px;
-    top: 90px
-  }
-  .ic_vip{
-    width: 100vw;
-    padding-top: 44px;
-    text-align: center;
-  }
-  .box_vip{
-    width: 32%;
-    display: inline-block;
-    text-align: center;
-  }
-  .cityLevel{
-    font-size: 26px;
-    display: inline-block;
-    font-weight: bold;
-    text-align: center;
-    padding-bottom: 20px;
-  }
-  .active{
-    color: #f56b25;
-    border-bottom: 4px solid #f56b25;
-  }
-  .hr{
-    margin-bottom: 30px;
-  }
-  .ic_privilege{
-    width: 100vw;
-    text-align: center;
-    position: relative;
-  }
-  .privilege{
-    position: relative;
-  }
-  .privilege:after, .privilege:before{
-    content: "";
-    width: 50px;
-    height: 2px;
-    position: absolute;
-    background-color: #cdcdcd;
-    top: 14px;
-    z-index: 1;
-    vertical-align: middle;
-  }
-  .privilege:after{
-    margin-left: 20px;
-  }
-  .privilege:before{
-    margin-left: -70px;
-  }
-  .box_privilege{
-    padding: 0 34px 30px 34px;
-  }
-  .privilege_introduce{
-    margin-top: 20px;
-    padding: 60px 0 60px 0;
-    border-radius: 12px;
-    box-shadow: 0 1px 32px #dedede;
-    text-align: center;
-  }
-  .membership, .addFriends, .exchangePrivilege{
-    display: inline-block;
-    width: 32%;
-    text-align: center;
-    line-height: 1.5;
-  }
-  .icon_membership{
-    width: 44px;
-  }
-  .icon_addFriends{
-    width: 53px;
-  }
-  .icon_exchangePrivilege{
-    width: 57px;
-  }
-  .explain{
-    padding: 0px 34px 0px 34px;
-  }
-  .ic_explain{
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0px 1px 32px #dedede;
-    color: #a9a9a9;
-    line-height: 1.8;
-  }
-  .box_bottom{
-    width: 100vw;
-    height: 105px;
-    background-color: #344a5d;
-    position: fixed;
-    bottom: 0px;
-  }
-  .month, .year{
-    width: 49%;
-    font-size: 34px;
-    color: #ffffff;
-    line-height: 105px;
-    position: relative;
-    text-align: center;
-    display: inline-block;
-  }
-  .month:after{
-    content: '';
+    /*height: 100vh;*/
     background-color: #ffffff;
-    width: 1px;
-    position: absolute;
-    height: 60px;
-    top: 26px;
-    z-index: 2;
-    right: 0;
-  }
-  .original{
-    font-size: 18px;
-    color: #ffffff;
-    text-decoration: line-through;
+    .diamondPicture{
+      width: 100vw;
+      height: 190px;
+    }
+    .box_card{
+      width: 100vw;
+      text-align: center;
+    }
+    .card{
+      width: 328px;
+      height: 178px;
+      margin-top: -138px
+    }
+    .icon_diamond,.icon_noOpen{
+      width: 30px;
+    }
+    .head_portrait{
+      width: 100vw;
+      text-align: center;
+      margin-top: -236px;
+    }
+    .portrait{
+      width: 122px;
+      height: 122px;
+      border-radius: 50%;
+      background-color: #e9e9e9;
+      margin: auto;
+      position: relative;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .ic_text,.ic_diamond{
+      font-size: 18px;
+    }
+    .ic_name{
+      max-width: 140px;
+    }
+    .portrait_name_diamond{
+      margin-bottom: 12px;
+    }
+    .ic_diamond{
+      margin-left: 4px;
+      color: #f56a22;
+    }
+    .ic_text{
+      color: #024261;
+    }
+    .dist{
+      height: 130px;
+    }
+    .icon_vip{
+      position: absolute;
+      left: 410px;
+      top: 90px
+    }
+    .ic_vip{
+      width: 100vw;
+      padding-top: 44px;
+      text-align: center;
+    }
+    .box_vip{
+      width: 32%;
+      display: inline-block;
+      text-align: center;
+    }
+    .cityLevel{
+      font-size: 26px;
+      display: inline-block;
+      font-weight: bold;
+      text-align: center;
+      padding-bottom: 20px;
+    }
+    .active{
+      color: #f56b25;
+      position: relative;
+      &:before{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        border-bottom: 6px solid #f56b25;
+        border-radius: 12px;
+      }
+    }
+    .hr{
+      margin-bottom: 30px;
+    }
+    .ic_privilege{
+      margin-top: 30px;
+      width: 100vw;
+      text-align: center;
+      position: relative;
+    }
+    .privilege{
+      position: relative;
+    }
+    .privilege:after, .privilege:before{
+      content: "";
+      width: 50px;
+      height: 2px;
+      position: absolute;
+      background-color: #cdcdcd;
+      top: 14px;
+      z-index: 1;
+      vertical-align: middle;
+    }
+    .privilege:after{
+      margin-left: 20px;
+    }
+    .privilege:before{
+      margin-left: -70px;
+    }
+    .box_privilege{
+      padding: 0 34px 30px 34px;
+    }
+    .privilege_introduce{
+      margin-top: 20px;
+      padding: 60px 0 60px 0;
+      border-radius: 12px;
+      box-shadow: 0 1px 32px #dedede;
+      text-align: center;
+    }
+    .membership, .addFriends, .exchangePrivilege{
+      display: inline-block;
+      width: 32%;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .icon_membership{
+      width: 44px;
+    }
+    .icon_addFriends{
+      width: 53px;
+    }
+    .icon_exchangePrivilege{
+      width: 57px;
+    }
+    .explain{
+      padding: 0px 34px 0px 34px;
+    }
+    .ic_explain{
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 1px 32px #dedede;
+      color: #a9a9a9;
+      line-height: 1.8;
+    }
+    .box_bottom{
+      width: 100vw;
+      height: 105px;
+      background-color: #344a5d;
+      position: fixed;
+      bottom: 0px;
+    }
+    .month, .year{
+      width: 49%;
+      font-size: 34px;
+      color: #ffffff;
+      line-height: 105px;
+      position: relative;
+      text-align: center;
+      display: inline-block;
+    }
+    .month:after{
+      content: '';
+      background-color: #ffffff;
+      width: 1px;
+      position: absolute;
+      height: 60px;
+      top: 26px;
+      z-index: 2;
+      right: 0;
+    }
+    .original{
+      font-size: 18px;
+      color: #ffffff;
+      text-decoration: line-through;
+    }
+    .vux-tab{
+      background-color: none;
+    }
   }
 </style>
