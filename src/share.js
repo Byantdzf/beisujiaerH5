@@ -1,5 +1,5 @@
 import '../src/config/api'
-import wx from 'weixin-jsapi'
+import wx from 'weixin-js-sdk'
 
 exports.install = function (Vue, options) {
   Vue.prototype.$shareList = function (imgUrl, link, desc, title) {
