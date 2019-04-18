@@ -13,6 +13,7 @@ exports.install = function (Vue, options) {
       signature: config.signature, // 签名
       jsApiList: [
         // 所有要调用的 API 都要加到这个列表中
+
         'onMenuShareTimeline', // 分享到朋友圈接口
         'onMenuShareAppMessage', //  分享到朋友接口
         'onMenuShareQQ', // 分享到QQ接口

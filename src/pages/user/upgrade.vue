@@ -8,15 +8,11 @@
         </div>
         <div class="head_portrait">
           <div class="portrait_name_diamond">
-            <div class="portrait"  :style="{backgroundImage:'url(' + user.avatar + ')'}"></div>
+            <div class="portrait backCover " :class="user.rank_id > 0?'icon_diamond':'icon_noOpen'"  :style="{backgroundImage:'url(' + user.avatar + ')'}"></div>
             <p class="ic_name colorff font34 ellipsis_1 inline-block">{{user.name}}</p>
             <span class="ic_diamond">{{user.rank_name}}VIP</span>
           </div>
           <p class="ic_text">成为VIP，拥有尊享特权</p>
-          <div class="icon_vip">
-            <img class="icon_diamond" v-if="user.rank_id > 0" src="http://images.ufutx.com/201904/08/766edb1da9aacbc963c9dde4d669e123.png" alt="">
-            <img class="icon_noOpen" v-else src="http://images.ufutx.com/201904/08/e4ff9dc96711210dcde89f13d63ccee8.png" alt="">
-          </div>
         </div>
       </div>
     </div>
@@ -208,8 +204,33 @@
       height: 178px;
       margin-top: -138px
     }
-    .icon_diamond,.icon_noOpen{
-      width: 30px;
+    .icon_diamond{
+      &:before{
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 30px;
+        height: 30px;
+        background-image: url("http://images.ufutx.com/201904/08/766edb1da9aacbc963c9dde4d669e123.png");
+        background-size: cover;
+        background-position-x: center;
+        background-repeat: no-repeat;
+      }
+    }
+    .icon_noOpen{
+      &:before{
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 30px;
+        height: 30px;
+        background-image: url("http://images.ufutx.com/201904/08/e4ff9dc96711210dcde89f13d63ccee8.png");
+        background-size: cover;
+        background-position-x: center;
+        background-repeat: no-repeat;
+      }
     }
     .head_portrait{
       width: 100vw;
@@ -225,6 +246,7 @@
       position: relative;
       background-repeat: no-repeat;
       background-size: cover;
+      position: relative;
     }
     .ic_text,.ic_diamond{
       font-size: 18px;
@@ -234,6 +256,7 @@
     }
     .portrait_name_diamond{
       margin-bottom: 12px;
+      position: relative;
     }
     .ic_diamond{
       margin-left: 4px;
@@ -246,9 +269,9 @@
       height: 130px;
     }
     .icon_vip{
-      position: absolute;
-      left: 410px;
-      top: 90px
+      /*position: absolute;*/
+      /*left: 410px;*/
+      /*top: 90px*/
     }
     .ic_vip{
       width: 100vw;
