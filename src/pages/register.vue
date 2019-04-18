@@ -107,11 +107,12 @@
 <style lang="less" scoped>
   body {
     .wrapper {
-      width: 100%;
+      width: 100vw;
       height: 100vh;
       background: #1a1a1a;
-      background-size: contain;
+      background-size: cover;
       background-repeat: no-repeat;
+      background-position-x: center;
       background-image: url('http://images.ufutx.com/201903/27/eab72e299990c7264ed4385556e471b6.jpeg');
       input {
         width: 488px;
@@ -122,7 +123,7 @@
         margin-top: 20px;
       }
       .center{
-        padding-top: 300px;
+        padding-top: 340px;
       }
       .mobile {
         padding: 0 50px 0 76px;

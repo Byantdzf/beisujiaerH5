@@ -165,6 +165,59 @@
       //   })
       // }
     }
+    // created () {
+    //   function isWeiXin () {
+    //     var ua = window.navigator.userAgent.toLowerCase()
+    //     if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+    //       return true
+    //     } else {
+    //       return false
+    //     }
+    //   }
+    //
+    //   if (!isWeiXin()) {
+    //     return
+    //   }
+    //   // this.$wechat.config({
+    //   //   debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    //   //   appId: '', // 必填，公众号的唯一标识
+    //   //   timestamp: , // 必填，生成签名的时间戳
+    //   //   nonceStr: '', // 必填，生成签名的随机串
+    //   //   signature: '',// 必填，签名，见附录1
+    //   //   jsApiList: [
+    //   //     'checkJsApi',
+    //   //     'onMenuShareTimeline',
+    //   //     'onMenuShareAppMessage',
+    //   //     'onMenuShareQQ'
+    //   //   ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    //   // });
+    //   this.$wechat.ready(function () {
+    //     var shareData = {
+    //       title: document.title,
+    //       desc: getDesc(),
+    //       link: res.url,
+    //       imgUrl: getImage()
+    //     };
+    //     wx.onMenuShareAppMessage(shareData);
+    //     wx.onMenuShareTimeline(shareData);
+    //     wx.onMenuShareQQ(shareData);
+    //   });
+    //   this.$wechat.error(function (res) {
+    //     alert(res.errMsg);  // 正式环境记得关闭啊！！！！
+    //   });
+    //   function getDesc() {
+    //     var meta = document.getElementsByTagName("meta");
+    //     for (var i=0;i<meta.length;i++){
+    //       if(typeof meta[i].name!="undefined"&&meta[i].name.toLowerCase()=="description"){
+    //         return meta[i].content;
+    //       }
+    //     }
+    //   };
+    //   // 获取图片
+    //   function getImage() {
+    //     return 'http://'+location.host+'/images/logo.png';
+    //   };
+    // }
   }
 </script>
 

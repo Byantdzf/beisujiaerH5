@@ -262,7 +262,7 @@
     }
   }
   .head_picture{
-    width: 750px;
+    width: 100%;
   }
   .SummitDetails{
     width: 714px;
@@ -350,6 +350,7 @@
     position: fixed;
     bottom: 0;
     background: #ffffff;
+    width: 100%;
   }
   .home_and_share{
     width: 264px;
