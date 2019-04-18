@@ -10,7 +10,7 @@
     </div>
     <div class="bc_detail">
       <span class="name bold">{{information.name}}</span>
-      <img src="http://images.ufutx.com/201904/02/6e9d7b41f9ff9ec9588d0a7f910deb02.png" alt="" class="bc_icon">
+      <img src="http://images.ufutx.com/201904/15/45bfd2a6b4f2dd8bb227f6bafd8ca836.png" alt="" class="bc_icon">
       <span class="font20">{{information.rank_name}}</span>
       <div class="bc_love flo_r">
         <img src="http://images.ufutx.com/201904/03/76d6a32c1cb5e51f63de5e059624eb27.png" @click="attention"
@@ -171,8 +171,8 @@
       }
 
       .bc_icon {
-        width: 32px;
-        margin: 0 -2px 0 16px;
+        width: 36px;
+        margin: 0 -4px -4px 12px;
       }
 
       .bc_love {

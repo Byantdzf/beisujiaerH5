@@ -69,7 +69,7 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .box_background{
     width: 100vw;
     height: 100vh;

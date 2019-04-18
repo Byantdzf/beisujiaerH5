@@ -70,7 +70,7 @@
   }
 </script>
 
-<style  lang="less">
+<style  lang="less" scoped>
   body{
     background: #f7f7f7 !important;
   }

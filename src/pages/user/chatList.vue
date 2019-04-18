@@ -78,7 +78,7 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .introducer{
     width: 690px;
     padding: 26px 30px 0px 30px;

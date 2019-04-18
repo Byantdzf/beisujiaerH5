@@ -1,8 +1,8 @@
 <template>
   <div class="activiyDetails">
     <img class="head_picture" :src="information.poster" alt="">
-    <img src="http://images.ufutx.com/201904/12/002f37bc7664ed2ad996b97188f33a87.gif" v-if="members.length>0" alt="" class="bc_icon">
-    <div class="menberList" v-if="members.length>0">
+    <!--<img src="http://images.ufutx.com/201904/12/002f37bc7664ed2ad996b97188f33a87.gif" v-if="members.length>0" alt="" class="bc_icon">-->
+    <div class="menberList ellipsis_1" v-if="members.length>0">
       <marquee>
         <marquee-item v-for="(item,index) in members" :key="index" @click.native="onClick(index)" class="align-middle">
           {{item.name}} 报名了
@@ -244,8 +244,9 @@
   .activiyDetails{
     position: relative;
     .menberList{
+      max-width: 300px;
       background: rgba(0,0,0,0.6);
-      padding: 8px 22px;
+      padding: 8px 24px 8px 12px;
       color: white;
       border-radius: 12px;
       position: relative;
@@ -261,7 +262,7 @@
     }
   }
   .head_picture{
-    width: 750px;
+    width: 100%;
   }
   .SummitDetails{
     width: 714px;
@@ -349,6 +350,7 @@
     position: fixed;
     bottom: 0;
     background: #ffffff;
+    width: 100%;
   }
   .home_and_share{
     width: 264px;

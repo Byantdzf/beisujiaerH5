@@ -7,7 +7,8 @@
             {{item.created_at}}
             <img src="../assets/icon/go.png" alt="icon" class="icon flo_r">
           </div>
-          <div class="image" v-bind:style="{backgroundImage:'url(' + item.poster + ')'}" ></div>
+           <!--<x-img class="image" :src="item.poster" default-src=""></x-img>-->
+          <div class="image backCover" v-bind:style="{backgroundImage:'url(' + item.poster + ')'}" ></div>
           <p class="font30 color6 name">{{item.theme}}</p>
         <!--</router-link>-->
       </div>

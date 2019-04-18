@@ -188,7 +188,7 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   @import '~vux/src/styles/weui/widget/weui-uploader/index.less';
 
   .vux-upload {
