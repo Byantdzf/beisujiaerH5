@@ -2,7 +2,7 @@ import '../src/config/api'
 import wx from 'weixin-jsapi'
 
 exports.install = function (Vue, options) {
-  Vue.prototype.shareList = function (imgUrl, link, desc, title) {
+  Vue.prototype.$shareList = function (imgUrl, link, desc, title) {
     // 分享
     var url = encodeURIComponent(location.href.split('#')[0])
     Vue.http.get('official/js/config', {url: url}).then(function (data) {
@@ -67,7 +67,7 @@ exports.install = function (Vue, options) {
         // config信息验证失败会执行error函数，如签名过期导致验证失败，
         // 具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，
         // 对于SPA可以在这里更新签名。
-        alert('分享失败')
+        // alert('分享失败')
       })
     }, function (res) {
       alert(res)

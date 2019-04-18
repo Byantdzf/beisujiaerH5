@@ -12,7 +12,9 @@ import '../src/config/wxConfig'
 import md5 from 'js-md5'
 import {$toastWarn} from './config/util'
 import share from './share'
+import wxPay from './wxPay'
 Vue.use(share)
+Vue.use(wxPay)
 Vue.prototype.$md5 = md5
 FastClick.attach(document.body)
 require('es6-promise').polyfill()
@@ -49,17 +51,25 @@ router.afterEach((to) => {
     localStorage.setItem('paas', store.state.route.query.paas)
   }
 })
-Vue.prototype.$method = (url) => {
+Vue.prototype.$href = (url) => {
   if (!url) {
     $toastWarn('暂无详情链接')
     return
   }
   window.location.href = url
 }
+// Vue.prototype.$isWeiXin = () => {
+//   // var ua = window.navigator.userAgent.toLowerCase()
+//   // if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+//   //   return true
+//   // } else {
+//   //   return false
+//   // }
+// }
 
 FastClick.attach(document.body)
 Vue.config.productionTip = false
-console.log(Vue.wechat)
+// console.log(Vue.wechat)
 /* eslint-disable no-new */
 new Vue({
   router,

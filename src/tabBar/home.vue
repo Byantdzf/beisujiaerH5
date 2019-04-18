@@ -5,7 +5,7 @@
       <div style="background: #35495e;padding: 10px;padding-bottom: 0px;" class="font30">
         <swiper auto height="30px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false" >
           <swiper-item v-for="item in announcements" :key="item.id">
-            <p class="ellipsis_1" @click="$method(item.type == 'OF'?item.path:'#')">
+            <p class="ellipsis_1" @click="$href(item.type == 'OF'?item.path:'#')">
             <img src="http://images.ufutx.com/201904/15/356b40bdf7ff0172414c559449e14ee0.png" alt="" width="22px" class="announcementIcon">
             {{item.title}}
             </p>
@@ -116,8 +116,9 @@
       }
     },
     mounted () {
-      let image = 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1467433187,2373863946&fm=27&gp=0.jpg'
-      this.shareList(image, 'http://localhost:8080/#/', '测试', '标题')
+      // let image = 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1467433187,2373863946&fm=27&gp=0.jpg'
+      // this.$shareList(image, 'http://localhost:8080/#/', '测试', '标题')
+      // console.log(this.$isWeiXin(), '环境')
       // console.log(this.$store.state.intercept)
       if (this.$store.state.intercept === 'true') {
         return false
