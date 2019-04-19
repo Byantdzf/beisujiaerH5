@@ -116,7 +116,7 @@
       }
     },
     mounted () {
-      // let image = 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1467433187,2373863946&fm=27&gp=0.jpg'
+      let image = 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1467433187,2373863946&fm=27&gp=0.jpg'
       this.$shareList(image, 'http://localhost:8080/#/', '测试', '标题')
       // console.log(this.$isWeiXin(), '环境')
       // console.log(this.$store.state.intercept)
