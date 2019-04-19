@@ -74,6 +74,7 @@
 
 <script>
   import {Tab, TabItem} from 'vux'
+  import {$toastWarn, $toastSuccess} from '../../config/util'
 
   export default {
     name: 'upgrade',
@@ -144,7 +145,7 @@
               signType: wxconfig.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
               paySign: wxconfig.paySign, // 支付签名
               success: function (res) {
-                console.log('支付成功')
+                $toastSuccess('支付成功')
                 // that.$post({url: `${service.orderpay}/${that.trade_no}/v2`}, {
                 //   success: ({code, data}) => {
                 //     that.$Toast_success('支付成功')
@@ -159,7 +160,7 @@
                 // })
               },
               fail: function (res) {
-                alert('取消支付')
+                $toastWarn('取消支付')
               }
             })
           }
