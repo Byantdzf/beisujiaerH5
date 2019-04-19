@@ -115,6 +115,7 @@
         this.$http.get(`/official/activities/${this.id}`).then(({data}) => {
           this.information = data
           this.members = data.members
+          this.$shareList(data.poster, location.href, data.theme, localStorage.getItem('paas'))
         }).catch((error) => {
           console.log(error)
         })
