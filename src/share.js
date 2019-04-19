@@ -10,7 +10,7 @@ exports.install = function (Vue, options) {
     let data = {url: url}
     vm.$http.post(`/official/js/config`, data).then(({data}) => {
       vm.$wechat.config({
-        debug: true, // true:调试时候弹窗
+        debug: false, // true:调试时候弹窗
         appId: data.appId, // 微信appid
         timestamp: data.timestamp, // 时间戳
         nonceStr: data.nonceStr, // 随机字符串
