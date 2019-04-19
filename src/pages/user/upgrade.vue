@@ -164,31 +164,27 @@
             //     $toastWarn('取消支付')
             //   }
             // })
-            if (localStorage.getItem('official_openid')) {
-              WeixinJSBridge.invoke(
-                'getBrandWCPayRequest', {
-                  'appId': wxconfig.appId,
-                  'timeStamp': wxconfig.timestamp,
-                  'nonceStr': wxconfig.nonceStr,
-                  'package': wxconfig.package,
-                  'signType': wxconfig.signType,
-                  'paySign': wxconfig.paySign
-                },
-                function (res) {
-                  if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                    $toastSuccess('微信支付成功')
-                    that.$router.replace({name: 'fullOrder', query: {id: '2'}})
-                  } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
-                    $toastWarn('用户取消支付')
-                    that.$router.replace({name: 'fullOrder', query: {id: '1'}})
-                  } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
-                    $toastWarn('网络异常，请重试')
-                  }
+            WeixinJSBridge.invoke(
+              'getBrandWCPayRequest', {
+                'appId': wxconfig.appId,
+                'timeStamp': wxconfig.timestamp,
+                'nonceStr': wxconfig.nonceStr,
+                'package': wxconfig.package,
+                'signType': wxconfig.signType,
+                'paySign': wxconfig.paySign
+              },
+              function (res) {
+                if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                  $toastSuccess('微信支付成功')
+                  that.$router.replace({name: 'fullOrder', query: {id: '2'}})
+                } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
+                  $toastWarn('用户取消支付')
+                  that.$router.replace({name: 'fullOrder', query: {id: '1'}})
+                } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
+                  $toastWarn('网络异常，请重试')
                 }
-              )
-            } else {
-              window.location.href = 'http://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + '&type=rank'
-            }
+              }
+            )
           }
         }).catch((error) => {
           console.log(error)
@@ -200,6 +196,7 @@
           this.rank = data.rank
           this.score = data.score
           this.sub_ranks = data.rank.sub_ranks
+          localStorage.setItem('official_openid', data.user.official_openid)
         }).catch((error) => {
           console.log(error)
         })

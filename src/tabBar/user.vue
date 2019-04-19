@@ -80,10 +80,20 @@
     },
     methods: {
       routeToDetail (name, type) {
-        if (type) {
-          this.$router.push({name: name, params: {type: type}})
+        if (localStorage.getItem('official_openid')) {
+          if (type) {
+            this.$router.push({name: name, params: {type: type}})
+          } else {
+            this.$router.push({name: name})
+          }
         } else {
-          this.$router.push({name: name})
+          if (name === 'upgrade') {
+            window.location.href = 'http://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + '&type=rank'
+          } else if (name === 'authentication') {
+            window.location.href = 'http://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + '&type=approve'
+          } else {
+            this.$router.push({name: name, params: {type: type}})
+          }
         }
       },
       getMessageNum () {
