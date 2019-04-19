@@ -150,9 +150,17 @@
       }
     },
     mounted () {
-      let image = 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1467433187,2373863946&fm=27&gp=0.jpg'
-      let url = location.href
-      this.$shareList(image, url, '测试', '标题')
+      // let image = 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1467433187,2373863946&fm=27&gp=0.jpg'
+      // let url = location.href
+      let paas = localStorage.getItem('paas')
+      let vm = this
+      vm.$http.get(`/official/paas?paas=${paas}`).then(({data}) => {
+        this.$shareList(data.logo, url, data.name, data.title)
+        localStorage.setItem('logo', data.logo)
+      }).catch((error) => {
+        console.log(error)
+      })
+
       this.chat_num = localStorage.getItem('chat_num')
       this.notice_num = localStorage.getItem('notice_num')
       this.handler = () => {

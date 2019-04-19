@@ -94,27 +94,25 @@ function wxInit (res, imgUrl, link, desc, title) {
       link: links, // 分享链接
       imgUrl: imgUrl, // 分享图标
       success: function () {
-        alert('分享成功')
+        console.log('分享成功')
       },
       cancel: function () {
-        alert('分享失败')
+        console.log('分享失败')
       }
     })
     // 微信分享菜单测试
-    // wx.onMenuShareTimeline({
-    //   title: title, // 分享标题
-    //   desc: desc, // 分享描述
-    //   link: links, // 分享链接
-    //   imgUrl: imgUrl, // 分享图标
-    //   success: function () {
-    //     alert('分享成功')
-    //     _this.isShow = true
-    //   },
-    //   cancel: function () {
-    //     alert('分享失败')
-    //     _this.isShow = true
-    //   }
-    // })
+    wx.onMenuShareTimeline({
+      title: title, // 分享标题
+      desc: desc, // 分享描述
+      link: links, // 分享链接
+      imgUrl: imgUrl, // 分享图标
+      success: function () {
+        console.log('分享成功')
+      },
+      cancel: function () {
+        console.log('分享失败')
+      }
+    })
   })
   wx.error(function (err) {
     alert(JSON.stringify(err))
