@@ -86,7 +86,7 @@ function wxInit (res) {
   let desc = '了解更多，请关注“晓峰科技”公众号'
   let imgUrl = 'http://wx.qlogo.cn/mmhead/Q3auHgzwzM4soO2NoID1uZPHibOVgkJoPoaelibibF3GagvW2o43wRASA/0'
   wx.config({
-    debug: false,
+    debug: true,
     appId: res.appId,
     timestamp: res.timestamp,
     nonceStr: res.nonceStr,
