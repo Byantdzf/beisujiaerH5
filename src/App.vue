@@ -151,15 +151,19 @@
     },
     mounted () {
       // let image = 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1467433187,2373863946&fm=27&gp=0.jpg'
-      // let url = location.href
+      let url = location.href
       let paas = localStorage.getItem('paas')
       let vm = this
-      vm.$http.get(`/official/paas?paas=${paas}`).then(({data}) => {
-        this.$shareList(data.logo, url, data.name, data.title)
-        localStorage.setItem('logo', data.logo)
-      }).catch((error) => {
-        console.log(error)
-      })
+      if (!localStorage.getItem('logo')) {
+        vm.$http.get(`/official/paas?paas=${paas}`).then(({data}) => {
+          this.$shareList(data.logo, url, data.name, data.title)
+          localStorage.setItem('logo', data.logo)
+        }).catch((error) => {
+          console.log(error)
+        })
+      } else {
+        this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '福恋家庭幸福平台', '共享平台')
+      }
 
       this.chat_num = localStorage.getItem('chat_num')
       this.notice_num = localStorage.getItem('notice_num')
