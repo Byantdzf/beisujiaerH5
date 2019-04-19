@@ -164,27 +164,31 @@
             //     $toastWarn('取消支付')
             //   }
             // })
-            WeixinJSBridge.invoke(
-              'getBrandWCPayRequest', {
-                'appId': wxconfig.appId,
-                'timeStamp': wxconfig.timestamp,
-                'nonceStr': wxconfig.nonceStr,
-                'package': wxconfig.package,
-                'signType': wxconfig.signType,
-                'paySign': wxconfig.paySign
-              },
-              function (res) {
-                if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                  $toastSuccess('微信支付成功')
-                  that.$router.replace({name: 'fullOrder', query: {id: '2'}})
-                } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
-                  $toastWarn('用户取消支付')
-                  that.$router.replace({name: 'fullOrder', query: {id: '1'}})
-                } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
-                  $toastWarn('网络异常，请重试')
+            if (localStorage.getItem('openid')) {
+              WeixinJSBridge.invoke(
+                'getBrandWCPayRequest', {
+                  'appId': wxconfig.appId,
+                  'timeStamp': wxconfig.timestamp,
+                  'nonceStr': wxconfig.nonceStr,
+                  'package': wxconfig.package,
+                  'signType': wxconfig.signType,
+                  'paySign': wxconfig.paySign
+                },
+                function (res) {
+                  if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                    $toastSuccess('微信支付成功')
+                    that.$router.replace({name: 'fullOrder', query: {id: '2'}})
+                  } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
+                    $toastWarn('用户取消支付')
+                    that.$router.replace({name: 'fullOrder', query: {id: '1'}})
+                  } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
+                    $toastWarn('网络异常，请重试')
+                  }
                 }
-              }
-            )
+              )
+            } else {
+              window.location.href = 'http://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile')
+            }
           }
         }).catch((error) => {
           console.log(error)
