@@ -151,7 +151,7 @@
     },
     mounted () {
       let image = 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1467433187,2373863946&fm=27&gp=0.jpg'
-      let url = location.href.split('#')[0]
+      let url = location.href
       this.$shareList(image, url, '测试', '标题')
       this.chat_num = localStorage.getItem('chat_num')
       this.notice_num = localStorage.getItem('notice_num')
