@@ -167,7 +167,7 @@
             WeixinJSBridge.invoke(
               'getBrandWCPayRequest', {
                 'appId': wxconfig.appId,
-                'timeStamp':wxconfig.timeStamp,
+                'timeStamp': wxconfig.timestamp,
                 'nonceStr': wxconfig.nonceStr,
                 'package': wxconfig.package,
                 'signType': wxconfig.signType,
@@ -184,7 +184,7 @@
                   $toastWarn('网络异常，请重试')
                 }
               }
-            );
+            )
           }
         }).catch((error) => {
           console.log(error)
