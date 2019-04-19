@@ -6,9 +6,10 @@ exports.install = function (Vue, options) {
     // 分享
     let vm = this
     console.log(this)
-    // let url = encodeURIComponent(location.href.split('#')[0])
-    vm.$http.get(`/official/js/config`).then(({data}) => {
-      wx.config({
+    let url = encodeURIComponent(location.href.split('#')[0])
+    let data = {url: url}
+    vm.$http.post(`/official/js/config`, data).then(({data}) => {
+      vm.$wechat.config({
         debug: true, // true:调试时候弹窗
         appId: data.appId, // 微信appid
         timestamp: data.timestamp, // 时间戳
@@ -22,7 +23,7 @@ exports.install = function (Vue, options) {
           'onMenuShareWeibo' // 分享到微博接口
         ]
       })
-      wx.checkJsApi({
+      vm.$wechat.checkJsApi({
         jsApiList: [
           // 所有要调用的 API 都要加到这个列表中
           'onMenuShareTimeline', // 分享到朋友圈接口
@@ -34,7 +35,7 @@ exports.install = function (Vue, options) {
         }
       })
 
-      wx.ready(function () {
+      vm.$wechat.ready(function () {
         // 微信分享的数据
         var shareData = {
           imgUrl: imgUrl, // 分享显示的缩略图地址
@@ -61,7 +62,7 @@ exports.install = function (Vue, options) {
         wx.onMenuShareQQ(shareData)
         wx.onMenuShareWeibo(shareData)
       })
-      wx.error(function (res) {
+      vm.$wechat.error(function (res) {
         // config信息验证失败会执行error函数，如签名过期导致验证失败，
         // 具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，
         // 对于SPA可以在这里更新签名。
