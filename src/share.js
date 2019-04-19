@@ -79,7 +79,7 @@ function wxInit (res) {
   let url = window.location.href.split('?')[0] // 获取锚点之前的链接
   console.log(url)
   // let links = url+'#/Food/' + this.$route.params.id;
-  let links = url + '#/product/productDetails?pid=' + _this.$route.query.pid
+  let links = url + '#/product/productDetails?pid='
   console.log(links)
   let title = '晓峰科技'
   let desc = '了解更多，请关注“晓峰科技”公众号'
