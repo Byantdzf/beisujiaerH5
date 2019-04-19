@@ -154,15 +154,21 @@
       let url = location.href
       let paas = localStorage.getItem('paas')
       let vm = this
-      if (!localStorage.getItem('logo')) {
+      if (!localStorage.getItem('logo') || localStorage.getItem('logo') === null) {
         vm.$http.get(`/official/paas?paas=${paas}`).then(({data}) => {
-          this.$shareList(data.logo, url, data.name, data.title)
-          localStorage.setItem('logo', data.logo)
+          if (data) {
+            this.$shareList(data.logo, url, data.title, data.name)
+            if (data.logo) {
+              localStorage.setItem('logo', data.logo)
+            }
+          } else {
+            this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '共享平台', '福恋家庭幸福平台')
+          }
         }).catch((error) => {
           console.log(error)
         })
       } else {
-        this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '福恋家庭幸福平台', '共享平台')
+        this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '共享平台', '福恋家庭幸福平台')
       }
 
       this.chat_num = localStorage.getItem('chat_num')
