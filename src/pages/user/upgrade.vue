@@ -137,32 +137,54 @@
             //   }
             // );
           } else {
-            this.$wechat.chooseWXPay({
-              appId: wxconfig.appId,
-              timeStamp: wxconfig.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-              nonceStr: wxconfig.nonceStr, // 支付签名随机串，不长于 32 位
-              package: wxconfig.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-              signType: wxconfig.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-              paySign: wxconfig.paySign, // 支付签名
-              success: function (res) {
-                $toastSuccess('支付成功')
-                // that.$post({url: `${service.orderpay}/${that.trade_no}/v2`}, {
-                //   success: ({code, data}) => {
-                //     that.$Toast_success('支付成功')
-                //     setTimeout(() => {
-                //       that.$gotoTab('/pages/tabBar/user')
-                //     }, 1200)
-                //   },
-                //   fail: ({code, data}) => {
-                //   },
-                //   complete: () => {
-                //   }
-                // })
+            console.log(wxconfig.appId)
+            // this.$wechat.chooseWXPay({
+            //   appId: wxconfig.appId,
+            //   timeStamp: wxconfig.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+            //   nonceStr: wxconfig.nonceStr, // 支付签名随机串，不长于 32 位
+            //   package: wxconfig.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+            //   signType: wxconfig.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+            //   paySign: wxconfig.paySign, // 支付签名
+            //   success: function (res) {
+            //     $toastSuccess('支付成功')
+            //     // that.$post({url: `${service.orderpay}/${that.trade_no}/v2`}, {
+            //     //   success: ({code, data}) => {
+            //     //     that.$Toast_success('支付成功')
+            //     //     setTimeout(() => {
+            //     //       that.$gotoTab('/pages/tabBar/user')
+            //     //     }, 1200)
+            //     //   },
+            //     //   fail: ({code, data}) => {
+            //     //   },
+            //     //   complete: () => {
+            //     //   }
+            //     // })
+            //   },
+            //   fail: function (res) {
+            //     $toastWarn('取消支付')
+            //   }
+            // })
+            WeixinJSBridge.invoke(
+              'getBrandWCPayRequest', {
+                'appId': wxconfig.appId,
+                'timeStamp':wxconfig.timeStamp,
+                'nonceStr': wxconfig.nonceStr,
+                'package': wxconfig.package,
+                'signType': wxconfig.signType,
+                'paySign': wxconfig.paySign
               },
-              fail: function (res) {
-                $toastWarn('取消支付')
+              function (res) {
+                if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                  $toastSuccess('微信支付成功')
+                  that.$router.replace({name: 'fullOrder', query: {id: '2'}})
+                } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
+                  $toastWarn('用户取消支付')
+                  that.$router.replace({name: 'fullOrder', query: {id: '1'}})
+                } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
+                  $toastWarn('网络异常，请重试')
+                }
               }
-            })
+            );
           }
         }).catch((error) => {
           console.log(error)
