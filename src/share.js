@@ -108,20 +108,20 @@ function wxInit (res) {
       }
     })
     // 微信分享菜单测试
-    wx.onMenuShareTimeline({
-      title: title, // 分享标题
-      desc: desc, // 分享描述
-      link: links, // 分享链接
-      imgUrl: imgUrl, // 分享图标
-      success: function () {
-        alert('分享成功')
-        _this.isShow = true
-      },
-      cancel: function () {
-        alert('分享失败')
-        _this.isShow = true
-      }
-    })
+    // wx.onMenuShareTimeline({
+    //   title: title, // 分享标题
+    //   desc: desc, // 分享描述
+    //   link: links, // 分享链接
+    //   imgUrl: imgUrl, // 分享图标
+    //   success: function () {
+    //     alert('分享成功')
+    //     _this.isShow = true
+    //   },
+    //   cancel: function () {
+    //     alert('分享失败')
+    //     _this.isShow = true
+    //   }
+    // })
   })
   wx.error(function (err) {
     alert(JSON.stringify(err))
