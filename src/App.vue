@@ -156,6 +156,7 @@
       let vm = this
       if (!localStorage.getItem('logo') || localStorage.getItem('logo') === null) {
         vm.$http.get(`/official/paas?paas=${paas}`).then(({data}) => {
+          localStorage.setItem('paas', data.title)
           if (data) {
             this.$shareList(data.logo, url, data.title, data.name)
             if (data.logo) {

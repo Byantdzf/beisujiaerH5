@@ -79,8 +79,17 @@
       }
     },
     methods: {
+      isWeiXin () {
+        var ua = window.navigator.userAgent.toLowerCase()
+        // console.log(ua) // mozilla/5.0 (iphone; cpu iphone os 9_1 like mac os x) applewebkit/601.1.46 (khtml, like gecko)version/9.0 mobile/13b143 safari/601.1
+        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+          return true
+        } else {
+          return false
+        }
+      },
       routeToDetail (name, type) {
-        if (localStorage.getItem('official_openid')) {
+        if (localStorage.getItem('official_openid') || this.isWeiXin() === false) {
           if (type) {
             this.$router.push({name: name, params: {type: type}})
           } else {
@@ -135,6 +144,7 @@
     mounted () {
       console.log(this.$store.state.route)
       this.getUser()
+      console.log(this.isWeiXin())
     }
   }
 </script>
