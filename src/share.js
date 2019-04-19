@@ -164,9 +164,6 @@ function wxInit (res) {
         // 用户取消分享后执行的回调函数
       }
     })
-    wx.error(function (res) {
-      alert(res.errMsg)
-    })
   })
   wx.error(function (err) {
     alert(JSON.stringify(err))
