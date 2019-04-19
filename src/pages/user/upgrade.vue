@@ -187,7 +187,7 @@
                 }
               )
             } else {
-              window.location.href = 'http://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile')
+              window.location.href = 'http://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + '&type=rank'
             }
           }
         }).catch((error) => {
