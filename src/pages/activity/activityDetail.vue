@@ -76,7 +76,7 @@
 </template>
 
 <script>
-  import {$toastText, $toastWarn} from '../../config/util'
+  import {$toastWarn} from '../../config/util'
   import { TransferDom, Marquee, MarqueeItem, Popup } from 'vux'
 
   export default {
@@ -123,7 +123,10 @@
         this.$router.push({name: 'home'})
       },
       share () {
-        $toastText('未设置分享')
+        // $toastText('未设置分享')
+        let image = 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1467433187,2373863946&fm=27&gp=0.jpg'
+        let url = location.href.split('#')[0]
+        this.$shareList(image, url, '测试', '标题')
       },
       confirmPay () { // 报名
         this.showModal = !this.showModal

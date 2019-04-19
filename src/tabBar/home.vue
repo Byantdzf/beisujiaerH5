@@ -116,10 +116,6 @@
       }
     },
     mounted () {
-      let image = 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1467433187,2373863946&fm=27&gp=0.jpg'
-      let url = location.href.split('#')[0]
-      this.$shareList(image, url, '测试', '标题')
-      // console.log(this.$isWeiXin(), '环境')
       // console.log(this.$store.state.intercept)
       if (this.$store.state.intercept === 'true') {
         return false
