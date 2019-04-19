@@ -6,7 +6,8 @@ exports.install = function (Vue, options) {
     // 分享
     let vm = this
     console.log(this)
-    let url = encodeURIComponent(location.href.split('#')[0])
+    // let url = encodeURIComponent(location.href.split('#')[0])
+    let url = location.href.split('#').toString()
     let data = {url: url}
     vm.$http.post(`/official/js/config`, data).then(({data}) => {
       wxInit(data)
@@ -93,35 +94,47 @@ function wxInit (res) {
     jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
   })
   wx.ready(function () {
+    var link = window.location.href;
+    var protocol = window.location.protocol;
+    var host = window.location.host;
+    //分享朋友圈
+    wx.onMenuShareTimeline({
+      title: '这是一个自定义的标题！',
+      link: link,
+      imgUrl: protocol+'//'+host+'/resources/images/icon.jpg',// 自定义图标
+      trigger: function (res) {
+        // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回.
+        //alert('click shared');
+      },
+      success: function (res) {
+        //alert('shared success');
+        //some thing you should do
+      },
+      cancel: function (res) {
+        //alert('shared cancle');
+      },
+      fail: function (res) {
+        //alert(JSON.stringify(res));
+      }
+    });
+    //分享给好友
     wx.onMenuShareAppMessage({
-      title: title, // 分享标题
-      desc: desc, // 分享描述
-      link: links, // 分享链接
-      imgUrl: imgUrl, // 分享图标
+      title: '这是一个自定义的标题！', // 分享标题
+      desc: '这是一个自定义的描述！', // 分享描述
+      link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+      imgUrl: protocol+'//'+host+'/resources/images/icon.jpg', // 自定义图标
+      type: 'link', // 分享类型,music、video或link，不填默认为link
+      dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
       success: function () {
-        alert('分享成功')
-        _this.showFx = false
+        // 用户确认分享后执行的回调函数
       },
       cancel: function () {
-        alert('分享失败')
-        _this.showFx = false
+        // 用户取消分享后执行的回调函数
       }
-    })
-    // 微信分享菜单测试
-    // wx.onMenuShareTimeline({
-    //   title: title, // 分享标题
-    //   desc: desc, // 分享描述
-    //   link: links, // 分享链接
-    //   imgUrl: imgUrl, // 分享图标
-    //   success: function () {
-    //     alert('分享成功')
-    //     _this.isShow = true
-    //   },
-    //   cancel: function () {
-    //     alert('分享失败')
-    //     _this.isShow = true
-    //   }
-    // })
+    });
+    wx.error(function (res) {
+      alert(res.errMsg);
+    });
   })
   wx.error(function (err) {
     alert(JSON.stringify(err))
