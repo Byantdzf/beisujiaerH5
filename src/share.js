@@ -7,7 +7,7 @@ exports.install = function (Vue, options) {
     let vm = this
     console.log(this)
     // let url = encodeURIComponent(location.href.split('#')[0])
-    let url = location.href.split('#').toString()
+    let url = location.href.toString()
     let data = {url: url}
     vm.$http.post(`/official/js/config`, data).then(({data}) => {
       wxInit(data)
