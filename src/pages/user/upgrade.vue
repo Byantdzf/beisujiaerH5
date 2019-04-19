@@ -164,7 +164,7 @@
             //     $toastWarn('取消支付')
             //   }
             // })
-            if (localStorage.getItem('openid')) {
+            if (localStorage.getItem('official_openid')) {
               WeixinJSBridge.invoke(
                 'getBrandWCPayRequest', {
                   'appId': wxconfig.appId,

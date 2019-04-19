@@ -84,7 +84,7 @@
         this.$http.post('/official/login/mobile', data).then(({data}) => {
           localStorage.setItem('ACCESS_TOKEN', data.token)
           localStorage.setItem('mobile', data.user.mobile)
-          localStorage.setItem('openid', data.wechat.openid)
+          localStorage.setItem('official_openid', data.wechat.official_openid)
           if (data.user && data.user.type) {
             this.$router.push({
               name: 'home'
