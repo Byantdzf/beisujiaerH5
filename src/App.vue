@@ -163,13 +163,13 @@
               localStorage.setItem('logo', data.logo)
             }
           } else {
-            this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '共享平台', '福恋家庭幸福平台')
+            this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '智能共享平台', '福恋家庭幸福平台')
           }
         }).catch((error) => {
           console.log(error)
         })
       } else {
-        this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '共享平台', '福恋家庭幸福平台')
+        this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '智能共享平台', '福恋家庭幸福平台')
       }
 
       this.chat_num = localStorage.getItem('chat_num')
