@@ -72,6 +72,11 @@
         <div class="applyNow" style="width: 100%" @click="confirmPay">确定支付</div>
       </popup>
     </div>
+    <div v-transfer-dom>
+      <popup v-model="showModal1" is-transparent="true">
+        <img src="http://images.ufutx.com/201904/23/5b4f6b7d3011e6a22bca9e8235226da8.png" alt="" class="bc_share" @click="share">
+      </popup>
+    </div>
   </div>
 </template>
 
@@ -97,6 +102,7 @@
         information: {}, // 数据
         members: {}, // 报名成员
         showModal: false,
+        showModal1: false,
         trade_no: ''
       }
     },
@@ -125,6 +131,7 @@
       },
       share () {
         // $toastText('未设置分享')
+        this.showModal1 = !this.showModal1
       },
       confirmPay () { // 报名
         this.showModal = !this.showModal
@@ -423,5 +430,9 @@
       }
     }
     .price{}
+  }
+  .bc_share{
+    width: 100%;
+    height: 100vh;
   }
 </style>

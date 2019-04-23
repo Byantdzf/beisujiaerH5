@@ -158,6 +158,7 @@
         vm.$http.get(`/official/paas?paas=${paas}`).then(({data}) => {
           localStorage.setItem('paas', data.title)
           if (data) {
+            debugger
             this.$shareList(data.logo, url, data.title, data.name)
             if (data.logo) {
               localStorage.setItem('logo', data.logo)
