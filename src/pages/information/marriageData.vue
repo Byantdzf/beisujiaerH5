@@ -144,7 +144,7 @@
         })
       },
       getData () {
-        this.$http.get(`/official/users/profile?paas=${this.paas}`).then(({data}) => {
+        this.$http.get(`/official/users/profile`).then(({data}) => {
           console.log(data)
           this.slogan = data.slogan ? data.slogan : '为何喜欢做介绍人？'
           this.company = data.company

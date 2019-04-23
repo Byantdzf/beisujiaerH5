@@ -91,7 +91,6 @@
         ],
         tabIndex: 0,
         type: '市级',
-        paas: localStorage.getItem('paas'),
         user: {
           avatar: 'https://images.ufutx.com/201904/15/6099fa31d31f5aa1f2c92986f45d3cfa.gif'
         },
@@ -191,7 +190,7 @@
         })
       },
       getOrderList () {
-        this.$http.get(`/official/ranks?paas=${this.paas}&name=${this.type}`).then(({data}) => {
+        this.$http.get(`/official/ranks?name=${this.type}`).then(({data}) => {
           this.user = data.user
           this.rank = data.rank
           this.score = data.score

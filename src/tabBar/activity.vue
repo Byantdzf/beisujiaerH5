@@ -52,15 +52,13 @@
         this.mescroll = mescroll
       },
       getMessageNum () {
-        let paas = localStorage.getItem('paas')
-        this.$http.get(`/official/notice/num?paas=${paas}`).then(({data}) => {
+        this.$http.get(`/official/notice/num`).then(({data}) => {
           localStorage.setItem('chat_num', data.chat_message_num.toString())
           localStorage.setItem('notice_num', data.notice_num.toString())
         })
       },
       getOrderList (page, mescroll) {
-        let paas = localStorage.getItem('paas')
-        this.$http.get(`/official/activities?paas=${paas}&page=${page.num}`).then(({data}) => {
+        this.$http.get(`/official/activities?page=${page.num}`).then(({data}) => {
           let dataV = page.num === 1 ? [] : this.list
           dataV.push(...data.data)
           this.list = dataV

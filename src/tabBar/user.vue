@@ -79,17 +79,8 @@
       }
     },
     methods: {
-      isWeiXin () {
-        var ua = window.navigator.userAgent.toLowerCase()
-        // console.log(ua) // mozilla/5.0 (iphone; cpu iphone os 9_1 like mac os x) applewebkit/601.1.46 (khtml, like gecko)version/9.0 mobile/13b143 safari/601.1
-        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-          return true
-        } else {
-          return false
-        }
-      },
       routeToDetail (name, type) {
-        if (localStorage.getItem('official_openid') || this.isWeiXin() === false) {
+        if (localStorage.getItem('official_openid') || this.$isWeiXin() === false) {
           if (type) {
             this.$router.push({name: name, params: {type: type}})
           } else {
@@ -106,16 +97,14 @@
         }
       },
       getMessageNum () {
-        let paas = localStorage.getItem('paas')
-        this.$http.get(`/official/notice/num?paas=${paas}`).then(({data}) => {
+        this.$http.get(`/official/notice/num`).then(({data}) => {
           localStorage.setItem('chat_num', data.chat_message_num.toString())
           localStorage.setItem('notice_num', data.notice_num.toString())
           this.notice_num = data.notice_num.toString()
         })
       },
       getUser () {
-        let paas = localStorage.getItem('paas')
-        this.$http.get(`/official/mine?paas=${paas}`).then(({data}) => {
+        this.$http.get(`/official/mine`).then(({data}) => {
           this.user = data
           this.getMessageNum()
         }).catch((error) => {
@@ -142,9 +131,8 @@
       }
     },
     mounted () {
-      console.log(this.$store.state.route)
       this.getUser()
-      console.log(this.isWeiXin())
+      this.$isWeiXin()
     }
   }
 </script>

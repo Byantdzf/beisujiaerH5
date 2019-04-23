@@ -44,14 +44,13 @@
         max_id: '',
         other_userId: '',
         text: '',
-        Loadingtime: '',
-        paas: localStorage.getItem('paas')
+        Loadingtime: ''
       }
     },
     methods: {
       refreshV () {
         let that = this
-        let url = `/official/refresh/chat/messages/${this.other_userId}?paas=${this.paas}&content=${this.content}&max_id=${this.max_id}`
+        let url = `/official/refresh/chat/messages/${this.other_userId}?content=${this.content}&max_id=${this.max_id}`
         this.$http.get(url).then(({data}) => {
           if (data.length === 0) { return }
           that.max_id = data[0].id
@@ -76,7 +75,7 @@
         })
       },
       sendMsg () {
-        let url = `/official/send/chat/messages/to/users/${this.other_userId}?paas=${this.paas}&content=${this.content}&max_id=${this.max_id}`
+        let url = `/official/send/chat/messages/to/users/${this.other_userId}?content=${this.content}&max_id=${this.max_id}`
         this.$http.post(url).then(({data}) => {
           this.max_id = data[0].id
           console.log('发送成功')
@@ -102,7 +101,7 @@
       },
       History () {
         let that = this
-        let url = `/official/chat/messages/with/users/${this.other_userId}?paas=${this.paas}&min_id=${this.min_id}`
+        let url = `/official/chat/messages/with/users/${this.other_userId}?min_id=${this.min_id}`
         this.$http.get(url).then(({data}) => {
           if (data.length === 0) {
             that.text = '到顶了'
@@ -126,7 +125,7 @@
         })
       },
       getData () {
-        let url = `/official/chat/messages/with/users/${this.other_userId}?paas=${this.paas}`
+        let url = `/official/chat/messages/with/users/${this.other_userId}`
         this.$http.get(url).then(({data}) => {
           this.text = '点击查看更多'
           let message = []

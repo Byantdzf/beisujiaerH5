@@ -79,8 +79,7 @@
         this.$router.push({name: name})
       },
       getUser () {
-        let paas = localStorage.getItem('paas')
-        this.$http.get(`/official/mine?paas=${paas}`).then(({data}) => {
+        this.$http.get(`/official/mine`).then(({data}) => {
           this.user = data
           localStorage.setItem('official_openid', data.official_openid)
         }).catch((error) => {
@@ -93,7 +92,6 @@
           if (data.wx_pay.mweb_url) {
             window.location.href = data.wx_pay.mweb_url
           } else {
-
             WeixinJSBridge.invoke(
               'getBrandWCPayRequest', {
                 'appId': wxconfig.appId,

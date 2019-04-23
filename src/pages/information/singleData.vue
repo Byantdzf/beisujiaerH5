@@ -287,7 +287,7 @@
         })
       },
       getUserData () {
-        this.$http.get(`/official/users/profile?paas=${this.paas}`).then(({data}) => {
+        this.$http.get(`/official/users/profile`).then(({data}) => {
           console.log(data)
           this.stature = data.stature
           this.weight = data.weight

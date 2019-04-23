@@ -75,6 +75,7 @@ exports.install = function (Vue, options) {
     })
   }
 }
+
 function wxInit (res, imgUrl, link, desc, title) {
   let url = window.location.href.split('?')[0] // 获取锚点之前的链接
   console.log(url)

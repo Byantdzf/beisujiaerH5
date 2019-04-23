@@ -85,8 +85,7 @@
         }
       },
       getUser () {
-        let paas = localStorage.getItem('paas')
-        this.$http.get(`/official/mine?paas=${paas}`).then(({data}) => {
+        this.$http.get(`/official/mine`).then(({data}) => {
           this.user = data
           this.avatar = data.photo
           this.list = data.profile_photos.map((item) => {

@@ -101,8 +101,7 @@
         this.$router.push({name: 'chitchatDetail', params: {id: id}})
       },
       attention () {
-        let paas = localStorage.getItem('paas')
-        this.$http.post(`/follow/users/${this.id}?paas=${paas}`).then(({data}) => {
+        this.$http.post(`/follow/users/${this.id}`).then(({data}) => {
           this.btnActive = !this.btnActive
           this.information.is_followed = !this.information.is_followed
           if (data.is_followed) {
@@ -122,8 +121,7 @@
         })
       },
       getData () {
-        let paas = localStorage.getItem('paas')
-        this.$http.get(`/official/users/${this.id}?paas=${paas}`).then(({data}) => {
+        this.$http.get(`/official/users/${this.id}`).then(({data}) => {
           this.information = data
           this.life_photos = data.life_photos.map((item) => {
             return {

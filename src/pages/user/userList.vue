@@ -104,7 +104,6 @@
           {title: '介绍人', type: 'marriage', active: false}
         ],
         page: 1,
-        paas: '',
         announcements: [],
         mescroll: null, //  mescroll实例对象
         mescrollDown: {}, // 下拉刷新的配置. (如果下拉刷新和上拉加载处理的逻辑是一样的,则mescrollDown可不用写了)
@@ -185,7 +184,7 @@
           pageV = 1
         }
         let vm = this
-        vm.$http.get(`/official/users?paas=${this.paas}&keyword=${this.search}&page=${pageV}&city=${vm.searchCity}&age=${vm.searchAge}&type=${vm.searchTypeV2}`).then(({data}) => {
+        vm.$http.get(`/official/users?keyword=${this.search}&page=${pageV}&city=${vm.searchCity}&age=${vm.searchAge}&type=${vm.searchTypeV2}`).then(({data}) => {
           let dataV = pageV === 1 ? [] : vm.list
           dataV.push(...data.data)
           vm.list = dataV
@@ -203,9 +202,6 @@
       // console.log(this.$store.state.intercept)
       if (this.$store.state.intercept === 'true') {
         return false
-      }
-      if (localStorage.getItem('paas')) {
-        this.paas = localStorage.getItem('paas')
       }
     }
   }
