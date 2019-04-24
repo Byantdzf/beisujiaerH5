@@ -144,8 +144,8 @@
     .homeSearch{
       width: 690px;
       height: 88px;
-      border-radius: 6px;
       border: none;
+      border-radius: 6px;
       /*box-shadow: 1px 1px 12px #e9e9e9;*/
       border: 2px solid #f7f7fa;
     }
