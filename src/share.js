@@ -6,7 +6,6 @@ exports.install = function (Vue, options) {
   Vue.prototype.$shareList = function (imgUrl, link, desc, title) {
     // 分享
     let vm = this
-    console.log(this)
     // let url = encodeURIComponent(location.href.split('#')[0])
     let url = location.href
     let data = {url: url}
@@ -20,7 +19,6 @@ exports.install = function (Vue, options) {
 
 function wxInit (res, imgUrl, link, desc, title) {
   // let url = window.location.href.split('?')[0] // 获取锚点之前的链接
-  // console.log(url)
   wx.config({
     debug: false,
     appId: res.appId,

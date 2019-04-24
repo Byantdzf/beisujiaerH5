@@ -94,7 +94,10 @@
     },
     watch: {
       isLoading () {
-        console.log(this.isLoading)
+        // console.log(this.isLoading)
+      },
+      $route (to, from) {
+        this.shareInfo()
       }
     },
     computed: {
@@ -147,6 +150,32 @@
       ]),
       onClickMore () {
         this.showMenu = true
+      },
+      shareInfo () {
+        let url = location.href
+        let paas = localStorage.getItem('paasName')
+        let vm = this
+        if (!localStorage.getItem('logo') || localStorage.getItem('logo') === null) {
+          vm.$http.get(`/official/paas?paas=${paas}`).then(({data}) => {
+            if (data && data !== null) {
+              localStorage.setItem('paasTitle', data.title)
+              this.$shareList(data.logo, url, data.title, data.name)
+              if (data.logo) {
+                localStorage.setItem('logo', data.logo)
+              }
+              if (data.title) {
+                document.title = data.title
+              }
+            } else {
+              this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '智能共享平台', '福恋家庭幸福平台')
+            }
+          }).catch((error) => {
+            console.log(error)
+          })
+        } else {
+          this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasName'), localStorage.getItem('paasTitle'))
+          document.title = localStorage.getItem('paasTitle')
+        }
       }
     },
     mounted () {
@@ -155,38 +184,9 @@
         href = href.replace(/\?from=(groupmessage|singlemessage|timeline)(\S*)#/, '#')
         window.location.href = href
       }
-      let url = location.href
-      let paas = localStorage.getItem('paasName')
-      let vm = this
-      if (!localStorage.getItem('logo') || localStorage.getItem('logo') === null) {
-        vm.$http.get(`/official/paas?paas=${paas}`).then(({data}) => {
-          if (data && data !== null) {
-            localStorage.setItem('paasTitle', data.title)
-            this.$shareList(data.logo, url, data.title, data.name)
-            if (data.logo) {
-              localStorage.setItem('logo', data.logo)
-            }
-            if (data.title) {
-              document.title = data.title
-            }
-          } else {
-            this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '智能共享平台', '福恋家庭幸福平台')
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
-      } else {
-        this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasName'), localStorage.getItem('paasTitle'))
-      }
-
       this.chat_num = localStorage.getItem('chat_num')
       this.notice_num = localStorage.getItem('notice_num')
-      this.handler = () => {
-        if (this.path === '/demo') {
-          this.box = document.querySelector('#demo_list_box')
-          this.updateDemoPosition(this.box.scrollTop)
-        }
-      }
+      this.shareInfo()
     },
     created () {
     }
