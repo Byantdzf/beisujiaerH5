@@ -147,6 +147,7 @@
       border-radius: 6px;
       border: none;
       box-shadow: 1px 1px 12px #e9e9e9;
+      border: 2px solid #f7f7fa;
     }
   }
   .bc_title{
