@@ -152,7 +152,6 @@
     mounted () {
       let href = window.location.href
       if (href.indexOf('groupmessage') > -1 || href.indexOf('singlemessage') > -1 || href.indexOf('timeline') > -1) {
-        debugger
         href = href.replace(/\?from=(groupmessage|singlemessage|timeline)(\S*)#/, '#')
         window.location.href = href
       }

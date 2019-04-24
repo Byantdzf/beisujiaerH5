@@ -1,6 +1,6 @@
 import '../src/config/api'
 import wx from 'weixin-jsapi'
-import {$toastWarn} from './config/util'
+// import {$toastWarn} from './config/util'
 
 exports.install = function (Vue, options) {
   Vue.prototype.$shareList = function (imgUrl, link, desc, title) {
@@ -21,7 +21,6 @@ exports.install = function (Vue, options) {
 function wxInit (res, imgUrl, link, desc, title) {
   // let url = window.location.href.split('?')[0] // 获取锚点之前的链接
   // console.log(url)
-  $toastWarn(link)
   wx.config({
     debug: false,
     appId: res.appId,
