@@ -6,8 +6,8 @@ exports.install = function (Vue, options) {
     // 分享
     let vm = this
     console.log(this)
-    // let url = encodeURIComponent(location.href.split('#')[0])
-    let url = location.href
+    let url = encodeURIComponent(location.href.split('#')[0])
+    // let url = location.href
     let data = {url: url}
     vm.$http.post(`/official/js/config`, data).then(({data}) => {
       wxInit(data, imgUrl, link, desc, title)
