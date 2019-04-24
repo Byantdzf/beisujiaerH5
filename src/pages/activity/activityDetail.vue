@@ -73,8 +73,11 @@
       </popup>
     </div>
     <div v-transfer-dom>
-      <popup v-model="showModal1" is-transparent="true">
-        <img src="http://images.ufutx.com/201904/23/5b4f6b7d3011e6a22bca9e8235226da8.png" alt="" class="bc_share" @click="share">
+      <popup v-model="showModal1" :is-transparent="true">
+        <div class="bc_share backCover"  @click="share">
+          <img src="http://images.ufutx.com/201904/24/43e0d6008b6f9c6282188b52f4113648.png" alt="" width="100%">
+          <img src="http://images.ufutx.com/201904/24/50228a05c7311dffe4962b3e99c239ee.png" alt="" width="100%" class="fixed_bot">
+        </div>
       </popup>
     </div>
   </div>
@@ -434,5 +437,7 @@
   .bc_share{
     width: 100%;
     height: 100vh;
+    position: relative;
+    background: rgba(0,0,0,0.3);
   }
 </style>
