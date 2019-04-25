@@ -165,7 +165,7 @@
         }
         if (location.href.includes('paas') || localStorage.getItem('paasName') !== location.href.split('paas=')[1]) {
           console.log(location.href.split('paas=')[1])
-          vm.$http.get(`/official/paas?paas=${paas}`).then(({data}) => {
+          vm.$http.get(`/official/paas`).then(({data}) => {
             if (data && data !== null) {
               localStorage.setItem('paasTitle', data.title)
               this.$shareList(data.logo, url, data.title, data.name)
