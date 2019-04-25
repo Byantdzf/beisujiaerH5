@@ -71,7 +71,7 @@
   import {XHeader, Tabbar, TabbarItem, ViewBox, Loading, TransferDom} from 'vux'
   import {mapState, mapActions} from 'vuex'
   import loadingPage from './components/loading'
-  import {$toastWarn} from './config/util'
+  // import {$toastWarn} from './config/util'
 
   export default {
     name: 'app',
@@ -174,7 +174,6 @@
           })
         } else {
           this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasName'), localStorage.getItem('paasTitle'))
-          $toastWarn(localStorage.getItem('paasTitle'))
           document.title = localStorage.getItem('paasTitle')
         }
       }
