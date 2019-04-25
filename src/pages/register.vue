@@ -41,8 +41,7 @@
         time: 60,
         warn: true,
         text: '获取验证码',
-        timer: '',
-        paas: ''
+        timer: ''
       }
     },
     watch: {
@@ -78,11 +77,12 @@
       register () {
         let data = {
           mobile: this.mobile,
-          code: this.code,
-          paas: localStorage.getItem('paas')
+          code: this.code
         }
         this.$http.post('/official/login/mobile', data).then(({data}) => {
           localStorage.setItem('ACCESS_TOKEN', data.token)
+          localStorage.setItem('mobile', data.user.mobile)
+          localStorage.setItem('official_openid', data.wechat.official_openid)
           if (data.user && data.user.type) {
             this.$router.push({
               name: 'home'

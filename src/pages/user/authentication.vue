@@ -56,7 +56,7 @@
   </div>
 </template>
 <script>
-  import {$toastSuccess} from '../../config/util'
+  import {$toastSuccess, $toastWarn} from '../../config/util'
   import {TransferDom, Popup} from 'vux'
   export default {
     name: 'authentication',
@@ -79,17 +79,40 @@
         this.$router.push({name: name})
       },
       getUser () {
-        let paas = localStorage.getItem('paas')
-        this.$http.get(`/official/mine?paas=${paas}`).then(({data}) => {
+        this.$http.get(`/official/mine`).then(({data}) => {
           this.user = data
+          localStorage.setItem('official_openid', data.official_openid)
         }).catch((error) => {
           console.log(error)
         })
       },
       buyAuthentication () {
         this.$http.post(`/official/user/buy/approve`).then(({data}) => {
+          let wxconfig = data.wx_pay.config
           if (data.wx_pay.mweb_url) {
             window.location.href = data.wx_pay.mweb_url
+          } else {
+            WeixinJSBridge.invoke(
+              'getBrandWCPayRequest', {
+                'appId': wxconfig.appId,
+                'timeStamp': wxconfig.timestamp,
+                'nonceStr': wxconfig.nonceStr,
+                'package': wxconfig.package,
+                'signType': wxconfig.signType,
+                'paySign': wxconfig.paySign
+              },
+              function (res) {
+                if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                  $toastSuccess('微信支付成功')
+                  that.$router.replace({name: 'fullOrder', query: {id: '2'}})
+                } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
+                  $toastWarn('用户取消支付')
+                  that.$router.replace({name: 'fullOrder', query: {id: '1'}})
+                } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
+                  $toastWarn('网络异常，请重试')
+                }
+              }
+            )
           }
         }).catch((error) => {
           console.log(error)
@@ -99,6 +122,12 @@
         let data = {
           name: this.name,
           card_num: this.card_num
+        }
+        if (!this.name) {
+          $toastWarn('请输入名字')
+        }
+        if (!this.card_num) {
+          $toastWarn('请输入身份证')
         }
         console.log(data)
         this.$http.post(`/official/user/approve`, data).then(({data}) => {

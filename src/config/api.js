@@ -25,12 +25,11 @@ const api = () => {
   AjaxPlugin.$http.interceptors.request.use((config) => {
     config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('ACCESS_TOKEN')
     if (config.url.includes('?')) {
-      config.url = config.url + '&XDEBUG_SESSION_START=1&paas=' + localStorage.getItem('paas')
+      config.url = config.url + '&XDEBUG_SESSION_START=1&paas=' + localStorage.getItem('paasName')
     } else {
-      config.url = config.url + '?XDEBUG_SESSION_START=1&paas=' + localStorage.getItem('paas')
+      config.url = config.url + '?XDEBUG_SESSION_START=1&paas=' + localStorage.getItem('paasName')
     }
-    console.log(config)
-
+    // console.log(config)
     // if (config.method === 'post') {
     //   config.data = qs.stringify(config.data)
     // }
@@ -43,7 +42,6 @@ const api = () => {
     // $loadingHide()
     if (response.status === 200 && response.data.code === 2) { // token过期
       localStorage.removeItem('ACCESS_TOKEN')
-      console.log(window.location)
       $toastWarn(response.data.message)
       window.location.href = window.location.href.split('#/')[0] + '#/register'
     } else if (response.status === 200 && response.data.code === 1) {

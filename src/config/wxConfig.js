@@ -4,6 +4,6 @@
 // import {$toastWarn, $loadingHide} from '../../src/config/util'
 
 let wxConfig = () => {
-  console.log('asssssssssssssssssssssssss')
+  // console.log('asssssssssssssssssssssssss')
 }
 export default wxConfig()

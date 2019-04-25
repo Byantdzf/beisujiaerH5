@@ -1,7 +1,7 @@
 <template>
   <div id="user">
     <div class="wrapper_user ff">
-      <div class="avatar flo_l backCover" @click="routeToDetail('PreviewData')"  :style="{backgroundImage:'url(' + user.photo + ')'}"></div>
+      <div class="avatar flo_l backCover" @touchstart.native="showDeleteButton(item.id)" @touchend.native="clearLoop(item.id)" @click="routeToDetail('PreviewData')"  :style="{backgroundImage:'url(' + user.photo + ')'}"></div>
       <div class="name inline-block">
         <span class="font36 bold">{{user.name}}</span><br/>
         <span class="font26">
@@ -75,33 +75,57 @@
         user: {
           photo: 'https://images.ufutx.com/201904/15/6099fa31d31f5aa1f2c92986f45d3cfa.gif'
         },
-        notice_num: ''
+        notice_num: '',
+        removeCache: ''
       }
     },
     methods: {
       routeToDetail (name, type) {
-        if (type) {
-          this.$router.push({name: name, params: {type: type}})
+        if (localStorage.getItem('official_openid') || this.$isWeiXin() === false) {
+          if (type) {
+            this.$router.push({name: name, params: {type: type}})
+          } else {
+            this.$router.push({name: name})
+          }
         } else {
-          this.$router.push({name: name})
+          if (name === 'upgrade') {
+            window.location.href = 'http://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + '&type=rank'
+          } else if (name === 'authentication') {
+            window.location.href = 'http://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + '&type=approve'
+          } else {
+            this.$router.push({name: name, params: {type: type}})
+          }
         }
       },
       getMessageNum () {
-        let paas = localStorage.getItem('paas')
-        this.$http.get(`/official/notice/num?paas=${paas}`).then(({data}) => {
+        this.$http.get(`/official/notice/num`).then(({data}) => {
           localStorage.setItem('chat_num', data.chat_message_num.toString())
           localStorage.setItem('notice_num', data.notice_num.toString())
           this.notice_num = data.notice_num.toString()
         })
       },
       getUser () {
-        let paas = localStorage.getItem('paas')
-        this.$http.get(`/official/mine?paas=${paas}`).then(({data}) => {
+        this.$http.get(`/official/mine`).then(({data}) => {
           this.user = data
           this.getMessageNum()
         }).catch((error) => {
           console.log(error)
         })
+      },
+      showDeleteButton (e) {
+        clearTimeout(this.Loop) // 再次清空定时器，防止重复注册定时器
+        this.removeCache = setTimeout(function () {
+          this.$dialog.confirm({   // 这是个弹出框，用的ydui
+            title: '温馨提示',
+            mes: '是否删除此条消息',
+            opts: () => {
+              this.$dialog.loading.open('删除中...')
+            }
+          })
+        }.bind(this), 1000)
+      },
+      clearLoop (e) {
+        clearTimeout(this.Loop)
       },
       onClick () {
         let vm = this
@@ -123,8 +147,8 @@
       }
     },
     mounted () {
-      console.log(this.$store.state.route)
       this.getUser()
+      this.$isWeiXin()
     }
   }
 </script>

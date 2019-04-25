@@ -8,7 +8,7 @@ import store from '../src/vuex/store'
 import router from '../src/router/index.js'
 import {LoadingPlugin, WechatPlugin, DatetimePlugin, ConfirmPlugin, XImg} from 'vux'
 import '../src/config/api'
-import '../src/config/wxConfig'
+// import '../src/config/wxConfig'
 import md5 from 'js-md5'
 import {$toastWarn} from './config/util'
 import share from './share'
@@ -39,18 +39,20 @@ store.registerModule('vux', { // 名字自己定义
 router.beforeEach((to, from, next) => {
   store.commit('updateLoadingStatus', {isLoading: true})
   next()
+  if (to.query && to.query.paas) {
+    // store.commit('setPaas', store.state.route.query.paas)
+    localStorage.setItem('paasName', to.query.paas)
+  }
 })
+
 router.afterEach((to) => {
   if (window.ga) {
     window.ga('set', 'page', to.fullPath) // 你可能想根据请求参数添加其他参数，可以修改这里的 to.fullPath
     window.ga('send', 'pageview')
   }
   store.commit('updateLoadingStatus', {isLoading: false})
-  if (store.state.route.query.paas) {
-    store.commit('setPaas', store.state.route.query.paas)
-    localStorage.setItem('paas', store.state.route.query.paas)
-  }
 })
+
 Vue.prototype.$href = (url) => {
   if (!url) {
     $toastWarn('暂无详情链接')
@@ -58,18 +60,20 @@ Vue.prototype.$href = (url) => {
   }
   window.location.href = url
 }
-// Vue.prototype.$isWeiXin = () => {
-//   // var ua = window.navigator.userAgent.toLowerCase()
-//   // if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-//   //   return true
-//   // } else {
-//   //   return false
-//   // }
-// }
+Vue.prototype.$isWeiXin = () => {
+  var ua = window.navigator.userAgent.toLowerCase()
+  console.log(ua) // mozilla/5.0 (iphone; cpu iphone os 9_1 like mac os x) applewebkit/601.1.46 (khtml, like gecko)version/9.0 mobile/13b143 safari/601.1
+  if (ua.includes('micromessenger')) {
+    console.log('微信平台')
+    return true
+  } else {
+    console.log('非微信平台')
+    return false
+  }
+}
 
 FastClick.attach(document.body)
 Vue.config.productionTip = false
-// console.log(Vue.wechat)
 /* eslint-disable no-new */
 new Vue({
   router,

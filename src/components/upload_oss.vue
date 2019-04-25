@@ -158,6 +158,7 @@
         formData.append('signature', self.ossConfig.signature)
         formData.append('file', self.file)
         formData.append('filename', self.file.name)
+        console.log(formData.entries().next())
         this.$http.post(this.host, formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(({data}) => {
           console.log(filePath)
           this.$emit('onSuccess', filePath)

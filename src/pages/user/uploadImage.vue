@@ -39,7 +39,6 @@
     },
     data () {
       return {
-        paas: localStorage.getItem('paas'),
         list: [],
         options: {
           getThumbBoundsFn (index) {

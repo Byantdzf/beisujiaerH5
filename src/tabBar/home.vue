@@ -18,10 +18,10 @@
         </div>
       </router-link>
       <p class="bc_title font34 bold">征婚</p>
-      <swiper  :min-moving-distance="120" :show-desc-mask="true" height="320px" :auto="true" dots-position="center"
+      <swiper  :min-moving-distance="120" :show-desc-mask="true" height="260px" :auto="true" dots-position="center"
                :interval="2000">
-        <swiper-item v-for="item in recommend" :key="item.id">
-          <div class="image backCover" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}" @click="routeToDetail(item.user.type, item.user.id)"></div>
+        <swiper-item v-for="item in recommend" :key="item.id" >
+          <div class="recommend-image backCover" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}" @click="routeToDetail(item.user.type, item.user.id)"></div>
         </swiper-item>
       </swiper>
       <div class="list-item" v-for="item in list" @click="routeToDetail(item.type, item.id)">
@@ -59,7 +59,6 @@
         recommend: [],
         noData: false,
         page: 1,
-        paas: '',
         announcements: [],
         mescroll: null, //  mescroll实例对象
         mescrollDown: {}, // 下拉刷新的配置. (如果下拉刷新和上拉加载处理的逻辑是一样的,则mescrollDown可不用写了)
@@ -88,17 +87,17 @@
         this.mescroll = mescroll
       },
       getMessageNum () {
-        this.$http.get(`/official/notice/num?paas=${this.paas}`).then(({data}) => {
+        this.$http.get(`/official/notice/num`).then(({data}) => {
           localStorage.setItem('chat_num', data.chat_message_num.toString())
           localStorage.setItem('notice_num', data.notice_num.toString())
         })
       },
       getOrderList (page, mescroll) {
         let vm = this
-        vm.$http.get(`/official/home?paas=${this.paas}&page=${page.num}`).then(({data}) => {
+        vm.$http.get(`/official/home?page=${page.num}`).then(({data}) => {
           vm.announcements = data.announcements
           vm.recommend = data.recommend
-          vm.$http.get(`/official/home/likers?paas=${this.paas}&page=${page.num}`).then(({data}) => {
+          vm.$http.get(`/official/home/likers?page=${page.num}`).then(({data}) => {
             vm.init = true
             let dataV = page.num === 1 ? [] : this.list
             dataV.push(...data.data)
@@ -116,15 +115,9 @@
       }
     },
     mounted () {
-      // let image = 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1467433187,2373863946&fm=27&gp=0.jpg'
-      this.$shareList(image, 'http://localhost:8080/#/', '测试', '标题')
-      // console.log(this.$isWeiXin(), '环境')
       // console.log(this.$store.state.intercept)
       if (this.$store.state.intercept === 'true') {
         return false
-      }
-      if (localStorage.getItem('paas')) {
-        this.paas = localStorage.getItem('paas')
       }
     }
   }
@@ -151,9 +144,10 @@
     .homeSearch{
       width: 690px;
       height: 88px;
-      border-radius: 6px;
       border: none;
-      box-shadow: 1px 1px 12px #e9e9e9;
+      border-radius: 6px;
+      /*box-shadow: 1px 1px 12px #e9e9e9;*/
+      border: 2px solid #f7f7fa;
     }
   }
   .bc_title{
@@ -190,9 +184,9 @@
       background-size: cover;
     }
   }
-  .image{
+  .recommend-image{
     width: 100%;
-    height: 646px;
+    height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
   }

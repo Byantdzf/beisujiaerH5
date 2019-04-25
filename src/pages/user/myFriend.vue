@@ -58,13 +58,12 @@
       },
       getList (page, mescroll) {
         let url = ''
-        let paas = localStorage.getItem('paas')
         if (this.type === 'fans') {
-          url = `/official/followers?paas=${paas}&page=${page.num}`
+          url = `/official/followers?page=${page.num}`
         } else if (this.type === 'friend') {
-          url = `/official/friends?paas=${paas}&page=${page.num}`
+          url = `/official/friends?page=${page.num}`
         } else {
-          url = `/official/followings?paas=${paas}&page=${page.num}`
+          url = `/official/followings?page=${page.num}`
         }
         this.$http.get(url).then(({data}) => {
           let dataV = page.num === 1 ? [] : this.list
