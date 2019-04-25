@@ -1,7 +1,7 @@
 <template>
   <div id="user">
     <div class="wrapper_user ff">
-      <div class="avatar flo_l backCover" @touchstart.native="showDeleteButton(item.id)" @touchend.native="clearLoop(item.id)" @click="routeToDetail('PreviewData')"  :style="{backgroundImage:'url(' + user.photo + ')'}"></div>
+      <div class="avatar flo_l backCover" @touchstart="showDeleteButton()" @touchend="clearLoop()" @click="routeToDetail('PreviewData')"  :style="{backgroundImage:'url(' + user.photo + ')'}"></div>
       <div class="name inline-block">
         <span class="font36 bold">{{user.name}}</span><br/>
         <span class="font26">
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-  import { Group, Cell, XHeader, XInput, Badge } from 'vux'
+  import {Group, Cell, XHeader, XInput, Badge} from 'vux'
 
   export default {
     name: 'user',
@@ -113,19 +113,25 @@
         })
       },
       showDeleteButton (e) {
-        clearTimeout(this.Loop) // 再次清空定时器，防止重复注册定时器
+        clearTimeout(this.removeCache) // 再次清空定时器，防止重复注册定时器
         this.removeCache = setTimeout(function () {
-          this.$dialog.confirm({   // 这是个弹出框，用的ydui
-            title: '温馨提示',
-            mes: '是否删除此条消息',
-            opts: () => {
-              this.$dialog.loading.open('删除中...')
+          this.$vux.confirm.show({
+            title: 'Prompt Message',
+            content: '是否清楚缓存？',
+            dialogTransition: 'vux-fade',
+            onCancel: () => {
+            },
+            onConfirm: () => {
+              localStorage.clear()
+              this.$router.push({
+                name: 'register'
+              })
             }
           })
         }.bind(this), 1000)
       },
       clearLoop (e) {
-        clearTimeout(this.Loop)
+        clearTimeout(this.removeCache)
       },
       onClick () {
         let vm = this

@@ -116,9 +116,9 @@
     },
     mounted () {
       // console.log(this.$store.state.intercept)
-      if (this.$store.state.intercept === 'true') {
-        return false
-      }
+      // if (this.$store.state.intercept === 'true') {
+      //   return false
+      // }
     }
   }
 </script>
