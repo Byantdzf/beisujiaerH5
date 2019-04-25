@@ -122,10 +122,9 @@
             onCancel: () => {
             },
             onConfirm: () => {
+              let url = location.href + '?paas=' + localStorage.getItem('paasName')
               localStorage.clear()
-              this.$router.push({
-                name: 'register'
-              })
+              this.$href(url)
             }
           })
         }.bind(this), 1000)

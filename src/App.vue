@@ -172,7 +172,6 @@
           }).catch((error) => {
             console.log(error)
           })
-          $toastWarn(localStorage.getItem('paasTitle'))
         } else {
           this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasName'), localStorage.getItem('paasTitle'))
           $toastWarn(localStorage.getItem('paasTitle'))
