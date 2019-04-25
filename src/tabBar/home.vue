@@ -2,7 +2,7 @@
   <div>
     <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit" class="scrollView">
       <!--<div id="box"></div>-->
-      <div style="background: #35495e;padding: 10px;padding-bottom: 0px;" class="font30">
+      <div style="background: #35495e;padding: 10px;padding-bottom: 0px;" class="font30" v-if="announcements">
         <swiper auto height="30px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false" >
           <swiper-item v-for="item in announcements" :key="item.id">
             <p class="ellipsis_1" @click="$href(item.type == 'OF'?item.path:'#')">
