@@ -74,7 +74,7 @@
 
 <script>
   import {Tab, TabItem} from 'vux'
-  import {$toastWarn, $toastSuccess} from '../../config/util'
+  import {$toastWarn, $toastSuccess, $loadingShow, $loadingHide} from '../../config/util'
 
   export default {
     name: 'upgrade',
@@ -112,29 +112,7 @@
         this.$http.post(`/official/member/recharge`, data).then(({data}) => {
           let wxconfig = data.wx_pay.config
           if (data.wx_pay.mweb_url) {
-            // window.location.href = data.wx_pay.mweb_url + '?redirect_url=' + window.location.href
             window.location.href = data.wx_pay.mweb_url
-            // WeixinJSBridge.invoke(
-            //   'getBrandWCPayRequest', {
-            //     'appId': params.appId,
-            //     'timeStamp':params.timeStamp,
-            //     'nonceStr': params.nonceStr,
-            //     'package': params.package,
-            //     'signType': params.signType,
-            //     'paySign': params.paySign
-            //   },
-            //   function (res) {
-            //     if (res.err_msg === 'get_brand_wcpay_request:ok') {
-            //       Toast('微信支付成功')
-            //       that.$router.replace({name:'fullOrder',query:{id:'2'}})
-            //     } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
-            //       Toast('用户取消支付')
-            //       that.$router.replace({name:'fullOrder',query:{id:'1'}})
-            //     } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
-            //       Toast('网络异常，请重试')
-            //     }
-            //   }
-            // );
           } else {
             console.log(wxconfig.appId)
             // this.$wechat.chooseWXPay({
@@ -177,7 +155,7 @@
                   $toastSuccess('微信支付成功')
                   that.$router.replace({name: 'fullOrder', query: {id: '2'}})
                 } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
-                  $toastWarn('用户取消支付')
+                  $toastWarn('取消支付')
                   that.$router.replace({name: 'fullOrder', query: {id: '1'}})
                 } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
                   $toastWarn('网络异常，请重试')
@@ -190,12 +168,14 @@
         })
       },
       getOrderList () {
+        $loadingShow('加载中...')
         this.$http.get(`/official/ranks?name=${this.type}`).then(({data}) => {
           this.user = data.user
           this.rank = data.rank
           this.score = data.score
           this.sub_ranks = data.rank.sub_ranks
           localStorage.setItem('official_openid', data.user.official_openid)
+          $loadingHide()
         }).catch((error) => {
           console.log(error)
         })

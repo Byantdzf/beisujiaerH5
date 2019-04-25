@@ -71,6 +71,7 @@
   import {XHeader, Tabbar, TabbarItem, ViewBox, Loading, TransferDom} from 'vux'
   import {mapState, mapActions} from 'vuex'
   import loadingPage from './components/loading'
+  import {$toastWarn} from './config/util'
 
   export default {
     name: 'app',
@@ -163,17 +164,18 @@
               if (data.logo) {
                 localStorage.setItem('logo', data.logo)
               }
-              if (data.title) {
-                document.title = data.title
-              }
+              document.title = localStorage.getItem('paasTitle')
             } else {
               this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '智能共享平台', '福恋家庭幸福平台')
+              document.title = '福恋家庭幸福平台'
             }
           }).catch((error) => {
             console.log(error)
           })
+          $toastWarn(localStorage.getItem('paasTitle'))
         } else {
           this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasName'), localStorage.getItem('paasTitle'))
+          $toastWarn(localStorage.getItem('paasTitle'))
           document.title = localStorage.getItem('paasTitle')
         }
       }
