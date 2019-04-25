@@ -188,7 +188,7 @@
       }
       this.chat_num = localStorage.getItem('chat_num')
       this.notice_num = localStorage.getItem('notice_num')
-      this.shareInfo()
+      // this.shareInfo()
     },
     created () {
     }
