@@ -29,7 +29,7 @@
           <div class="membership" v-for="item,index in official_feature" :key="index">
             <img class="icon_membership" :src="item.icon" alt="">
             <p class="font26">{{item.text}}</p>
-            <p class="font22 colorbe">可看全球</p>
+            <p class="font22 colorbe">{{item.desc}}</p>
           </div>
         </div>
       </div>
