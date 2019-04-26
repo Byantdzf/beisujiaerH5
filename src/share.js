@@ -6,8 +6,8 @@ exports.install = function (Vue, options) {
   Vue.prototype.$shareList = function (imgUrl, link, desc, title) {
     // 分享
     let vm = this
-    // let url = encodeURIComponent(location.href.split('#')[0])
-    let url = location.href
+    let url = encodeURIComponent(location.href.split('#')[0])
+    // let url = location.href
     let data = {url: url}
     vm.$http.post(`/official/js/config`, data).then(({data}) => {
       wxInit(data, imgUrl, link, desc, title)
@@ -19,14 +19,7 @@ exports.install = function (Vue, options) {
 
 function wxInit (res, imgUrl, link, desc, title) {
   // let url = window.location.href.split('?')[0] // 获取锚点之前的链接
-  wx.config({
-    debug: false,
-    appId: res.appId,
-    timestamp: res.timestamp,
-    nonceStr: res.nonceStr,
-    signature: res.signature,
-    jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
-  })
+  wx.config(res)
   wx.ready(function () {
     wx.onMenuShareAppMessage({
       title: title, // 分享标题
