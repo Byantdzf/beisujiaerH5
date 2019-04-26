@@ -180,6 +180,7 @@
     width: 646px;
     height: 736px;
     padding: 22px;
+    padding-bottom: 32px;
     margin: auto;
     border-radius: 10px;
     background: white;

@@ -35,7 +35,6 @@
     watch: {},
     methods: {
       onSlideClick () {
-        debugger
       }
     },
     mounted () {

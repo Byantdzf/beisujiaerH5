@@ -61,7 +61,6 @@
         }
       },
       onSlideClick () {
-        debugger
       }
     },
     mounted () {

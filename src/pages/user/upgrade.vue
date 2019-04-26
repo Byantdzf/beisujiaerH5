@@ -26,20 +26,10 @@
       </div>
       <div class="box_privilege">
         <div class="privilege_introduce">
-          <div class="membership">
-            <img class="icon_membership" src="http://images.ufutx.com/201904/08/31dc43f80f5272ca4d9547e6efe8662a.png" alt="">
-            <p class="font26">会员资料</p>
+          <div class="membership" v-for="item,index in official_feature" :key="index">
+            <img class="icon_membership" :src="item.icon" alt="">
+            <p class="font26">{{item.text}}</p>
             <p class="font22 colorbe">可看全球</p>
-          </div>
-          <div class="addFriends">
-            <img class="icon_addFriends" src="http://images.ufutx.com/201904/08/0d580cca7df95b754ab20dc7af162c33.png" alt="">
-            <p class="font26">添加好友</p>
-            <p class="font22 colorbe">可加40位</p>
-          </div>
-          <div class="exchangePrivilege">
-            <img class="icon_exchangePrivilege" src="http://images.ufutx.com/201904/08/20d6f3b39bceb819b4326e4bd212b788.png" alt="">
-            <p class="font26">交流特权</p>
-            <p class="font22 colorbe">了解彼此</p>
           </div>
         </div>
       </div>
@@ -96,6 +86,7 @@
         },
         rank: {},
         sub_ranks: [],
+        official_feature: [],
         score: {}
       }
     },
@@ -174,6 +165,7 @@
           this.rank = data.rank
           this.score = data.score
           this.sub_ranks = data.rank.sub_ranks
+          this.official_feature = data.rank.official_feature
           localStorage.setItem('official_openid', data.user.official_openid)
           $loadingHide()
         }).catch((error) => {
