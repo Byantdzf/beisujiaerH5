@@ -157,7 +157,7 @@
         // let paas = localStorage.getItem('paasName')
         let vm = this
         if (localStorage.getItem('paasTitle')) {
-          this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasName'), localStorage.getItem('paasTitle'))
+          this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasName'), localStorage.getItem('paasIntro'))
           document.title = localStorage.getItem('paasTitle')
         } else {
           this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '智能共享平台', '福恋家庭幸福平台')
@@ -168,7 +168,8 @@
           vm.$http.get(`/official/paas`).then(({data}) => {
             if (data && data !== null) {
               localStorage.setItem('paasTitle', data.title)
-              this.$shareList(data.logo, url, data.title, data.name)
+              localStorage.setItem('paasIntro', data.intro)
+              this.$shareList(data.logo, url, data.title, data.paasIntro)
               if (data.logo) {
                 localStorage.setItem('logo', data.logo)
               }
