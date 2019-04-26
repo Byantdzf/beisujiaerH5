@@ -62,12 +62,12 @@
         <div class="bc_popup ff">
           <p class="list bold">活动报名信息</p>
           <p class="price list">报名费用： <span style="color: #f66924;">{{information.fee}}</span></p>
-          <p class="list">联系人：
-            <input type="text" class="flo_r"  v-model="name"/>
-          </p>
-          <p class="list">联系方式：
-            <input type="number" class="flo_r" v-model="mobile"/>
-          </p>
+          <!--<p class="list">联系人：-->
+            <!--<input type="text" class="flo_r"  v-model="name"/>-->
+          <!--</p>-->
+          <!--<p class="list">联系方式：-->
+            <!--<input type="number" class="flo_r" v-model="mobile"/>-->
+          <!--</p>-->
         </div>
         <div class="applyNow" style="width: 100%" @click="confirmPay">确定支付</div>
       </popup>
@@ -138,12 +138,12 @@
       },
       confirmPay () { // 报名
         this.showModal = !this.showModal
-        if (!this.name) {
-          return $toastWarn('请填写联系人')
-        }
-        if (!this.mobile) {
-          return $toastWarn('请填写联系方式')
-        }
+        // if (!this.name) {
+        //   return $toastWarn('请填写联系人')
+        // }
+        // if (!this.mobile) {
+        //   return $toastWarn('请填写联系方式')
+        // }
         let data = {
           name: this.name,
           mobile: this.mobile
@@ -343,7 +343,9 @@
     height: 75px;
     line-height: 75px;
     text-align: center;
-    margin: -75px 18px 72px 18px;
+    margin: 4px 18px 72px 18px;
+    border-top: 4px solid #f7f7fa;
+    padding-top: 12px;
     background-color: rgba(255,255,255,0.8);
     font-size: 30px;
     color: #1c9ce3;

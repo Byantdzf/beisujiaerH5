@@ -25,42 +25,42 @@
       <!--<x-icon type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;"></x-icon>-->
       <!--</span>-->
       <!--</x-header>-->
-      <tabbar class="vux-demo-tabbar" icon-class="vux-center" v-show="!isTabbarDemo" slot="bottom">
+      <tabbar class="vux-demo-tabbar" icon-class="vux-center tabbar-icon" v-show="!isTabbarDemo" slot="bottom">
         <tabbar-item :link="{path:'/'}" :selected="path === '/'">
-        <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
-          <img src="../src/assets/icon/home.png" alt="home">
-        </span>
-          <span class="demo-icon-22" slot="icon-active">
-          <img src="../src/assets/icon/homeActive.png" alt="home">
-        </span>
-          <span slot="label">首页</span>
+          <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
+            <img src="../src/assets/icon/home.png" alt="home">
+          </span>
+            <span class="demo-icon-22" slot="icon-active">
+            <img src="../src/assets/icon/homeActive.png" alt="home">
+          </span>
+            <span slot="label">首页</span>
         </tabbar-item>
-        <tabbar-item :link="{path:'/activity'}"  :selected="path === '/activity'">
-        <span class="demo-icon-22" slot="icon">
-          <img src="../src/assets/icon/attention.png" alt="home">
-        </span>
-          <span class="demo-icon-22" slot="icon-active">
-          <img src="../src/assets/icon/attentionActive.png" alt="home">
-        </span>
-          <span slot="label">活动</span>
+        <tabbar-item :link="{path:'/activity'}" :selected="path === '/activity'">
+          <span class="demo-icon-22" slot="icon">
+            <img src="../src/assets/icon/attention.png" alt="home">
+          </span>
+            <span class="demo-icon-22" slot="icon-active">
+            <img src="../src/assets/icon/attentionActive.png" alt="home">
+          </span>
+            <span slot="label">活动</span>
         </tabbar-item>
         <tabbar-item :link="{path:'/chitchat'}" :badge="chat_num == 0?'':chat_num" :selected="path === '/chitchat'">
-        <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
-          <img src="../src/assets/icon/message.png" alt="home">
-        </span>
-          <span class="demo-icon-22" slot="icon-active">
-          <img src="../src/assets/icon/messageActive.png" alt="home">
-        </span>
-          <span slot="label">聊天</span>
+          <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
+            <img src="../src/assets/icon/message.png" alt="home">
+          </span>
+            <span class="demo-icon-22" slot="icon-active">
+            <img src="../src/assets/icon/messageActive.png" alt="home">
+          </span>
+            <span slot="label">聊天</span>
         </tabbar-item>
-        <tabbar-item :link="{path:'/user'}" :badge="notice_num == 0?'':notice_num" :selected="path === '/user'" >
-        <span class="demo-icon-22 vux-demo-tabbar-icon-home"  slot="icon" style="position:relative;top: -2px;">
-          <img src="../src/assets/icon/my.png" alt="home">
-        </span>
-          <span class="demo-icon-22" slot="icon-active">
-          <img src="../src/assets/icon/myActive.png" alt="home">
-        </span>
-          <span slot="label">我的</span>
+        <tabbar-item :link="{path:'/user'}" :badge="notice_num == 0?'':notice_num" :selected="path === '/user'">
+          <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
+            <img src="../src/assets/icon/my.png" alt="home">
+          </span>
+            <span class="demo-icon-22" slot="icon-active">
+            <img src="../src/assets/icon/myActive.png" alt="home">
+          </span>
+            <span slot="label">我的</span>
         </tabbar-item>
       </tabbar>
     </view-box>
@@ -154,7 +154,7 @@
       },
       shareInfo () {
         let url = location.href
-        let paas = localStorage.getItem('paasName')
+        // let paas = localStorage.getItem('paasName')
         let vm = this
         if (localStorage.getItem('paasTitle')) {
           this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasName'), localStorage.getItem('paasTitle'))
@@ -200,59 +200,83 @@
 </script>
 
 <style lang="less">
-@import '../src/assets/style/reset';
-html, body {
-  height: 100%;
-  width: 100%;
-  overflow-x: hidden;
-}
-input,button,select,textarea{outline:none}
-.weui-tabbar,.vux-header{
-  position: fixed;
-  width: 100%;
-  z-index: 9999;
-}
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-input[type="number"]{
-  -moz-appearance: textfield;
-}
-.vux-header{}
-.weui-tabbar__icon{
-  width: 22px;
-  height: 22px;
-}
-.dp-header .dp-item {
-  color: #04be02;
-  font-size: 4vw;
-  height: 5.867vw;
-  line-height: 5.867vw;
-  margin: 16px 0;
-  cursor: pointer;
-}
-.vux-no-group-title{
-  margin-top: 0 !important;
-}
-.mescroll {
-  position: fixed;
-  padding-bottom: 1rem;
-  top: 0px;
-  bottom: 60px;
-  height: auto;
-  font-size: 32px;
-}
-a {
-  text-decoraction: none !important;
-  cursor: none;
-}
-a:-webkit-any-link {
-  /*color: -webkit-link;*/
-  cursor: none;
-  text-decoration: none;
-}
-.router-link-active {
-  text-decoration: none;
-}
+  @import '../src/assets/style/reset';
+
+  html, body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  input, button, select, textarea {
+    outline: none
+  }
+
+  .weui-tabbar, .vux-header {
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  .vux-header {
+  }
+  .weui-tabbar{
+    padding: 6px 0 !important;
+    .weui-tabbar__icon {
+      width: 22px !important;
+      height: 22px !important;
+    }
+  }
+
+  .dp-header .dp-item {
+    color: #04be02;
+    font-size: 4vw;
+    height: 5.867vw;
+    line-height: 5.867vw;
+    margin: 16px 0;
+    cursor: pointer;
+  }
+
+  .vux-no-group-title {
+    margin-top: 0 !important;
+  }
+
+  .mescroll {
+    position: fixed;
+    padding-bottom: 1rem;
+    top: 0px;
+    bottom: 60px;
+    height: auto;
+    font-size: 32px;
+  }
+
+  a {
+    text-decoraction: none !important;
+    cursor: none;
+  }
+
+  a:-webkit-any-link {
+    /*color: -webkit-link;*/
+    cursor: none;
+    text-decoration: none;
+  }
+
+  .router-link-active {
+    text-decoration: none;
+  }
+
+  .tabbar-icon {
+    /*background: yellow;*/
+    width: 32px;
+    height: 32px;
+  }
 </style>

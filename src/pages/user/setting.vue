@@ -1,40 +1,32 @@
 <template>
   <div id="user">
-    <div class="wrapper_user ff">
-      <div class="avatar flo_l backCover" @touchstart="showDeleteButton()" @touchend="clearLoop()" @click="routeToDetail('PreviewData')"  :style="{backgroundImage:'url(' + user.photo + ')'}"></div>
-      <div class="name inline-block">
-        <span class="font36 bold">{{user.name}}</span><br/>
-        <span class="font26">
-          <img width="16" style="display:inline-block;margin-bottom: 4px;"  class="middle" src="http://images.ufutx.com/201904/15/45bfd2a6b4f2dd8bb227f6bafd8ca836.png">
-          {{user.rank_name}}
-        </span>
-      </div>
-      <div class="editData flo_r font26" @click="routeToDetail('PreviewData')">编辑资料</div>
-      <div class="news"  @click="routeToDetail('news')">
-        <img src="http://images.ufutx.com/201901/04/8fa5e8921c0dca549a1302af42c743c2.png"  class="flo_r"/>
-        <p class="inline-block dist" v-if="notice_num > 0"></p>
-      </div>
-      <div class="clearfloat"></div>
-      <ul class="mutual text-center">
-        <li class="after"><p class="bold color6" @click="routeToDetail('myFriend', 'fans')">{{user.fans_count}}</p>喜欢我</li>
-        <li class="after"><p class="bold color6" @click="routeToDetail('myFriend', 'attention')">{{user.follow_count}}</p>我喜欢</li>
-        <li><p class="bold color6" @click="routeToDetail('myFriend', 'friend')">{{user.friend_count}}</p>好友</li>
-      </ul>
-    </div>
-    <div @click="routeToDetail('upgrade')">
+    <!--<div class="wrapper_user ff">-->
+      <!--<div class="avatar flo_l backCover" @touchstart="showDeleteButton()" @touchend="clearLoop()" @click="routeToDetail('PreviewData')"  :style="{backgroundImage:'url(' + user.photo + ')'}"></div>-->
+      <!--<div class="name inline-block">-->
+        <!--<span class="font36 bold">{{user.name}}</span><br/>-->
+        <!--<span class="font26">-->
+          <!--<img width="16" style="display:inline-block;margin-bottom: 4px;"  class="middle" src="http://images.ufutx.com/201904/15/45bfd2a6b4f2dd8bb227f6bafd8ca836.png">-->
+          <!--{{user.rank_name}}-->
+        <!--</span>-->
+      <!--</div>-->
+      <!--<div class="editData flo_r font26" @click="routeToDetail('PreviewData')">编辑资料</div>-->
+      <!--<div class="news"  @click="routeToDetail('news')">-->
+        <!--<img src="http://images.ufutx.com/201901/04/8fa5e8921c0dca549a1302af42c743c2.png"  class="flo_r"/>-->
+        <!--<p class="inline-block dist" v-if="notice_num > 0"></p>-->
+      <!--</div>-->
+      <!--<div class="clearfloat"></div>-->
+      <!--<ul class="mutual text-center">-->
+        <!--<li class="after"><p class="bold color6" @click="routeToDetail('myFriend', 'fans')">{{user.fans_count}}</p>喜欢我</li>-->
+        <!--<li class="after"><p class="bold color6" @click="routeToDetail('myFriend', 'attention')">{{user.follow_count}}</p>我喜欢</li>-->
+        <!--<li><p class="bold color6" @click="routeToDetail('myFriend', 'friend')">{{user.friend_count}}</p>好友</li>-->
+      <!--</ul>-->
+    <!--</div>-->
+    <div @click="showDeleteButton">
       <group title=" " >
-        <cell title="VIP办理" is-link>
+        <cell title="清除缓存" is-link>
           <!--<badge text="1"></badge>-->
-          <img slot="icon" width="20" class="item_icon" src="http://images.ufutx.com/201904/02/ff09a194b571b1fa88c7516af916b122.png">
+          <img slot="icon" width="20" class="item_icon" src="http://images.ufutx.com/201904/26/3e6c1bfea548555f580ffb10a10b23ed.png">
           <span class="be" v-if="user.rank_deadline">{{user.rank_deadline}}到期</span>
-        </cell>
-      </group>
-    </div>
-    <div  @click="routeToDetail('authentication')">
-      <group title=" " >
-        <cell title="实名认证" is-link >
-          <!--<badge text="1"></badge>-->
-          <img slot="icon" width="20" class="item_icon" src="http://images.ufutx.com/201904/02/22ae44de7e489989752d4091d4e4bada.png">
         </cell>
       </group>
     </div>
@@ -46,18 +38,10 @@
         </cell>
       </group>
     </div>
-    <div @click="routeToDetail('setting')">
-      <group title=" ">
-        <cell title="设置" is-link>
-          <!--<badge text="1"></badge>-->
-          <img slot="icon" width="20" class="item_icon" src="http://images.ufutx.com/201904/26/490ab9c06966df4d207e59fa5700121c.png">
-        </cell>
-      </group>
-    </div>
     <!--{{count}}-->
-    <!--<div class="text-center">-->
-      <!--<div @click="onClick" class="outLogin color6 inline-block font28">退出登录</div>-->
-    <!--</div>-->
+    <div class="text-center">
+      <div @click="onClick" class="outLogin color6 inline-block font32">退出登录</div>
+    </div>
   </div>
 </template>
 
@@ -121,21 +105,21 @@
         })
       },
       showDeleteButton (e) {
-        clearTimeout(this.removeCache) // 再次清空定时器，防止重复注册定时器
-        this.removeCache = setTimeout(function () {
-          this.$vux.confirm.show({
-            title: 'Prompt Message',
-            content: '是否清除缓存？',
-            dialogTransition: 'vux-fade',
-            onCancel: () => {
-            },
-            onConfirm: () => {
-              let url = location.href + '?paas=' + localStorage.getItem('paasName')
-              localStorage.clear()
-              this.$href(url)
-            }
-          })
-        }.bind(this), 1000)
+        // clearTimeout(this.removeCache) // 再次清空定时器，防止重复注册定时器
+        // this.removeCache = setTimeout(function () {
+        this.$vux.confirm.show({
+          title: '提示',
+          content: '是否清除缓存？',
+          dialogTransition: 'vux-fade',
+          onCancel: () => {
+          },
+          onConfirm: () => {
+            let url = location.href + '?paas=' + localStorage.getItem('paasName')
+            localStorage.clear()
+            this.$href(url)
+          }
+        })
+        // }.bind(this), 1000)
       },
       clearLoop (e) {
         clearTimeout(this.removeCache)
@@ -146,7 +130,8 @@
           // 组件除show外的属性
           title: '提示',
           content: '是否退出登录?',
-          dialogTransition: 'vux-dialog',
+          dialogTransition: 'vux-fade',
+
           onCancel () {
             console.log('取消')
           },
@@ -234,15 +219,17 @@
       }
     }
   }
-  /*.outLogin{*/
+  .outLogin{
     /*box-shadow: 1px 1px 12px #c9c9c9;*/
     /*border-radius: 12px;*/
-    /*margin: 80px auto;*/
-    /*!*letter-spacing: 2px;*!*/
-    /*padding: 14px 52px;*/
+    margin: 36px auto;
+    /*letter-spacing: 2px;*/
+    width: 100%;
+    padding: 26px 0;
+    background: white;
     /*background-image: linear-gradient(-225deg, #FFFEFF 0%, #D7FFFE 100%);*/
     /*background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);*/
-  /*}*/
+  }
   .vux-label,.weui-cell__ft{
     font-size: 4vw;
   }
