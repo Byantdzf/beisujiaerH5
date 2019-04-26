@@ -68,6 +68,11 @@ export default new Router({
       name: 'authentication',
       component: (resolve) => require(['@/pages/user/authentication'], resolve)
     },
+    {
+      path: '/setting', // 设置
+      name: 'setting',
+      component: (resolve) => require(['@/pages/user/setting'], resolve)
+    },
     { // 单身详情
       path: '/information/:id',
       name: 'information',

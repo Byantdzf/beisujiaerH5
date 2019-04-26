@@ -2,12 +2,13 @@
   <div>
     <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit" class="scrollView">
       <!--<div id="box"></div>-->
-      <div style="background: #35495e;padding: 10px;padding-bottom: 0px;" class="font30" v-if="announcements">
+      <div style="background: #35495e;padding: 10px;padding-bottom: 0px;" class="font30" v-if="announcements.length > 0">
         <swiper auto height="30px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false" >
           <swiper-item v-for="item in announcements" :key="item.id">
             <p class="ellipsis_1" @click="$href(item.type == 'OF'?item.path:'#')">
-            <img src="http://images.ufutx.com/201904/15/356b40bdf7ff0172414c559449e14ee0.png" alt="" width="22px" class="announcementIcon">
-            {{item.title}}
+              <img src="http://images.ufutx.com/201904/15/356b40bdf7ff0172414c559449e14ee0.png" alt="" width="22px"
+                   class="announcementIcon">
+              {{item.title}}
             </p>
           </swiper-item>
         </swiper>
@@ -18,12 +19,14 @@
         </div>
       </router-link>
       <p class="bc_title font34 bold">征婚</p>
-      <swiper  :min-moving-distance="120" :show-desc-mask="true" height="260px" :auto="true" dots-position="center"
-               :interval="2000">
-        <swiper-item v-for="item in recommend" :key="item.id" >
-          <div class="recommend-image backCover" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}" @click="routeToDetail(item.user.type, item.user.id)"></div>
-        </swiper-item>
-      </swiper>
+      <swiperComponent :list.sync="recommend"></swiperComponent>
+      <!--<swiper  :min-moving-distance="120" :show-desc-mask="true"  :auto="true" :interval="2000" @on-index-change="swiperItem">-->
+        <!--<swiper-item v-for="item,index in recommend" :key="item.id" >-->
+          <!--<div :class="[index == current?'animationData': 'animationData2']">-->
+            <!--<div class="recommend-image backCover"  v-bind:style="{backgroundImage:'url(' + item.photo + ')'}" @click="routeToDetail(item.user.type, item.user.id)"></div>-->
+          <!--</div>-->
+        <!--</swiper-item>-->
+      <!--</swiper>-->
       <div class="list-item" v-for="item in list" @click="routeToDetail(item.type, item.id)">
         <div class="image" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}"></div>
         <p style="margin-top: 8px;">
@@ -39,6 +42,7 @@
 <script>
   import { Group, Cell, XHeader, Swiper, XInput, Search, SwiperItem } from 'vux'
   import MescrollVue from 'mescroll.js/mescroll.vue'
+  import swiperComponent from '../components/swiper'
 
   export default {
     components: {
@@ -49,11 +53,13 @@
       SwiperItem,
       XInput,
       Search,
+      swiperComponent,
       MescrollVue
     },
     data () {
       return {
         value: '',
+        current: 0,
         search: '',
         init: false,
         recommend: [],
@@ -76,6 +82,9 @@
       }
     },
     methods: {
+      swiperItem (currentIndex) {
+        this.currentIndex = currentIndex
+      },
       routeToDetail (type, id) {
         if (type === 'single') {
           this.$router.push({name: 'information', params: {id: id}})
@@ -189,5 +198,38 @@
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
+  }
+  .vux-swiper{
+    height: 400px;
+  }
+
+  .animationData {
+    animation: myMove2 800ms linear;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes myMove2 {
+    from {
+      height: 302px;
+    }
+    to {
+      height: 347px;
+    }
+  }
+
+  .animationData2 {
+    animation: myMove1 800ms linear;
+    animation-fill-mode: forwards;
+
+  }
+
+  @keyframes myMove1 {
+    from {
+      height: 347px;
+    }
+    to {
+      height: 302px;
+
+    }
   }
 </style>
