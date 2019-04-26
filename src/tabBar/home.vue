@@ -149,14 +149,18 @@
     height: 100px
   }
   .search-box{
-    margin:22px 0;
+    width: 690px;
+    height: 88px;
+    margin: 22px auto;
+    background: white;
+    border-radius: 6px;
+    border: 4px solid #f0f0f3;
     .homeSearch{
-      width: 690px;
-      height: 88px;
+      width: 100%;
+      height: 100%;
       border: none;
-      border-radius: 6px;
+      background: none;
       /*box-shadow: 1px 1px 12px #e9e9e9;*/
-      border: 2px solid #f7f7fa;
     }
   }
   .bc_title{
