@@ -1,25 +1,29 @@
 <template>
   <div>
-    <Search placeholder="请搜索Ta的名字" v-model="search" @on-change="searchUser" @auto-scroll-to-top="true" position="absolute">
-      <img  slot="right" class="bc_search" src="http://images.ufutx.com/201904/10/da5d9f0ce577935d39864a7a348d3c0d.png" @click="showSearch = !showSearch" alt="">
+    <Search placeholder="请搜索Ta的名字" v-model="search" @on-change="searchUser" @auto-scroll-to-top="true"
+            position="absolute">
+      <img slot="right" class="bc_search" src="http://images.ufutx.com/201904/10/da5d9f0ce577935d39864a7a348d3c0d.png"
+           @click="showSearch = !showSearch" alt="">
     </Search>
+
     <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit" class="scrollView">
       <!--<div id="box"></div>-->
       <!--<div class="text-center search-box">-->
-        <!--<input type="text" class="homeSearch text-center" v-model="search" placeholder="请搜索Ta的名字">-->
+      <!--<input type="text" class="homeSearch text-center" v-model="search" placeholder="请搜索Ta的名字">-->
       <!--</div>-->
       <div class="search-center ff" style="padding: 58px 16px 12px 16px;">
         <p class="search-item font26" v-if="searchCity !== '不限' && searchCity">
           区域：{{searchCity}}
-          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchCity')">
+          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt=""
+               @click="del('searchCity')">
         </p>
         <p class="search-item font26" v-if="searchType !== '不限' && searchType">
           人群：{{searchType}}
-          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchType')">
+          <!--<img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchType')">-->
         </p>
         <p class="search-item font26" v-if="searchAge !== '不限' && searchAge">
           年龄：{{searchAge}}
-          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchAge')">
+          <!--<img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchAge')">-->
         </p>
       </div>
       <div class="height160"></div>
@@ -31,23 +35,27 @@
         </p>
         <p class="font26 color6 ellipsis_1" style="margin-top: 4px">{{item.introduction}}</p>
       </div>
+      <!--<div style="background: #f9f9f9;width: 80%;padding: 6px;margin: 40px auto;" class="text-center color6">没有搜索结果...</div>-->
     </mescroll-vue>
     <div v-transfer-dom>
       <popup v-model="showSearch" position="right" width="70%">
         <div class="position-horizontal-demo">
           <div class="SearchCenter">
             <!--<div class="SearchCenter-item">-->
-              <!--<p class="font28 bold">区域筛选</p>-->
-              <!--<p class="SearchCenter-item-text font26 inline-block searchActive">不限</p>-->
-              <!--<p class="SearchCenter-item-text font26 inline-block">选择...</p>-->
+            <!--<p class="font28 bold">区域筛选</p>-->
+            <!--<p class="SearchCenter-item-text font26 inline-block searchActive">不限</p>-->
+            <!--<p class="SearchCenter-item-text font26 inline-block">选择...</p>-->
             <!--</div>-->
             <div class="SearchCenter-item">
               <p class="font28 bold">人群筛选</p>
-              <p class="SearchCenter-item-text font26 inline-block" :class="{'searchActive':item.active}" v-for="(item,index) in typeArray" @click="selectText('typeArray','searchType', index)">{{item.title}}</p>
+              <p class="SearchCenter-item-text font26 inline-block" :class="{'searchActive':item.active}"
+                 v-for="(item,index) in typeArray" @click="selectText('typeArray','searchType', index)">
+                {{item.title}}</p>
             </div>
             <div class="SearchCenter-item">
               <p class="font28 bold">年龄筛选</p>
-              <p class="SearchCenter-item-text font26 inline-block" :class="{'searchActive':item.active}" v-for="(item,index) in ageArray" @click="selectText('ageArray','searchAge', index)">{{item.title}}</p>
+              <p class="SearchCenter-item-text font26 inline-block" :class="{'searchActive':item.active}"
+                 v-for="(item,index) in ageArray" @click="selectText('ageArray','searchAge', index)">{{item.title}}</p>
             </div>
           </div>
           <div class="submit">
@@ -63,6 +71,7 @@
 <script>
   import {TransferDom, Popup, XInput, Search} from 'vux'
   import MescrollVue from 'mescroll.js/mescroll.vue'
+  import {$loadingShow, $loadingHide, $toastText} from '../../config/util'
 
   export default {
     directives: {
@@ -123,13 +132,7 @@
     },
     watch: {
       searchArray () {
-        if (this.searchArray.searchType) {
-          for (let item of this.typeArray) {
-            if (item.title === this.searchArray.searchType) {
-              this.searchTypeV2 = item.type
-            }
-          }
-        }
+        console.log(this.searchArray.searchType)
       }
     },
     methods: {
@@ -141,7 +144,8 @@
       reset () {
         this.showSearch = !this.showSearch
       },
-      searchSave () { // search
+      searchSave () { // 确定search
+        $loadingShow('配对中...')
         for (let item in this.searchArray) {
           this[item] = this.searchArray[item]
         }
@@ -158,16 +162,19 @@
           this.arr[name] = this[type][index].title
         }
         this[type][index].active = true
-        console.log(this.arr)
-        // console.log(name, this[type][index].title)
         this.searchArray = this.arr
-        console.log(this.searchArray)
+        if (this.searchArray.searchType) {
+          for (let item of this.typeArray) {
+            if (item.title === this.searchArray.searchType) {
+              this.searchTypeV2 = item.type
+            }
+          }
+        }
       },
-      searchUser () {
-        console.log(this.search)
+      searchUser () { // 输入框搜索
         this.getOrderList(1)
       },
-      routeToDetail (type, id) {
+      routeToDetail (type, id) { // 跳转
         if (type === 'single') {
           this.$router.push({name: 'information', params: {id: id}})
         } else {
@@ -177,7 +184,7 @@
       mescrollInit (mescroll) {
         this.mescroll = mescroll
       },
-      getOrderList (page, mescroll) {
+      getOrderList (page, mescroll) { // 获取数据
         let pageV = 1
         pageV = page.num
         if (!page.num) {
@@ -193,13 +200,14 @@
               mescroll.endSuccess(data.data.length)
             })
           }
+          if (vm.list.length < 1) $toastText('很抱歉！暂时没有搜索到对象')
+          $loadingHide()
         }).catch((error) => {
           console.log(error)
         })
       }
     },
     mounted () {
-      // console.log(this.$store.state.intercept)
       if (this.$store.state.intercept === 'true') {
         return false
       }
@@ -207,20 +215,24 @@
   }
 </script>
 
-<style  lang="less" scoped>
-  body{
+<style lang="less" scoped>
+  body {
     background: #f7f7f7 !important;
   }
+
   .vux-demo {
     text-align: center;
   }
+
   .logo {
     width: 100px;
     height: 100px
   }
-  .search-box{
-    margin:22px 0;
-    .homeSearch{
+
+  .search-box {
+    margin: 22px 0;
+
+    .homeSearch {
       width: 690px;
       height: 88px;
       border-radius: 6px;
@@ -228,26 +240,30 @@
       box-shadow: 1px 1px 12px #e9e9e9;
     }
   }
-  .bc_title{
+
+  .bc_title {
     margin-top: 12px;
     margin-left: 22px;
     margin-bottom: 12px;
   }
-  .vux-img{
+
+  .vux-img {
     width: 90% !important;
     margin: auto;
     border-radius: 6px;
     box-shadow: 1px 1px 12px #d3d3d3;
   }
-  .vux-swiper{
+
+  .vux-swiper {
     text-align: center;
-    p{
+
+    p {
       color: white;
     }
   }
-  .list-item{
+
+  .list-item {
     width: 646px;
-    height: 736px;
     padding: 22px;
     margin: auto;
     border-radius: 10px;
@@ -255,30 +271,35 @@
     margin-top: 32px;
     box-shadow: -1px 8px 18px #dadada;
     margin-bottom: 26px;
-    .image{
+
+    .image {
       width: 100%;
       height: 646px;
       background-repeat: no-repeat;
       background-size: cover;
     }
   }
-  .image{
+
+  .image {
     width: 100%;
     height: 646px;
     background-repeat: no-repeat;
     background-size: cover;
   }
-  .bc_search{
+
+  .bc_search {
     width: 48px;
     height: 48px;
     margin-left: 12px;
     margin-top: 6px;
   }
-  .weui-search-bar,.vux-search-box{
+
+  .weui-search-bar, .vux-search-box {
     position: fixed !important;
     z-index: 9999;
   }
-  .search-center{
+
+  .search-center {
     padding: 100px 32px 22px 32px;
     border-bottom: 4px solid #f9f9f9;
     position: fixed;
@@ -287,23 +308,28 @@
     z-index: 1;
     width: 100%;
     box-shadow: 0 0 18px #dedede;
-    .search-item{
+
+    .search-item {
       background: #EFEFF4;
       float: left;
       padding: 6px 10px 6px 12px;
       border-radius: 4px;
       margin-right: 10px;
-      img{
+
+      img {
         width: 26px;
         margin-bottom: -2px;
       }
     }
   }
-  .SearchCenter{
+
+  .SearchCenter {
     padding: 42px 12px 0 22px;
-    .SearchCenter-item{
+
+    .SearchCenter-item {
       margin-top: 42px;
-      .SearchCenter-item-text{
+
+      .SearchCenter-item-text {
         margin: 22px 8px 0 8px;
         padding: 6px 22px;
         border-radius: 6px;
@@ -311,7 +337,8 @@
       }
     }
   }
-  .submit{
+
+  .submit {
     height: 105px;
     line-height: 105px;
     text-align: center;
@@ -322,9 +349,11 @@
     bottom: 0;
     width: 70%;
     letter-spacing: 3px;
-    .reset{
+
+    .reset {
       position: relative;
-      &:before{
+
+      &:before {
         content: '';
         width: 1px;
         height: 62px;
@@ -335,12 +364,14 @@
       }
     }
   }
-  .searchActive{
+
+  .searchActive {
     border-color: #35495e;
     color: #35495e;
     position: relative;
     box-shadow: 1px 1px 12px #d2d2d2;
-    &:after{
+
+    &:after {
       content: '';
       background-image: url("http://images.ufutx.com/201904/10/648e9cb095bb9b34c0035226b0f7aa71.png");
       background-repeat: no-repeat;

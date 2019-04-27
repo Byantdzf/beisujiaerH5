@@ -2,22 +2,25 @@
   <div>
     <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit" class="scrollView">
       <!--<div id="box"></div>-->
-      <div style="background: #35495e;padding: 10px;padding-bottom: 0px;" class="font30" v-if="announcements.length > 0">
-        <swiper auto height="30px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false" >
-          <swiper-item v-for="item in announcements" :key="item.id">
-            <p class="ellipsis_1" @click="$href(item.type == 'OF'?item.path:'#')">
-              <img src="http://images.ufutx.com/201904/15/356b40bdf7ff0172414c559449e14ee0.png" alt="" width="22px"
-                   class="announcementIcon">
-              {{item.title}}
-            </p>
-          </swiper-item>
-        </swiper>
-      </div>
-      <router-link to="userList">
-        <div class="text-center search-box">
-          <input type="text" class="homeSearch text-center" v-model="search" placeholder="请搜索Ta的名字">
+      <div class="bc_top">
+        <router-link to="userList">
+          <img src="http://images.ufutx.com/201904/27/49397b67f29633a4d200ed2b86ce3dbc.png" alt="" width="100%">
+          <!--<div class="text-center search-box">-->
+            <!--<input type="text" class="homeSearch text-center" v-model="search" placeholder="请搜索Ta的名字">-->
+          <!--</div>-->
+        </router-link>
+        <div class="font30 announcements" v-if="announcements.length > 0">
+          <swiper auto height="30px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false" >
+            <swiper-item v-for="item in announcements" :key="item.id">
+              <p class="ellipsis_1 color6" @click="$href(item.type == 'OF'?item.path:'#')">
+                <img src="http://images.ufutx.com/201904/27/3a6720333a2434da29453d42ede484cf.png" alt="" width="22px"
+                     class="announcementIcon">
+                {{item.title}}
+              </p>
+            </swiper-item>
+          </swiper>
         </div>
-      </router-link>
+      </div>
       <p class="bc_title font34 bold">征婚</p>
       <swiperComponent :list.sync="recommend"></swiperComponent>
       <!--<swiper  :min-moving-distance="120" :show-desc-mask="true"  :auto="true" :interval="2000" @on-index-change="swiperItem">-->
@@ -149,14 +152,18 @@
     height: 100px
   }
   .search-box{
-    margin:22px 0;
+    width: 690px;
+    height: 88px;
+    margin: 22px auto;
+    background: white;
+    border-radius: 6px;
+    border: 2px solid #f0f0f3;
     .homeSearch{
-      width: 690px;
-      height: 88px;
+      width: 100%;
+      height: 100%;
       border: none;
-      border-radius: 6px;
+      background: none;
       /*box-shadow: 1px 1px 12px #e9e9e9;*/
-      border: 2px solid #f7f7fa;
     }
   }
   .bc_title{
@@ -173,13 +180,14 @@
   .vux-swiper{
     text-align: center;
     p{
-      color: white;
+      color: #666666;
     }
   }
   .list-item{
     width: 646px;
     height: 736px;
     padding: 22px;
+    padding-bottom: 32px;
     margin: auto;
     border-radius: 10px;
     background: white;
@@ -201,6 +209,14 @@
   }
   .vux-swiper{
     height: 400px;
+  }
+
+  .announcements {
+    background: #EDEDED;
+    padding: 12px 22px;
+    padding-bottom: 0px;
+    margin-top: -12px;
+    margin-bottom: 18px;
   }
 
   .animationData {
