@@ -282,6 +282,6 @@
     height: 32px;
   }
   .vux-demo-tabbar{
-    background-color: #EDEDED !important;
+    background-color: #FAFAFB !important;
   }
 </style>
