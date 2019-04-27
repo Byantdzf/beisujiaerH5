@@ -138,8 +138,8 @@
     background-color: #ffffff;
   }
   .camera_perfect{
-    width: 706px;
-    padding: 0px 25px 35px 25px;
+    width: 710px;
+    padding: 0px 20px 35px 20px;
     background-color: #ffffff;
   }
   .perfect{

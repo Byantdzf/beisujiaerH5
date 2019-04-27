@@ -257,13 +257,15 @@
     .menberList{
       max-width: 300px;
       background: rgba(0,0,0,0.6);
-      padding: 8px 24px 8px 12px;
+      padding: 8px 12px;
       color: white;
       border-radius: 12px;
       position: relative;
       position: absolute;
-      right: -12px;
+      right: 0px;
       top: 120px;
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
     }
     .bc_icon{
       position: absolute;
@@ -365,7 +367,7 @@
     width: 100%;
   }
   .home_and_share{
-    width: 264px;
+    width: 36%;
     border: none;
     border-top: 1px solid #b6b6b6;
     overflow: hidden;
@@ -403,7 +405,7 @@
   }
   /*立即报名*/
   .applyNow{
-    width: 486px;
+    width: 100-36%;
     height: 105px;
     font-size: 32px;
     background-color: #344a5d;

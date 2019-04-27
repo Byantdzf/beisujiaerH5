@@ -25,7 +25,7 @@
       <group title=" " >
         <cell title="清除缓存" is-link>
           <!--<badge text="1"></badge>-->
-          <img slot="icon" width="20" class="item_icon" src="http://images.ufutx.com/201904/27/7abc267a605e7924060928d701c90a86.png">
+          <img slot="icon" width="20" class="item_icon" src="http://images.ufutx.com/201904/27/3473f59ee31a1fc8f3696639dcb2ae32.png">
           <span class="be" v-if="user.rank_deadline"></span>
         </cell>
       </group>
