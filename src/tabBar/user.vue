@@ -50,7 +50,7 @@
       <group title=" ">
         <cell title="设置" is-link>
           <!--<badge text="1"></badge>-->
-          <img slot="icon" width="20" class="item_icon" src="http://images.ufutx.com/201904/26/490ab9c06966df4d207e59fa5700121c.png">
+          <img slot="icon" width="20" class="item_icon" src="http://images.ufutx.com/201904/27/e4a3cdd118708e8744655b8c6f5fed13.png">
         </cell>
       </group>
     </div>

@@ -339,11 +339,10 @@
     margin-top: -8px;
   }
   .For_more_details{
-    width: 714px;
     height: 75px;
     line-height: 75px;
     text-align: center;
-    margin: 4px 18px 72px 18px;
+    margin: 4px 0px 72px 0px;
     border-top: 4px solid #f7f7fa;
     padding-top: 12px;
     background-color: rgba(255,255,255,0.8);
