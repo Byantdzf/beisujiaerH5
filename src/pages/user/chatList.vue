@@ -3,7 +3,7 @@
     <!--介绍人-->
     <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit" class="scrollView">
       <div class="introducer" v-for="item of list">
-        <div class="data"  @click="routeToDetail(item.type, item.id)">
+        <div class="data"  @click="routeToDetail(item.type, item.other_user_id)">
           <div class="picture" v-bind:style="{backgroundImage:'url(' + item.user.avatar + ')'}" ></div>
           <span class="time">{{item.created_at}}</span>
           <div class="particulars_and_parameter">
