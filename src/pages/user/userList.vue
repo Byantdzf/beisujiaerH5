@@ -15,11 +15,11 @@
         </p>
         <p class="search-item font26" v-if="searchType !== '不限' && searchType">
           人群：{{searchType}}
-          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchType')">
+          <!--<img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchType')">-->
         </p>
         <p class="search-item font26" v-if="searchAge !== '不限' && searchAge">
           年龄：{{searchAge}}
-          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchAge')">
+          <!--<img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchAge')">-->
         </p>
       </div>
       <div class="height160"></div>
@@ -30,6 +30,7 @@
           <span class="font20 colorb">{{item.age}} · {{item.stature}}cm {{item.city? '· '+item.city: ''}}</span>
         </p>
         <p class="font26 color6 ellipsis_1" style="margin-top: 4px">{{item.introduction}}</p>
+        <!--<p style="height: 12px"></p>-->
       </div>
     </mescroll-vue>
     <div v-transfer-dom>
@@ -123,13 +124,8 @@
     },
     watch: {
       searchArray () {
-        if (this.searchArray.searchType) {
-          for (let item of this.typeArray) {
-            if (item.title === this.searchArray.searchType) {
-              this.searchTypeV2 = item.type
-            }
-          }
-        }
+        console.log(this.searchArray.searchType)
+
       }
     },
     methods: {
@@ -141,7 +137,7 @@
       reset () {
         this.showSearch = !this.showSearch
       },
-      searchSave () { // search
+      searchSave () { // 确定search
         for (let item in this.searchArray) {
           this[item] = this.searchArray[item]
         }
@@ -158,16 +154,19 @@
           this.arr[name] = this[type][index].title
         }
         this[type][index].active = true
-        console.log(this.arr)
-        // console.log(name, this[type][index].title)
         this.searchArray = this.arr
-        console.log(this.searchArray)
+        if (this.searchArray.searchType) {
+          for (let item of this.typeArray) {
+            if (item.title === this.searchArray.searchType) {
+              this.searchTypeV2 = item.type
+            }
+          }
+        }
       },
-      searchUser () {
-        console.log(this.search)
+      searchUser () { // 输入框搜索
         this.getOrderList(1)
       },
-      routeToDetail (type, id) {
+      routeToDetail (type, id) { // 跳转
         if (type === 'single') {
           this.$router.push({name: 'information', params: {id: id}})
         } else {
@@ -177,7 +176,7 @@
       mescrollInit (mescroll) {
         this.mescroll = mescroll
       },
-      getOrderList (page, mescroll) {
+      getOrderList (page, mescroll) { // 获取数据
         let pageV = 1
         pageV = page.num
         if (!page.num) {
@@ -199,7 +198,6 @@
       }
     },
     mounted () {
-      // console.log(this.$store.state.intercept)
       if (this.$store.state.intercept === 'true') {
         return false
       }
@@ -247,7 +245,6 @@
   }
   .list-item{
     width: 646px;
-    height: 736px;
     padding: 22px;
     margin: auto;
     border-radius: 10px;
