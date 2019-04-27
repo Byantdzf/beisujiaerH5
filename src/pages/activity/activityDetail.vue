@@ -37,7 +37,7 @@
         <img class="icon flo_l" style="margin-top: 0.4vw;"
              src="http://images.ufutx.com/201904/02/2de2dbbe58be10d992feb18e2a5418e4.png" alt="">
         {{information.fee}}
-        <img class="icon_arrows_site" src="../../assets/icon/go.png" alt="">
+        <!--<img class="icon_arrows_site" src="../../assets/icon/go.png" alt="">-->
       </div>
       <div class="partyDetail " v-if="information.detail">
         <p class="font30">活动说明</p>
