@@ -24,6 +24,14 @@
         items: ['https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=186013082,1813081494&fm=26&gp=0.jpg', 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1764518554,1793241374&fm=26&gp=0.jpg', 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2874178855,3759158108&fm=26&gp=0.jpg'],
         swiperOption: {
           autoplay: true,
+          effect: 'coverflow',
+          coverflowEffect: {
+            rotate: 12,
+            stretch: 0,
+            depth: 60,
+            modifier: 2,
+            slideShadows: false
+          },
           pagination: {
             el: '.swiper-pagination'
           }
