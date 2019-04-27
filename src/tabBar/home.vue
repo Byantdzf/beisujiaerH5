@@ -154,7 +154,7 @@
     margin: 22px auto;
     background: white;
     border-radius: 6px;
-    border: 4px solid #f0f0f3;
+    border: 2px solid #f0f0f3;
     .homeSearch{
       width: 100%;
       height: 100%;

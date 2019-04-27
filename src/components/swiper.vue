@@ -1,5 +1,5 @@
 <template>
-  <swiper :options="swiperOption">
+  <swiper :options="swiperOption" ref="mySwiper">
     <swiper-slide v-for="item,index in list" :key="index">
       <div class="swiper-box" @click="routeToDetail(item.user.type, item.user.id)">
         <div class="swiper-image backCover" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}"></div>
@@ -48,7 +48,11 @@
         swiperSlides: [1, 2, 3, 4, 5]
       }
     },
-    computed: {},
+    computed: {
+      swiper () {
+        return this.$refs.mySwiper.swiper
+      }
+    },
     watch: {
       list () {
         console.log(this.list)
@@ -72,6 +76,10 @@
           this.swiperSlides.push(this.swiperSlides.length + 1)
         }
       }, 3000)
+      // current swiper instance
+      // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
+      // console.log('this is current swiper instance object', this.swiper)
+      this.swiper.slideTo(1, 1000, false)
     }
   }
 </script>
