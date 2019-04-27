@@ -2,22 +2,25 @@
   <div>
     <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit" class="scrollView">
       <!--<div id="box"></div>-->
-      <div style="background: #35495e;padding: 10px;padding-bottom: 0px;" class="font30" v-if="announcements.length > 0">
-        <swiper auto height="30px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false" >
-          <swiper-item v-for="item in announcements" :key="item.id">
-            <p class="ellipsis_1" @click="$href(item.type == 'OF'?item.path:'#')">
-              <img src="http://images.ufutx.com/201904/15/356b40bdf7ff0172414c559449e14ee0.png" alt="" width="22px"
-                   class="announcementIcon">
-              {{item.title}}
-            </p>
-          </swiper-item>
-        </swiper>
-      </div>
-      <router-link to="userList">
-        <div class="text-center search-box">
-          <input type="text" class="homeSearch text-center" v-model="search" placeholder="请搜索Ta的名字">
+      <div class="bc_top">
+        <router-link to="userList">
+          <img src="http://images.ufutx.com/201904/27/49397b67f29633a4d200ed2b86ce3dbc.png" alt="" width="100%">
+          <!--<div class="text-center search-box">-->
+            <!--<input type="text" class="homeSearch text-center" v-model="search" placeholder="请搜索Ta的名字">-->
+          <!--</div>-->
+        </router-link>
+        <div class="font30 announcements" v-if="announcements.length > 0">
+          <swiper auto height="30px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false" >
+            <swiper-item v-for="item in announcements" :key="item.id">
+              <p class="ellipsis_1 color6" @click="$href(item.type == 'OF'?item.path:'#')">
+                <img src="http://images.ufutx.com/201904/15/356b40bdf7ff0172414c559449e14ee0.png" alt="" width="22px"
+                     class="announcementIcon">
+                {{item.title}}
+              </p>
+            </swiper-item>
+          </swiper>
         </div>
-      </router-link>
+      </div>
       <p class="bc_title font34 bold">征婚</p>
       <swiperComponent :list.sync="recommend"></swiperComponent>
       <!--<swiper  :min-moving-distance="120" :show-desc-mask="true"  :auto="true" :interval="2000" @on-index-change="swiperItem">-->
@@ -177,7 +180,7 @@
   .vux-swiper{
     text-align: center;
     p{
-      color: white;
+      color: #666666;
     }
   }
   .list-item{
@@ -206,6 +209,14 @@
   }
   .vux-swiper{
     height: 400px;
+  }
+
+  .announcements {
+    background: #EDEDED;
+    padding: 10px;
+    padding-bottom: 0px;
+    margin-top: -12px;
+    margin-bottom: 18px;
   }
 
   .animationData {
