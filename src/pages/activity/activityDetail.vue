@@ -40,7 +40,7 @@
         <!--<img class="icon_arrows_site" src="../../assets/icon/go.png" alt="">-->
       </div>
       <div class="partyDetail " v-if="information.detail">
-        <p class="font30">活动说明</p>
+        <p class="font30">活动说明：</p>
         <span v-html="information.detail" class="color6 font28"></span>
       </div>
       <div style="clear: both"></div>
