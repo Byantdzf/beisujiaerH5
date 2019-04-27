@@ -207,6 +207,7 @@
     height: 100%;
     width: 100%;
     overflow-x: hidden;
+    background: white;
   }
 
   input, button, select, textarea {
