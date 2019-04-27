@@ -213,7 +213,7 @@
 
   .announcements {
     background: #EDEDED;
-    padding: 10px;
+    padding: 12px 22px;
     padding-bottom: 0px;
     margin-top: -12px;
     margin-bottom: 18px;

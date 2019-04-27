@@ -156,7 +156,7 @@
         let url = location.href
         let vm = this
         if (localStorage.getItem('paasTitle')) {
-          this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasName'), localStorage.getItem('paasIntro'))
+          this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasTitle'), localStorage.getItem('paasIntro'))
           document.title = localStorage.getItem('paasTitle')
         } else {
           this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '智能共享平台', '福恋家庭幸福平台')
@@ -168,7 +168,7 @@
             if (data && data !== null) {
               localStorage.setItem('paasTitle', data.title)
               localStorage.setItem('paasIntro', data.intro)
-              this.$shareList(data.logo, url, data.title, data.intro)
+              this.$shareList(data.logo, url, data.intro, data.title)
               if (data.logo) {
                 localStorage.setItem('logo', data.logo)
               }

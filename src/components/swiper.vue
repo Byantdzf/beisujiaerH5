@@ -84,12 +84,6 @@
       }
     },
     mounted () {
-      setInterval(() => {
-        console.log('simulate async data')
-        if (this.swiperSlides.length < 10) {
-          this.swiperSlides.push(this.swiperSlides.length + 1)
-        }
-      }, 3000)
       // current swiper instance
       // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
       // console.log('this is current swiper instance object', this.swiper)
