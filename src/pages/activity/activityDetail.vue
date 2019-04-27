@@ -12,36 +12,46 @@
     <div class="clear_both"></div>
     <div class="SummitDetails">
       <div class="choiceness">
-        <img class="icon_choiceness" src="http://images.ufutx.com/201904/02/1eb183cb14838e94cefd13408a3d8427.png" alt="">
+        <img class="icon_choiceness" src="http://images.ufutx.com/201904/02/1eb183cb14838e94cefd13408a3d8427.png"
+             alt="">
         {{information.theme}}
       </div>
     </div>
     <div class="SummitDetailV">
       <div class="time">
-        <img class="icon flo_l" style="margin-top: 1vw;" src="http://images.ufutx.com/201904/02/16ace8949356fd1796e9b56e5ad454bd.png" alt="">
-        <p style="width: 82vw" class="">{{information.created_at}} 至 {{information.end_time}}</p>
+        <img class="icon flo_l" style="margin-top: 1vw;"
+             src="http://images.ufutx.com/201904/02/16ace8949356fd1796e9b56e5ad454bd.png" alt="">
+        <p  class="font28">{{information.start_time}} 至 {{information.end_time}}</p>
       </div>
       <div class="site">
         <img class="icon flo_l" src="http://images.ufutx.com/201904/02/4240186a184e36f6cad310b21a7f05b1.png" alt="">
-        <p style="width: 82vw" class="font30">{{information.province + information.city + information.dist + information.address}}</p>
+        <p style="width: 82vw" class="font30">{{information.province + information.city + information.dist +
+          information.address}}</p>
       </div>
       <div class="my">
-        <img class="icon flo_l" style="margin-top: 0.8vw;" src="http://images.ufutx.com/201904/02/eb837cb440c4e38ce6ca7543b6151a7d.png" alt="">
+        <img class="icon flo_l" style="margin-top: 0.8vw;"
+             src="http://images.ufutx.com/201904/02/eb837cb440c4e38ce6ca7543b6151a7d.png" alt="">
         已申请{{information.members?information.members.length:''}}人
       </div>
       <div class="money">
-        <img class="icon flo_l" style="margin-top: 0.4vw;" src="http://images.ufutx.com/201904/02/2de2dbbe58be10d992feb18e2a5418e4.png" alt="">
+        <img class="icon flo_l" style="margin-top: 0.4vw;"
+             src="http://images.ufutx.com/201904/02/2de2dbbe58be10d992feb18e2a5418e4.png" alt="">
         {{information.fee}}
         <img class="icon_arrows_site" src="../../assets/icon/go.png" alt="">
       </div>
+      <div class="partyDetail " v-if="information.detail">
+        <p class="font30">活动说明</p>
+        <span v-html="information.detail" class="color6 font28"></span>
+      </div>
       <div style="clear: both"></div>
     </div>
-    <div v-for="item in information.detail">
+    <div v-for="item,index in information.detail_pic" :key="index" v-if="information.detail_pic">
       <img class="plenaryLecture" :src="item" alt="">
     </div>
     <div class="For_more_details" @click="goDetail">
       查看更多详情
-      <img class="icon_arrows_bottom" src="http://images.ufutx.com/201904/02/0715881d01f9ac79e4a200192df45684.png" alt="">
+      <img class="icon_arrows_bottom" src="http://images.ufutx.com/201904/02/0715881d01f9ac79e4a200192df45684.png"
+           alt="">
     </div>
     <div class="height105"></div>
     <div class="box_bottom">
@@ -63,10 +73,10 @@
           <p class="list bold">活动报名信息</p>
           <p class="price list">报名费用： <span style="color: #f66924;">{{information.fee}}</span></p>
           <!--<p class="list">联系人：-->
-            <!--<input type="text" class="flo_r"  v-model="name"/>-->
+          <!--<input type="text" class="flo_r"  v-model="name"/>-->
           <!--</p>-->
           <!--<p class="list">联系方式：-->
-            <!--<input type="number" class="flo_r" v-model="mobile"/>-->
+          <!--<input type="number" class="flo_r" v-model="mobile"/>-->
           <!--</p>-->
         </div>
         <div class="applyNow" style="width: 100%" @click="confirmPay">确定支付</div>
@@ -74,9 +84,11 @@
     </div>
     <div v-transfer-dom>
       <popup v-model="showModal1" :is-transparent="true">
-        <div class="bc_share backCover"  @click="share">
-          <img src="http://images.ufutx.com/201904/24/43e0d6008b6f9c6282188b52f4113648.png" alt="" width="100%" style="position:fixed;top: 0;z-index: 9999">
-          <img src="http://images.ufutx.com/201904/24/50228a05c7311dffe4962b3e99c239ee.png" alt="" width="100%" class="fixed_bot">
+        <div class="bc_share backCover" @click="share">
+          <img src="http://images.ufutx.com/201904/24/43e0d6008b6f9c6282188b52f4113648.png" alt="" width="100%"
+               style="position:fixed;top: 0;z-index: 9999">
+          <img src="http://images.ufutx.com/201904/24/50228a05c7311dffe4962b3e99c239ee.png" alt="" width="100%"
+               class="fixed_bot">
         </div>
       </popup>
     </div>
@@ -85,7 +97,7 @@
 
 <script>
   import {$toastWarn} from '../../config/util'
-  import { TransferDom, Marquee, MarqueeItem, Popup } from 'vux'
+  import {TransferDom, Marquee, MarqueeItem, Popup} from 'vux'
 
   export default {
     name: 'activiyDetails',
@@ -123,7 +135,10 @@
       getOrderList () {
         this.$http.get(`/official/activities/${this.id}`).then(({data}) => {
           this.information = data
+          // this.information.detail.replace(/\n/g, '<br/>')
           this.members = data.members
+          console.log(this.information)
+          console.log(this.information.detail)
           // this.$shareList(data.poster, encodeURIComponent(location.href), data.theme, localStorage.getItem('paas'))
         }).catch((error) => {
           console.log(error)
@@ -252,11 +267,12 @@
 </script>
 
 <style scoped lang="less">
-  .activiyDetails{
+  .activiyDetails {
     position: relative;
-    .menberList{
+
+    .menberList {
       max-width: 300px;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0, 0, 0, 0.6);
       padding: 8px 12px;
       color: white;
       border-radius: 12px;
@@ -267,17 +283,29 @@
       border-bottom-right-radius: 0;
       border-top-right-radius: 0;
     }
-    .bc_icon{
+
+    .bc_icon {
       position: absolute;
       right: 12px;
       top: 10px;
       width: 120px;
     }
   }
-  .head_picture{
+
+  .partyDetail {
+    padding: 16px;
+    /*box-shadow: 1px 1px 22px #e7e7e7;*/
+    border-radius: 12px;
+    line-height: 1.6;
+    border: 2px solid #e7e7e7;
+    letter-spacing: 1px;
+  }
+
+  .head_picture {
     width: 100%;
   }
-  .SummitDetails{
+
+  .SummitDetails {
     width: 714px;
     border-radius: 10px;
     margin: -42px 18px 0px 18px;
@@ -285,116 +313,135 @@
     position: relative;
     box-shadow: 0px 1px 22px #dedede;
   }
-  .SummitDetailV{
+
+  .SummitDetailV {
     background: #ffffff;
     padding: 20px;
     margin-top: -12px;
     position: relative;
   }
-  .icon_choiceness{
+
+  .icon_choiceness {
     width: 68px;
     vertical-align: middle;
     margin-bottom: 8px;
   }
-  .choiceness{
+
+  .choiceness {
     font-size: 36px;
     font-weight: bold;
     padding: 42px 30px 42px 30px;
   }
-  .time{
+
+  .time {
     font-size: 30px;
     color: #0f2633;
     padding: 0px 0px 52px 30px;
   }
-  .site{
+
+  .site {
     font-size: 30px;
     color: #0f2633;
     padding: 0px 0px 52px 30px;
     overflow: hidden;
   }
-  .icon{
+
+  .icon {
     width: 30px;
     margin-right: 12px;
   }
-  .icon_arrows_site{
+
+  .icon_arrows_site {
     width: 27px;
     height: 27px;
     float: right;
     margin-right: 30px;
     margin-top: 8px;
   }
-  .my{
+
+  .my {
     font-size: 30px;
     color: #0f2633;
     padding: 0px 0px 52px 30px;
   }
 
-  .money{
+  .money {
     font-size: 30px;
     color: #fb9d39;
     padding: 0px 0px 28px 30px;
     overflow: hidden;
   }
-  .plenaryLecture{
+
+  .plenaryLecture {
     width: 714px;
     padding: 0px 18px 0px 18px;
     margin-top: -8px;
   }
-  .For_more_details{
+
+  .For_more_details {
     height: 75px;
     line-height: 75px;
     text-align: center;
     margin: 4px 0px 72px 0px;
     border-top: 4px solid #f7f7fa;
     padding-top: 12px;
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgba(255, 255, 255, 0.8);
     font-size: 30px;
     color: #1c9ce3;
     letter-spacing: 1px;
     position: relative;
   }
+
   /*展开更多详情*/
-  .icon_arrows_bottom{
+  .icon_arrows_bottom {
     width: 22px;
     height: 14px;
     margin-left: 6px;
   }
-  .box_bottom{
+
+  .box_bottom {
     overflow: hidden;
     position: fixed;
     bottom: 0;
     background: #ffffff;
     width: 100%;
   }
-  .home_and_share{
+
+  .home_and_share {
     width: 36%;
     border: none;
     border-top: 1px solid #b6b6b6;
     overflow: hidden;
     float: left;
   }
+
   .home_, .share_ {
     margin-top: 12px;
     float: left;
   }
-  .home_{
+
+  .home_ {
     margin-left: 50px;
   }
-  .share_{
+
+  .share_ {
     margin-left: 64px;
   }
+
   /*首页图片*/
-  .icon_home{
+  .icon_home {
     width: 42px;
     height: 42px;
     vertical-align: middle;
   }
+
   /*分享图片*/
-  .icon_share{
+  .icon_share {
     width: 42px;
     height: 42px;
     vertical-align: middle;
   }
+
   /*分享text*/
   .home, .share {
     font-size: 20px;
@@ -403,8 +450,9 @@
     margin-left: -2px;
     margin-top: 6px;
   }
+
   /*立即报名*/
-  .applyNow{
+  .applyNow {
     width: 100-36%;
     height: 105px;
     font-size: 32px;
@@ -415,18 +463,22 @@
     color: #ffffff;
     float: right;
   }
-  .height105{
+
+  .height105 {
     height: 105px;
   }
-  .bc_popup{
+
+  .bc_popup {
     padding: 22px 32px 80px 22px;
     position: relative;
-    .list{
+
+    .list {
       border-bottom: 1px solid #d0d0d0;
       padding: 32px;
       width: 80vw;
-      input{
-        background: rgba(0,0,0,0.1);
+
+      input {
+        background: rgba(0, 0, 0, 0.1);
         border: 0;
         height: 60px;
         border-radius: 6px;
@@ -435,12 +487,15 @@
         padding: 0 12px;
       }
     }
-    .price{}
+
+    .price {
+    }
   }
-  .bc_share{
+
+  .bc_share {
     width: 100%;
     height: 100vh;
     position: relative;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
   }
 </style>
