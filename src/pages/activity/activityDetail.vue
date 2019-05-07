@@ -25,8 +25,7 @@
       </div>
       <div class="site">
         <img class="icon flo_l" src="http://images.ufutx.com/201904/02/4240186a184e36f6cad310b21a7f05b1.png" alt="">
-        <p style="width: 82vw" class="font30">{{information.province + information.city + information.dist +
-          information.address}}</p>
+        <p style="width: 82vw" class="font30">{{information.address}}</p>
       </div>
       <div class="my">
         <img class="icon flo_l" style="margin-top: 0.8vw;"
@@ -40,7 +39,7 @@
         <!--<img class="icon_arrows_site" src="../../assets/icon/go.png" alt="">-->
       </div>
       <div class="partyDetail " v-if="information.detail">
-        <p class="font30">活动简介：</p>
+        <p class="font28 bold" style="margin-bottom: 4px;">活动简介：</p>
         <span v-html="information.detail" class="color6 font28 text-wrapper"></span>
       </div>
       <div style="clear: both"></div>
@@ -361,7 +360,7 @@
   .my {
     font-size: 30px;
     color: #0f2633;
-    padding: 0px 0px 52px 30px;
+    padding: 0px 0px 42px 30px;
   }
 
   .money {
