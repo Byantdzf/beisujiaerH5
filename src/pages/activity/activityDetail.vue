@@ -41,7 +41,7 @@
       </div>
       <div class="partyDetail " v-if="information.detail">
         <p class="font30">活动简介：</p>
-        <span v-html="information.detail" class="color6 font28"></span>
+        <span v-html="information.detail" class="color6 font28 text-wrapper"></span>
       </div>
       <div style="clear: both"></div>
     </div>
@@ -296,7 +296,6 @@
     padding: 16px;
     /*box-shadow: 1px 1px 22px #e7e7e7;*/
     border-radius: 12px;
-    line-height: 1.6;
     border: 2px solid #e7e7e7;
     letter-spacing: 1px;
   }
