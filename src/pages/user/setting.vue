@@ -81,9 +81,9 @@
           }
         } else {
           if (name === 'upgrade') {
-            window.location.href = 'http://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + '&type=rank'
+            window.location.href = 'https://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + '&type=rank'
           } else if (name === 'authentication') {
-            window.location.href = 'http://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + '&type=approve'
+            window.location.href = 'https://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + '&type=approve'
           } else {
             this.$router.push({name: name, params: {type: type}})
           }
