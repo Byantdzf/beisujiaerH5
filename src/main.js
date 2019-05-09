@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to) => {
   if (window.ga) {
-    window.ga('set', 'page', to.fullPath) // 你可能想根据请求参数添加其他参数，可以修改这里的 to.fullPath
+    window.ga('set', 'page', to.path) // 你可能想根据请求参数添加其他参数，可以修改这里的 to.fullPath
     window.ga('send', 'pageview')
   }
   store.commit('updateLoadingStatus', {isLoading: false})
