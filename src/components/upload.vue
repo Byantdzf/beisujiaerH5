@@ -33,7 +33,7 @@
         ossConfig: {},
         host: '',
         showBg: false,
-        url: process.env.NODE_ENV === 'development' ? 'http://love.hankin.ufutx.cn/api/official/uploads' : 'http://love.ufutx.com/api/official/uploads'
+        url: process.env.NODE_ENV === 'development' ? 'http://love.hankin.ufutx.cn/api/official/uploads' : 'https://love.ufutx.com/api/official/uploads'
       }
     },
     components: {
