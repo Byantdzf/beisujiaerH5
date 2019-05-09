@@ -30,6 +30,7 @@
 
 <script>
   import {$toastSuccess} from '../../src/config/util'
+
   export default {
     name: 'register',
     components: {},
@@ -82,7 +83,7 @@
         this.$http.post('/official/login/mobile', data).then(({data}) => {
           localStorage.setItem('ACCESS_TOKEN', data.token)
           localStorage.setItem('mobile', data.user.mobile)
-          localStorage.setItem('official_openid', data.wechat.official_openid)
+          if (data.wechat.official_openid) localStorage.setItem('official_openid', data.wechat.official_openid)
           if (data.user && data.user.type) {
             this.$router.push({
               name: 'home'
@@ -114,6 +115,7 @@
       background-repeat: no-repeat;
       background-position-x: center;
       background-image: url('http://images.ufutx.com/201903/27/eab72e299990c7264ed4385556e471b6.jpeg');
+
       input {
         width: 488px;
         height: 100px;
@@ -122,9 +124,11 @@
         border-radius: 4px;
         margin-top: 20px;
       }
-      .center{
+
+      .center {
         padding-top: 340px;
       }
+
       .mobile {
         padding: 0 50px 0 76px;
       }

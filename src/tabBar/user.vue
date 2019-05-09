@@ -89,7 +89,7 @@
     },
     methods: {
       routeToDetail (name, type) {
-        if (localStorage.getItem('official_openid') || localStorage.getItem('official_openid') === 'null' || this.$isWeiXin() === false) {
+        if (localStorage.getItem('official_openid') || this.$isWeiXin() === false) {
           if (type) {
             this.$router.push({name: name, params: {type: type}})
           } else {
