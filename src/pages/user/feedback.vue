@@ -12,7 +12,7 @@
           <!--<div :style="{ backgroundImage: 'url('+ item +')'}" class="camera_s"></div>-->
         <!--</div>-->
         <!--<div class="box_camera">-->
-          <!--<img src="http://images.ufutx.com/201904/09/bb2fdcbe0524ea66203db1407618cc68.png" alt="" class="camera_s">-->
+          <!--<img src="https://images.ufutx.com/201904/09/bb2fdcbe0524ea66203db1407618cc68.png" alt="" class="camera_s">-->
         <!--</div>-->
         <!--<div class="clearfloat"></div>-->
       <!--</div>-->

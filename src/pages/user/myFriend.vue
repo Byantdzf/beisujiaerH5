@@ -10,7 +10,7 @@
             <div class="data_particulars">
               <span class="data_name">{{item.name}}</span>
               <!--<span class="data_title">介绍人</span>-->
-              <!--<img class="icon_crown" src="http://images.ufutx.com/201904/02/6e9d7b41f9ff9ec9588d0a7f910deb02.png" alt="">-->
+              <!--<img class="icon_crown" src="https://images.ufutx.com/201904/02/6e9d7b41f9ff9ec9588d0a7f910deb02.png" alt="">-->
               <!--<span class="crown_region">市级VIP</span>-->
             </div>
             <!--<div class="data_parameter">31岁 · 175cm · 深圳</div>-->

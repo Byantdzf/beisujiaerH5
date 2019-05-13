@@ -2,7 +2,7 @@
   <div>
     <Search placeholder="请搜索Ta的名字" v-model="search" @on-change="searchUser" @auto-scroll-to-top="true"
             position="absolute">
-      <img slot="right" class="bc_search" src="http://images.ufutx.com/201904/10/da5d9f0ce577935d39864a7a348d3c0d.png"
+      <img slot="right" class="bc_search" src="https://images.ufutx.com/201904/10/da5d9f0ce577935d39864a7a348d3c0d.png"
            @click="showSearch = !showSearch" alt="">
     </Search>
 
@@ -14,16 +14,16 @@
       <div class="search-center ff" style="padding: 58px 16px 12px 16px;">
         <p class="search-item font26" v-if="searchCity !== '不限' && searchCity">
           区域：{{searchCity}}
-          <img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt=""
+          <img src="https://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt=""
                @click="del('searchCity')">
         </p>
         <p class="search-item font26" v-if="searchType !== '不限' && searchType">
           人群：{{searchType}}
-          <!--<img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchType')">-->
+          <!--<img src="https://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchType')">-->
         </p>
         <p class="search-item font26" v-if="searchAge !== '不限' && searchAge">
           年龄：{{searchAge}}
-          <!--<img src="http://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchAge')">-->
+          <!--<img src="https://images.ufutx.com/201904/10/d8cecc5068634f6e89316c57b93b5ce3.png" alt="" @click="del('searchAge')">-->
         </p>
       </div>
       <div class="height160"></div>
@@ -373,7 +373,7 @@
 
     &:after {
       content: '';
-      background-image: url("http://images.ufutx.com/201904/10/648e9cb095bb9b34c0035226b0f7aa71.png");
+      background-image: url("https://images.ufutx.com/201904/10/648e9cb095bb9b34c0035226b0f7aa71.png");
       background-repeat: no-repeat;
       background-size: cover;
       width: 30px;

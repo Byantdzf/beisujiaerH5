@@ -4,18 +4,18 @@
       <swiper :list="life_photos" :min-moving-distance="120" :show-desc-mask="false" height="320px" :auto="true"
               dots-position="center" :interval="2000"></swiper>
       <span class="like colorff font28">
-      <img src="http://images.ufutx.com/201904/01/2748b2373009c307d86f3750d85a812e.png" alt="" class="like_icon">
+      <img src="https://images.ufutx.com/201904/01/2748b2373009c307d86f3750d85a812e.png" alt="" class="like_icon">
       {{information.fans_count}}
     </span>
     </div>
     <div class="bc_detail">
       <span class="name bold">{{information.name}}</span>
-      <img src="http://images.ufutx.com/201904/15/45bfd2a6b4f2dd8bb227f6bafd8ca836.png" alt="" class="bc_icon">
+      <img src="https://images.ufutx.com/201904/15/45bfd2a6b4f2dd8bb227f6bafd8ca836.png" alt="" class="bc_icon">
       <span class="font20">{{information.rank_name}}</span>
       <div class="bc_love flo_r">
-        <img src="http://images.ufutx.com/201904/03/76d6a32c1cb5e51f63de5e059624eb27.png" @click="attention"
+        <img src="https://images.ufutx.com/201904/03/76d6a32c1cb5e51f63de5e059624eb27.png" @click="attention"
              v-if="information.is_followed == 1" :class="{'btn_active_V': btnActive}" class="love">
-        <img src="http://images.ufutx.com/201904/03/56bd712f02b06933f936f76cb6ac9a2a.png" @click="attention"
+        <img src="https://images.ufutx.com/201904/03/56bd712f02b06933f936f76cb6ac9a2a.png" @click="attention"
              :class="{'btn_active_V': btnActive}" v-else class="love">
       </div>
       <p class="message">

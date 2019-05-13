@@ -2,11 +2,11 @@
   <div class="column-center loading-wrap text-center" :class="init?'hide': ''" v-if="!hide">
     <!--<image class="loading-icon" src="/images/svg/audio.svg"></image>-->
     <!--<image class="loading-icon" src="/images/svg/audio1.svg"></image>-->
-    <!--<image class="loading-icon" src="http://images.ufutx.com/201902/25/542cc218e40cbc8a8e3a9ce23d7f4789.gif"></image>-->
-    <!--<img src="http://images.ufutx.com/201902/25/542cc218e40cbc8a8e3a9ce23d7f4789.gif" alt="" />-->
+    <!--<image class="loading-icon" src="https://images.ufutx.com/201902/25/542cc218e40cbc8a8e3a9ce23d7f4789.gif"></image>-->
+    <!--<img src="https://images.ufutx.com/201902/25/542cc218e40cbc8a8e3a9ce23d7f4789.gif" alt="" />-->
     <img src="../assets/image/audio1.svg" class="loading-icon" alt="" />
-    <!--<image src="http://images.ufutx.com/201901/09/924ba75de28c5c35d0abc26ac5cbdb03.png" mode="aspectFill" style="width: 375rpx;height: 375rpx;position: absolute;left: 27%;bottom: 0;"></image>-->
-    <!--<image src="http://images.ufutx.com/201901/07/1c4a242d898fd90c1020e7a4ea38aa51.png" mode="aspectFill" style="width: 100%;height: 100%;position: absolute;left: 0;bottom: 0;"></image>-->
+    <!--<image src="https://images.ufutx.com/201901/09/924ba75de28c5c35d0abc26ac5cbdb03.png" mode="aspectFill" style="width: 375rpx;height: 375rpx;position: absolute;left: 27%;bottom: 0;"></image>-->
+    <!--<image src="https://images.ufutx.com/201901/07/1c4a242d898fd90c1020e7a4ea38aa51.png" mode="aspectFill" style="width: 100%;height: 100%;position: absolute;left: 0;bottom: 0;"></image>-->
   </div>
 </template>
 

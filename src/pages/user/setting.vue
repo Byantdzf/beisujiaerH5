@@ -5,13 +5,13 @@
       <!--<div class="name inline-block">-->
         <!--<span class="font36 bold">{{user.name}}</span><br/>-->
         <!--<span class="font26">-->
-          <!--<img width="16" style="display:inline-block;margin-bottom: 4px;"  class="middle" src="http://images.ufutx.com/201904/15/45bfd2a6b4f2dd8bb227f6bafd8ca836.png">-->
+          <!--<img width="16" style="display:inline-block;margin-bottom: 4px;"  class="middle" src="https://images.ufutx.com/201904/15/45bfd2a6b4f2dd8bb227f6bafd8ca836.png">-->
           <!--{{user.rank_name}}-->
         <!--</span>-->
       <!--</div>-->
       <!--<div class="editData flo_r font26" @click="routeToDetail('PreviewData')">编辑资料</div>-->
       <!--<div class="news"  @click="routeToDetail('news')">-->
-        <!--<img src="http://images.ufutx.com/201901/04/8fa5e8921c0dca549a1302af42c743c2.png"  class="flo_r"/>-->
+        <!--<img src="https://images.ufutx.com/201901/04/8fa5e8921c0dca549a1302af42c743c2.png"  class="flo_r"/>-->
         <!--<p class="inline-block dist" v-if="notice_num > 0"></p>-->
       <!--</div>-->
       <!--<div class="clearfloat"></div>-->
@@ -25,7 +25,7 @@
       <group title=" " >
         <cell title="清除缓存" is-link>
           <!--<badge text="1"></badge>-->
-          <img slot="icon" width="20" class="item_icon" src="http://images.ufutx.com/201904/27/3473f59ee31a1fc8f3696639dcb2ae32.png">
+          <img slot="icon" width="20" class="item_icon" src="https://images.ufutx.com/201904/27/3473f59ee31a1fc8f3696639dcb2ae32.png">
           <span class="be" v-if="user.rank_deadline"></span>
         </cell>
       </group>
@@ -34,7 +34,7 @@
       <group title=" ">
         <cell title="意见反馈" is-link>
           <!--<badge text="1"></badge>-->
-          <img slot="icon" width="20" class="item_icon" src="http://images.ufutx.com/201904/02/6b86b27ecd45bf9bdea13beff075b60f.png">
+          <img slot="icon" width="20" class="item_icon" src="https://images.ufutx.com/201904/02/6b86b27ecd45bf9bdea13beff075b60f.png">
         </cell>
       </group>
     </div>

@@ -80,7 +80,7 @@
       return {
         birthday: '',
         sex: '',
-        avatar: 'http://images.ufutx.com/201903/26/000319417f22842bd8c7989d608b3871.png',
+        avatar: 'https://images.ufutx.com/201903/26/000319417f22842bd8c7989d608b3871.png',
         sexList: [['男', '女']],
         belief: '',
         beliefList: [['基督教', '佛教', '伊斯兰教', '其他']],

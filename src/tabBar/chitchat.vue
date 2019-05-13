@@ -1,7 +1,7 @@
 <template>
   <div id="chitchat">
     <div class="wrapper ff" @click="routeToDetail('single_man')">
-      <div class="avatar flo_l" style="background-image: url('http://images.ufutx.com/201904/02/bea66210c44f26ca21fe743758c69dfb.png')" ></div>
+      <div class="avatar flo_l" style="background-image: url('https://images.ufutx.com/201904/02/bea66210c44f26ca21fe743758c69dfb.png')" ></div>
       <div class="name inline-block">
         <span class="font30 bold">良人</span><br/>
         <p class="font26 colorb" style="margin-top: 6px;"  v-if="single_men.length < 1">暂无新消息</p>
@@ -11,12 +11,12 @@
       </div>
       <div class="flo_r count">
         <p class="inline-block num colorff" v-if="single_man_count>0">{{single_man_count}}</p>
-        <img src="http://images.ufutx.com/201812/05/879fe80db665c553d4cd57afa4d4273c.png" alt="">
+        <img src="https://images.ufutx.com/201812/05/879fe80db665c553d4cd57afa4d4273c.png" alt="">
       </div>
       <div class="clearfloat"></div>
     </div>
     <div class="wrapper ff" @click="routeToDetail('single_woman')">
-      <div class="avatar flo_l" style="background-image: url('http://images.ufutx.com/201904/02/834674d9695ac661388004eda367c937.png')" ></div>
+      <div class="avatar flo_l" style="background-image: url('https://images.ufutx.com/201904/02/834674d9695ac661388004eda367c937.png')" ></div>
       <div class="name inline-block">
         <span class="font30 bold">佳偶</span><br/>
         <p class="font26 colorb" style="margin-top: 6px;"  v-if="single_men.length < 1">暂无新消息</p>
@@ -26,12 +26,12 @@
       </div>
       <div class="flo_r count">
         <p class="inline-block num colorff" v-if="single_woman_count>0">{{single_woman_count}}</p>
-        <img src="http://images.ufutx.com/201812/05/879fe80db665c553d4cd57afa4d4273c.png" alt="">
+        <img src="https://images.ufutx.com/201812/05/879fe80db665c553d4cd57afa4d4273c.png" alt="">
       </div>
       <div class="clearfloat"></div>
     </div>
     <div class="wrapper ff" @click="routeToDetail('maker')">
-      <div class="avatar flo_l" style="background-image: url('http://images.ufutx.com/201904/02/ea2dd5450ff81994dcd1ef70fed720b1.png')" ></div>
+      <div class="avatar flo_l" style="background-image: url('https://images.ufutx.com/201904/02/ea2dd5450ff81994dcd1ef70fed720b1.png')" ></div>
       <div class="name inline-block">
         <span class="font30 bold">红娘</span><br/>
         <p class="font26 colorb" style="margin-top: 6px;"  v-if="single_men.length < 1">暂无新消息</p>
@@ -41,12 +41,12 @@
       </div>
       <div class="flo_r count">
         <p class="inline-block num colorff" v-if="maker_count>0">{{maker_count}}</p>
-        <img src="http://images.ufutx.com/201812/05/879fe80db665c553d4cd57afa4d4273c.png" alt="">
+        <img src="https://images.ufutx.com/201812/05/879fe80db665c553d4cd57afa4d4273c.png" alt="">
       </div>
       <div class="clearfloat"></div>
     </div>
     <div class="wrapper ff" @click="routeToDetail('marriage')">
-      <div class="avatar flo_l" style="background-image: url('http://images.ufutx.com/201904/02/8699058f061683e3085ba2a2aaaa3464.png')" ></div>
+      <div class="avatar flo_l" style="background-image: url('https://images.ufutx.com/201904/02/8699058f061683e3085ba2a2aaaa3464.png')" ></div>
       <div class="name inline-block">
         <span class="font30 bold">介绍人</span><br/>
         <p class="font26 colorb" style="margin-top: 6px;"  v-if="single_men.length < 1">暂无新消息</p>
@@ -56,7 +56,7 @@
       </div>
       <div class="flo_r count">
         <p class="inline-block num colorff" v-if="marriage_count>0">{{marriage_count}}</p>
-        <img src="http://images.ufutx.com/201812/05/879fe80db665c553d4cd57afa4d4273c.png" alt="">
+        <img src="https://images.ufutx.com/201812/05/879fe80db665c553d4cd57afa4d4273c.png" alt="">
       </div>
       <div class="clearfloat"></div>
     </div>
@@ -86,10 +86,10 @@
         maker_count: '',
         marriage_count: '',
         list: [
-          {img: 'http://images.ufutx.com/201904/02/bea66210c44f26ca21fe743758c69dfb.png', title: '良人'},
-          {img: 'http://images.ufutx.com/201904/02/834674d9695ac661388004eda367c937.png', title: '佳偶'},
-          {img: 'http://images.ufutx.com/201904/02/ea2dd5450ff81994dcd1ef70fed720b1.png', title: '红娘'},
-          {img: 'http://images.ufutx.com/201904/02/8699058f061683e3085ba2a2aaaa3464.png', title: '介绍人'}
+          {img: 'https://images.ufutx.com/201904/02/bea66210c44f26ca21fe743758c69dfb.png', title: '良人'},
+          {img: 'https://images.ufutx.com/201904/02/834674d9695ac661388004eda367c937.png', title: '佳偶'},
+          {img: 'https://images.ufutx.com/201904/02/ea2dd5450ff81994dcd1ef70fed720b1.png', title: '红娘'},
+          {img: 'https://images.ufutx.com/201904/02/8699058f061683e3085ba2a2aaaa3464.png', title: '介绍人'}
         ]
       }
     },

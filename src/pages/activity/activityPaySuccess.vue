@@ -1,6 +1,6 @@
 <template>
   <div class="activityPaySuccess">
-    <img src="http://images.ufutx.com/201904/03/ee7616d5e68078e5e9010d6e51110bdf.png" alt="">
+    <img src="https://images.ufutx.com/201904/03/ee7616d5e68078e5e9010d6e51110bdf.png" alt="">
     <p class="text">报名成功，请准时出席！</p>
     <div class="bc_box">
       <div class="share inline-block" @click="share">分享</div>

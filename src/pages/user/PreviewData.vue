@@ -1,7 +1,7 @@
 <template>
   <div class="whole">
     <div class="background">
-      <img class="diamond" src="http://images.ufutx.com/201904/03/0c266b91baffd71e415fbba91c13c468.png" alt="">
+      <img class="diamond" src="https://images.ufutx.com/201904/03/0c266b91baffd71e415fbba91c13c468.png" alt="">
       <div class="picture backCover" v-bind:style="{backgroundImage:'url(' + avatar + ')'}">
         <uploadOss @onSuccess="onSuccess"></uploadOss>
       </div>
@@ -93,7 +93,7 @@
               src: item.photo
             }
           })
-          this.list.push({src: 'http://images.ufutx.com/201904/03/aa9d1353dda982cc12441192d67a0948.png'})
+          this.list.push({src: 'https://images.ufutx.com/201904/03/aa9d1353dda982cc12441192d67a0948.png'})
           console.log(data.profile_photos)
           console.log(data)
         }).catch((error) => {

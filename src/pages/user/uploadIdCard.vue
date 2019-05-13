@@ -2,15 +2,15 @@
   <div class="box">
     <div class="ff">
       <div class="bc_box text-center inline-block">
-        <img class="" src="http://images.ufutx.com/201904/01/5a452e852b95786089aaf573a58261b8.png" alt="">
+        <img class="" src="https://images.ufutx.com/201904/01/5a452e852b95786089aaf573a58261b8.png" alt="">
         <p class="font26">手持身份证正面照</p>
       </div>
       <div class="bc_box text-center inline-block">
-        <img class="identiyCard" src="http://images.ufutx.com/201904/01/8dc7658b9b3effcd1740b9e9e1d5f315.png" alt="">
+        <img class="identiyCard" src="https://images.ufutx.com/201904/01/8dc7658b9b3effcd1740b9e9e1d5f315.png" alt="">
         <p class="font26">身份证正面照</p>
       </div>
       <div class="bc_box text-center inline-block">
-        <img class="photo_pictures" src="http://images.ufutx.com/201904/01/89de349ae645eab7ea0e64759089400c.png" alt="">
+        <img class="photo_pictures" src="https://images.ufutx.com/201904/01/89de349ae645eab7ea0e64759089400c.png" alt="">
       </div>
     </div>
     <div class="submit" @click="save">点击上传</div>

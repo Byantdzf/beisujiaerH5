@@ -1,10 +1,10 @@
 <template>
   <div class="upgrade">
     <div>
-      <img class="diamondPicture"  src="http://images.ufutx.com/201904/03/0c266b91baffd71e415fbba91c13c468.png" alt="">
+      <img class="diamondPicture"  src="https://images.ufutx.com/201904/03/0c266b91baffd71e415fbba91c13c468.png" alt="">
       <div class="head_card">
         <div class="box_card">
-          <img class="card" src="http://images.ufutx.com/201904/09/5f6729651bddb1029bdf8b0a6414d8d5.png" alt="">
+          <img class="card" src="https://images.ufutx.com/201904/09/5f6729651bddb1029bdf8b0a6414d8d5.png" alt="">
         </div>
         <div class="head_portrait">
           <div class="portrait_name_diamond">
@@ -208,7 +208,7 @@
         bottom: 0;
         width: 30px;
         height: 30px;
-        background-image: url("http://images.ufutx.com/201904/08/766edb1da9aacbc963c9dde4d669e123.png");
+        background-image: url("https://images.ufutx.com/201904/08/766edb1da9aacbc963c9dde4d669e123.png");
         background-size: cover;
         background-position-x: center;
         background-repeat: no-repeat;
@@ -222,7 +222,7 @@
         bottom: 0;
         width: 30px;
         height: 30px;
-        background-image: url("http://images.ufutx.com/201904/08/e4ff9dc96711210dcde89f13d63ccee8.png");
+        background-image: url("https://images.ufutx.com/201904/08/e4ff9dc96711210dcde89f13d63ccee8.png");
         background-size: cover;
         background-position-x: center;
         background-repeat: no-repeat;

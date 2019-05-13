@@ -159,7 +159,7 @@
           this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasTitle'), localStorage.getItem('paasIntro'))
           document.title = localStorage.getItem('paasTitle')
         } else {
-          this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '智能共享平台', '福恋家庭幸福平台')
+          this.$shareList('https://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '智能共享平台', '福恋家庭幸福平台')
           document.title = '福恋家庭幸福平台'
         }
         if (location.href.includes('paas')) {
@@ -174,7 +174,7 @@
               }
               document.title = data.title
             } else {
-              this.$shareList('http://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '智能共享平台', '福恋家庭幸福平台')
+              this.$shareList('https://images.ufutx.com/201904/19/80a9db83c65a7c81d95e940ef8a2fd0e.png', url, '智能共享平台', '福恋家庭幸福平台')
               document.title = '福恋家庭幸福平台'
               localStorage.setItem('paasName', 'FL')
             }

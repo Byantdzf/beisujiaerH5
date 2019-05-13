@@ -4,7 +4,7 @@
       <div class="camera_perfect"  >
         <div class="perfect inline-block previewer-demo-img" v-for="(item, index) in list" v-bind:style="{backgroundImage:'url(' + item.src + ')'}" @click="show(index)">
           <div class="del text-center" @click.stop="delImage(item.src, index)">
-            <img src="http://images.ufutx.com/201904/12/ca40def7da4fd6657359809d73c83543.png" alt="">
+            <img src="https://images.ufutx.com/201904/12/ca40def7da4fd6657359809d73c83543.png" alt="">
           </div>
         </div>
       </div>
@@ -17,7 +17,7 @@
     <div class="box_bottom">
       <uploadOss @onSuccess="onSuccess">
         <span slot="text">
-          <img src="http://images.ufutx.com/201904/12/8e7c4dcc70d6ab18f78bd3fe60da504b.png" alt="">
+          <img src="https://images.ufutx.com/201904/12/8e7c4dcc70d6ab18f78bd3fe60da504b.png" alt="">
           点击上传
         </span>
       </uploadOss>

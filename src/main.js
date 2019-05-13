@@ -37,6 +37,9 @@ store.registerModule('vux', { // 名字自己定义
   }
 })
 router.beforeEach((to, from, next) => {
+  if (to.query.ACCESS_TOKEN) {
+    localStorage.setItem('ACCESS_TOKEN', to.query.ACCESS_TOKEN)
+  }
   store.commit('updateLoadingStatus', {isLoading: true})
   next()
   if (to.query && to.query.paas) {

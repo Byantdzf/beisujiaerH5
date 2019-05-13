@@ -4,7 +4,7 @@
       <!--<div id="box"></div>-->
       <div class="bc_top">
         <router-link to="userList">
-          <img src="http://images.ufutx.com/201904/27/49397b67f29633a4d200ed2b86ce3dbc.png" alt="" width="100%">
+          <img src="https://images.ufutx.com/201904/27/49397b67f29633a4d200ed2b86ce3dbc.png" alt="" width="100%">
           <!--<div class="text-center search-box">-->
             <!--<input type="text" class="homeSearch text-center" v-model="search" placeholder="请搜索Ta的名字">-->
           <!--</div>-->
@@ -13,7 +13,7 @@
           <swiper auto height="30px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false" >
             <swiper-item v-for="item in announcements" :key="item.id">
               <p class="ellipsis_1 color6" @click="$href(item.type == 'OF'?item.path:'#')">
-                <img src="http://images.ufutx.com/201904/27/3a6720333a2434da29453d42ede484cf.png" alt="" width="22px"
+                <img src="https://images.ufutx.com/201904/27/3a6720333a2434da29453d42ede484cf.png" alt="" width="22px"
                      class="announcementIcon">
                 {{item.title}}
               </p>

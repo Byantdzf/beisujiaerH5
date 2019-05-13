@@ -1,12 +1,12 @@
 <template>
   <div class="homepage">
     <div class="caution">
-      <img class="icon_caution" src="http://images.ufutx.com/201904/01/d8c9f0d8b48c0621f9843a6df7008c34.png" alt="">
+      <img class="icon_caution" src="https://images.ufutx.com/201904/01/d8c9f0d8b48c0621f9843a6df7008c34.png" alt="">
       <span class="font30 bold">为什么要身份认证</span>
       <p class="caution_particulars font28">福恋作为一个真实、严肃的婚恋平台，我们要求用户必须完成身份认证，对于以结婚为目的的用户。</p>
     </div>
     <div class="caution">
-      <img class="icon_caution" style="transform: rotate(180deg);" src="http://images.ufutx.com/201904/01/06b9a01df541d3ec740acf812de80ae1.png" alt="">
+      <img class="icon_caution" style="transform: rotate(180deg);" src="https://images.ufutx.com/201904/01/06b9a01df541d3ec740acf812de80ae1.png" alt="">
       <span class="font30 bold">关于隐私安全</span>
       <p class="caution_particulars font28">您上传的任何身份证照片等资料，仅供审核使用且TA人无法看到，此外，我们会对照片进行安全处理，敬请放心。</p>
     </div>
@@ -35,7 +35,7 @@
       </p>
     </div>
     <div class="dist"></div>
-    <div class="submit ok" v-if="user.is_approved == 1">已成功认证!<img src="http://images.ufutx.com/201904/10/872192ded66adf0c822215e1544f01ee.png" alt=""></div>
+    <div class="submit ok" v-if="user.is_approved == 1">已成功认证!<img src="https://images.ufutx.com/201904/10/872192ded66adf0c822215e1544f01ee.png" alt=""></div>
     <div v-else>
       <div class="submit" @click="save" v-if="user.approve_time > 0">提交 <span class="font26">（剩余{{user.approve_time}}次）</span></div>
       <div class="submit" @click="buyAuthentication" v-if="user.approve_time == 0 && user.approve_time == 0">购买认证</div>

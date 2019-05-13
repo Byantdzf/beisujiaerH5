@@ -1,7 +1,7 @@
 <template>
   <div class="activiyDetails">
     <img class="head_picture" :src="information.poster" alt="">
-    <!--<img src="http://images.ufutx.com/201904/12/002f37bc7664ed2ad996b97188f33a87.gif" v-if="members.length>0" alt="" class="bc_icon">-->
+    <!--<img src="https://images.ufutx.com/201904/12/002f37bc7664ed2ad996b97188f33a87.gif" v-if="members.length>0" alt="" class="bc_icon">-->
     <div class="menberList ellipsis_1" v-if="members.length>0">
       <marquee>
         <marquee-item v-for="(item,index) in members" :key="index" @click.native="onClick(index)" class="align-middle">
@@ -12,7 +12,7 @@
     <div class="clear_both"></div>
     <div class="SummitDetails">
       <div class="choiceness">
-        <img class="icon_choiceness" src="http://images.ufutx.com/201904/02/1eb183cb14838e94cefd13408a3d8427.png"
+        <img class="icon_choiceness" src="https://images.ufutx.com/201904/02/1eb183cb14838e94cefd13408a3d8427.png"
              alt="">
         {{information.theme}}
       </div>
@@ -20,21 +20,21 @@
     <div class="SummitDetailV">
       <div class="time">
         <img class="icon flo_l" style="margin-top: 1vw;"
-             src="http://images.ufutx.com/201904/02/16ace8949356fd1796e9b56e5ad454bd.png" alt="">
+             src="https://images.ufutx.com/201904/02/16ace8949356fd1796e9b56e5ad454bd.png" alt="">
         <p  class="font28">{{information.start_time}} 至 {{information.end_time}}</p>
       </div>
       <div class="site">
-        <img class="icon flo_l" src="http://images.ufutx.com/201904/02/4240186a184e36f6cad310b21a7f05b1.png" alt="">
+        <img class="icon flo_l" src="https://images.ufutx.com/201904/02/4240186a184e36f6cad310b21a7f05b1.png" alt="">
         <p style="width: 82vw" class="font30">{{information.address}}</p>
       </div>
       <div class="my">
         <img class="icon flo_l" style="margin-top: 0.8vw;"
-             src="http://images.ufutx.com/201904/02/eb837cb440c4e38ce6ca7543b6151a7d.png" alt="">
+             src="https://images.ufutx.com/201904/02/eb837cb440c4e38ce6ca7543b6151a7d.png" alt="">
         已申请{{information.members?information.members.length:''}}人
       </div>
       <div class="money">
         <img class="icon flo_l" style="margin-top: 0.4vw;"
-             src="http://images.ufutx.com/201904/02/2de2dbbe58be10d992feb18e2a5418e4.png" alt="">
+             src="https://images.ufutx.com/201904/02/2de2dbbe58be10d992feb18e2a5418e4.png" alt="">
         {{information.fee}}
         <!--<img class="icon_arrows_site" src="../../assets/icon/go.png" alt="">-->
       </div>
@@ -49,18 +49,18 @@
     </div>
     <div class="For_more_details" @click="goDetail">
       查看更多详情
-      <img class="icon_arrows_bottom" src="http://images.ufutx.com/201904/02/0715881d01f9ac79e4a200192df45684.png"
+      <img class="icon_arrows_bottom" src="https://images.ufutx.com/201904/02/0715881d01f9ac79e4a200192df45684.png"
            alt="">
     </div>
     <div class="height105"></div>
     <div class="box_bottom">
       <div class="home_and_share">
         <div class="home_" @click="goHome">
-          <img class="icon_home" src="http://images.ufutx.com/201904/02/c2a2e6539c0aba992088b1b51a54a18b.png" alt="">
+          <img class="icon_home" src="https://images.ufutx.com/201904/02/c2a2e6539c0aba992088b1b51a54a18b.png" alt="">
           <p class="home">首页</p>
         </div>
         <div class="share_" @click="share">
-          <img class="icon_share" src="http://images.ufutx.com/201904/02/7b1981496eb2cd024c3830a018c4c89e.png" alt="">
+          <img class="icon_share" src="https://images.ufutx.com/201904/02/7b1981496eb2cd024c3830a018c4c89e.png" alt="">
           <p class="share">分享</p>
         </div>
       </div>
@@ -84,9 +84,9 @@
     <div v-transfer-dom>
       <popup v-model="showModal1" :is-transparent="true">
         <div class="bc_share backCover" @click="share">
-          <img src="http://images.ufutx.com/201904/24/43e0d6008b6f9c6282188b52f4113648.png" alt="" width="100%"
+          <img src="https://images.ufutx.com/201904/24/43e0d6008b6f9c6282188b52f4113648.png" alt="" width="100%"
                style="position:fixed;top: 0;z-index: 9999">
-          <img src="http://images.ufutx.com/201904/24/50228a05c7311dffe4962b3e99c239ee.png" alt="" width="100%"
+          <img src="https://images.ufutx.com/201904/24/50228a05c7311dffe4962b3e99c239ee.png" alt="" width="100%"
                class="fixed_bot">
         </div>
       </popup>

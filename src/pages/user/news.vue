@@ -11,7 +11,7 @@
               {{item.other_user.name}}
               <p class="inline-block dist" v-if="item.status == 0"></p>
               <!--<span class="data_title">介绍人</span>-->
-              <!--<img class="icon_crown" src="http://images.ufutx.com/201904/02/6e9d7b41f9ff9ec9588d0a7f910deb02.png" alt="">-->
+              <!--<img class="icon_crown" src="https://images.ufutx.com/201904/02/6e9d7b41f9ff9ec9588d0a7f910deb02.png" alt="">-->
               <!--<span class="crown_region">市级VIP</span>-->
             </div>
           </div>

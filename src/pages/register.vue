@@ -3,15 +3,15 @@
     <div class="center"></div>
     <div style="position: relative;">
       <input type="number" v-model="mobile" class="font30 colorff mobile" placeholder="手机号">
-      <img src="http://images.ufutx.com/201903/28/8026e39a4bd864b41293b4276203026d.png" alt="icon" class="iphone_icon">
-      <img src="http://images.ufutx.com/201903/28/f04cd2fd382dbd6da45260e825ff61ef.png" alt="icon" class="del_icon"
+      <img src="https://images.ufutx.com/201903/28/8026e39a4bd864b41293b4276203026d.png" alt="icon" class="iphone_icon">
+      <img src="https://images.ufutx.com/201903/28/f04cd2fd382dbd6da45260e825ff61ef.png" alt="icon" class="del_icon"
            v-show="mobile" @click="mobile = ''">
-      <img src="http://images.ufutx.com/201903/28/458109eca8206129719b768be914382f.png" alt="icon" class="del_icon"
+      <img src="https://images.ufutx.com/201903/28/458109eca8206129719b768be914382f.png" alt="icon" class="del_icon"
            v-show="warn && mobile" style="right: 12px;">
     </div>
     <div style="position: relative;">
       <input type="number" v-model="code" class="font30 colorff code" placeholder="验证码" @keyup.enter="register">
-      <img src="http://images.ufutx.com/201903/28/0d60138223b3bf6ca002682946adacf6.png" alt="icon" class="iphone_icon"
+      <img src="https://images.ufutx.com/201903/28/0d60138223b3bf6ca002682946adacf6.png" alt="icon" class="iphone_icon"
            style="top: 7.2vw;">
       <p class="getCode font30" @click="getCode" v-if="time == 60">{{text}}</p>
       <p class="getCode font28" v-else>{{time}} 秒后重试</p>
@@ -114,7 +114,7 @@
       background-size: cover;
       background-repeat: no-repeat;
       background-position-x: center;
-      background-image: url('http://images.ufutx.com/201903/27/eab72e299990c7264ed4385556e471b6.jpeg');
+      background-image: url('https://images.ufutx.com/201903/27/eab72e299990c7264ed4385556e471b6.jpeg');
 
       input {
         width: 488px;

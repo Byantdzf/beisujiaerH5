@@ -22,7 +22,7 @@
             {{slogan}}
           </div>
         <!--</router-link>-->
-        <img src="http://images.ufutx.com/201903/29/d919daf1cd00a2a2202de67f7972e83f.png" alt="icon" class="edit">
+        <img src="https://images.ufutx.com/201903/29/d919daf1cd00a2a2202de67f7972e83f.png" alt="icon" class="edit">
         <div class="clearfloat"></div>
       </li>
     </ul>
