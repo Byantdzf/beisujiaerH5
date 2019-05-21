@@ -73,7 +73,11 @@
         })
       },
       gotoDetail (id) {
-        this.$router.push({name: 'activityDetail', params: {id: id}})
+        if (localStorage.getItem('official_openid') || this.$isWeiXin() === false) {
+          this.$router.push({name: 'activityDetail', params: {id: id}})
+        } else {
+          window.location.href = 'https://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + `&type=activity&activity_id=${id}`
+        }
       }
     },
     mounted () {

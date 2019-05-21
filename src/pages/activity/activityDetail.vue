@@ -151,48 +151,44 @@
         this.showModal1 = !this.showModal1
       },
       confirmPay () { // 报名
-        if (localStorage.getItem('official_openid') || this.$isWeiXin() === false) {
-          this.showModal = !this.showModal
-          let data = {
-            name: this.name,
-            mobile: this.mobile
-          }
-          let vm = this
-          this.$http.post(`/official/join/activity/${this.id}`, data).then(({data}) => {
-            vm.trade_no = data.trade_no
-            let wxconfig = data.wx_pay.config
-            if (data.wx_pay.mweb_url) {
-              window.location.href = data.wx_pay.mweb_url
-            } else {
-              WeixinJSBridge.invoke(
-                'getBrandWCPayRequest', {
-                  'appId': wxconfig.appId,
-                  'timeStamp': wxconfig.timestamp,
-                  'nonceStr': wxconfig.nonceStr,
-                  'package': wxconfig.package,
-                  'signType': wxconfig.signType,
-                  'paySign': wxconfig.paySign
-                },
-                function (res) {
-                  if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                    $toastSuccess('微信支付成功')
-                    vm.$router.replace({name: 'fullOrder', query: {id: '2'}})
-                  } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
-                    $toastWarn('用户取消支付')
-                    vm.$router.replace({name: 'fullOrder', query: {id: '1'}})
-                  } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
-                    $toastWarn('网络异常，请重试')
-                  }
-                }
-              )
-            }
-            console.log(window.location.href)
-          }).catch((error) => {
-            console.log(error)
-          })
-        } else {
-          window.location.href = 'https://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + `&type=activity&activity_id=${this.id}`
+        this.showModal = !this.showModal
+        let data = {
+          name: this.name,
+          mobile: this.mobile
         }
+        let vm = this
+        this.$http.post(`/official/join/activity/${this.id}`, data).then(({data}) => {
+          vm.trade_no = data.trade_no
+          let wxconfig = data.wx_pay.config
+          if (data.wx_pay.mweb_url) {
+            window.location.href = data.wx_pay.mweb_url
+          } else {
+            WeixinJSBridge.invoke(
+              'getBrandWCPayRequest', {
+                'appId': wxconfig.appId,
+                'timeStamp': wxconfig.timestamp,
+                'nonceStr': wxconfig.nonceStr,
+                'package': wxconfig.package,
+                'signType': wxconfig.signType,
+                'paySign': wxconfig.paySign
+              },
+              function (res) {
+                if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                  $toastSuccess('微信支付成功')
+                  vm.$router.replace({name: 'fullOrder', query: {id: '2'}})
+                } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
+                  $toastWarn('用户取消支付')
+                  vm.$router.replace({name: 'fullOrder', query: {id: '1'}})
+                } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
+                  $toastWarn('网络异常，请重试')
+                }
+              }
+            )
+          }
+          console.log(window.location.href)
+        }).catch((error) => {
+          console.log(error)
+        })
       }
     },
     mounted () {
