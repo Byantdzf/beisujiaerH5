@@ -38,6 +38,7 @@
         </p>
         <p class="font26 color6 ellipsis_1" style="margin-top: 4px">{{item.introduction}}</p>
       </div>
+      <div class="height160"></div>
     </mescroll-vue>
   </div>
 </template>

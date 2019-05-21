@@ -178,6 +178,7 @@
                 'signType': wxconfig.signType,
                 'paySign': wxconfig.paySign
               },
+
               function (res) {
                 if (res.err_msg === 'get_brand_wcpay_request:ok') {
                   $toastSuccess('微信支付成功')
