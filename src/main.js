@@ -40,6 +40,9 @@ router.beforeEach((to, from, next) => {
   if (to.query.ACCESS_TOKEN) {
     localStorage.setItem('ACCESS_TOKEN', to.query.ACCESS_TOKEN)
   }
+  if (to.query.official_openid) {
+    localStorage.setItem('official_openid', to.query.official_openid)
+  }
   store.commit('updateLoadingStatus', {isLoading: true})
   next()
   if (to.query && to.query.paas) {
