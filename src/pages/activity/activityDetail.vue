@@ -95,7 +95,7 @@
 </template>
 
 <script>
-  import {$toastWarn} from '../../config/util'
+  import {$toastWarn, $toastSuccess} from '../../config/util'
   import {TransferDom, Marquee, MarqueeItem, Popup} from 'vux'
 
   export default {
@@ -165,11 +165,37 @@
         let vm = this
         this.$http.post(`/official/join/activity/${this.id}`, data).then(({data}) => {
           vm.trade_no = data.trade_no
-          console.log(window.location.href)
+          let wxconfig = data.wx_pay.config
           if (data.wx_pay.mweb_url) {
-            // window.location.href = data.wx_pay.mweb_url + '?redirect_url=' + window.location.href
             window.location.href = data.wx_pay.mweb_url
+          } else {
+            WeixinJSBridge.invoke(
+              'getBrandWCPayRequest', {
+                'appId': wxconfig.appId,
+                'timeStamp': wxconfig.timestamp,
+                'nonceStr': wxconfig.nonceStr,
+                'package': wxconfig.package,
+                'signType': wxconfig.signType,
+                'paySign': wxconfig.paySign
+              },
+              function (res) {
+                if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                  $toastSuccess('微信支付成功')
+                  vm.$router.replace({name: 'fullOrder', query: {id: '2'}})
+                } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
+                  $toastWarn('用户取消支付')
+                  vm.$router.replace({name: 'fullOrder', query: {id: '1'}})
+                } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
+                  $toastWarn('网络异常，请重试')
+                }
+              }
+            )
           }
+          console.log(window.location.href)
+          // if (data.wx_pay.mweb_url) {
+          //   // window.location.href = data.wx_pay.mweb_url + '?redirect_url=' + window.location.href
+          //   window.location.href = data.wx_pay.mweb_url
+          // }
           // if (data.wx_pay.length === 0) {
           // that.$post({url: `${service.orderpay}/${that.trade_no}/v2`}, {
           //   success: ({code, data}) => {
