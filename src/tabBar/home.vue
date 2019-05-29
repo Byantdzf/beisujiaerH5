@@ -34,7 +34,7 @@
         <div class="image" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}"></div>
         <p style="margin-top: 8px;">
           <span class="font32">{{item.name}}</span>
-          <span class="font20 colorb">{{item.age}} · {{item.stature}}cm {{item.city? '· '+item.city: ''}}</span>
+          <span class="font20 colorb">{{item.age? item.age+ '岁 ': ''}} {{item.stature? '· ' +item.stature +'cm': ''}} {{item.city? '· '+item.city: ''}}</span>
         </p>
         <p class="font26 color6 ellipsis_1" style="margin-top: 4px">{{item.introduction}}</p>
       </div>
