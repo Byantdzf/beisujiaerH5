@@ -97,7 +97,7 @@
     padding: 12px;
     .swiper-image{
       width: 88%;
-      height: 350px;
+      height: 680px;
       box-shadow: 1px 1px 12px #d0d0d0;
       margin-left: 6%;
     }

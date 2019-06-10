@@ -134,7 +134,7 @@
       }
 
       .getCode {
-        width: 164px;
+        min-width: 164px;
         color: #C1E0FA;
         position: relative;
         position: absolute;
