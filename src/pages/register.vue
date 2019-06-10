@@ -13,10 +13,10 @@
       <input type="number" v-model="code" class="font30 colorff code" placeholder="验证码" @keyup.enter="register">
       <img src="https://images.ufutx.com/201903/28/0d60138223b3bf6ca002682946adacf6.png" alt="icon" class="iphone_icon"
            style="top: 7.2vw;">
-      <p class="getCode font30" @click="getCode" v-if="time == 60">{{text}}</p>
+      <p class="getCode font28" @click="getCode" v-if="time == 60">{{text}}</p>
       <p class="getCode font28" v-else>{{time}} 秒后重试</p>
     </div>
-    <button class="colorff button text-center" @click="register">立即登录</button>
+    <button class="colorff button text-center font28" @click="register">立即登录</button>
     <p class="font26 protocol">
       <span style="color: #9a9a9a;">
         点击立即登录默认您同意

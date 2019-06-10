@@ -13,7 +13,7 @@
               <!--<img class="icon_crown" src="https://images.ufutx.com/201904/02/6e9d7b41f9ff9ec9588d0a7f910deb02.png" alt="">-->
               <!--<span class="crown_region">市级VIP</span>-->
             </div>
-            <div class="data_parameter colorbe">{{item.last_message.content}}</div>
+            <div class="data_parameter colorbe ellipsis_1">{{item.last_message.content}}</div>
           </div>
         </div>
       </div>
