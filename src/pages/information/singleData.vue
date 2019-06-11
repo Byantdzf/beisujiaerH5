@@ -3,7 +3,7 @@
     <ul>
       <li class="list-item">
         <span class="title font32">身高（cm）~</span>
-        <input type="number" class="text-right font30 flo_r" v-model="stature" placeholder="点击填写身高（cm）" />
+        <input type="number" class="text-right font30 flo_r" v-model="stature" placeholder="点击填写身高（cm）" oninput="this.value=this.value.replace(/[^0-9.]+/,'');"/>
       </li>
       <li class="list-item">
         <span class="title font32">体重（kg）~</span>
