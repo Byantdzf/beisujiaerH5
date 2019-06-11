@@ -7,7 +7,7 @@
       </li>
       <li class="list-item">
         <span class="title font32">体重（kg）~</span>
-        <input type="number" class="text-right font30 flo_r" v-model="weight" placeholder="点击填写体重（kg）" />
+        <input type="number" class="text-right font30 flo_r" v-model="weight" placeholder="点击填写体重（kg）"  oninput="this.value=this.value.replace(/[^0-9.]+/,'');"/>
       </li>
       <li class="list-item">
         <span class="title font32">单身状态~</span>
