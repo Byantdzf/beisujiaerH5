@@ -151,8 +151,10 @@
         this.showMenu = true
       },
       shareInfo () {
-        let url = location.href
-        let vm = this
+        let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+        let vm = this,
+          url;
+        if(location.href.includes('?')) {url = location.href+'&from_user_id' + userInfo.id} else {url = location.href+'?from_user_id' + userInfo.id}
         if (localStorage.getItem('paasTitle')) {
           this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasTitle'), localStorage.getItem('paasIntro'))
           document.title = localStorage.getItem('paasTitle')
