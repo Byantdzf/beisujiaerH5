@@ -89,7 +89,7 @@
     },
     methods: {
       routeToDetail (name, type) {
-        if (localStorage.getItem('official_openid') || this.$isWeiXin() === false) {
+        if (localStorage.getItem('official_openid') && localStorage.getItem('official_openid') !== null || this.$isWeiXin() === false) {
           if (type) {
             this.$router.push({name: name, params: {type: type}})
           } else {
@@ -115,6 +115,9 @@
       getUser () {
         this.$http.get(`/official/mine`).then(({data}) => {
           this.user = data
+          if (data && data.official_openid) {
+            localStorage.setItem('official_openid', data.official_openid)
+          }
           this.getMessageNum()
         }).catch((error) => {
           console.log(error)

@@ -110,8 +110,6 @@
         direction: state => state.vux.direction
       }),
       isTabbarDemo () {
-        // console.log(this.route.path)
-        // return /tabbar/.test(this.route.path)
         if (this.route.path === '/') return false
         if (this.route.path === '/activity') return false
         if (this.route.path === '/chitchat') return false

@@ -85,6 +85,13 @@
           localStorage.setItem('mobile', data.user.mobile)
           if (data.wechat && data.wechat.official_openid) localStorage.setItem('official_openid', data.wechat.official_openid)
           if (data.user && data.user.type) {
+            let userInfo = {
+              id: data.user.id,
+              name: data.user.name,
+              photo: data.user.photo,
+              type: data.user.type
+            }
+            localStorage.setItem('userInfo', JSON.stringify(userInfo))
             this.$router.push({
               name: 'home'
             })
