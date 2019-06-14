@@ -18,7 +18,7 @@
       <!--slot="header"-->
       <!--style="width:100%;position:absolute;left:0;top:0;z-index:100;"-->
       <!--:left-options="leftOptions"-->
-      <!--:right-options="rightOptions"-->
+      <!--:right-options="rightOptiongens"-->
       <!--:title="title"-->
       <!--@on-click-more="onClickMore">-->
       <!--<span v-if="route.path === '/'" slot="overwrite-left" @click="drawerVisibility = !drawerVisibility">-->
@@ -193,7 +193,6 @@
       }
       this.chat_num = localStorage.getItem('chat_num')
       this.notice_num = localStorage.getItem('notice_num')
-      // this.shareInfo()
     },
     created () {
     }

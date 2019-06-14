@@ -30,7 +30,7 @@
         </cell>
       </group>
     </div>
-    <div  @click="routeToDetail('authentication')">
+    <div @click="routeToDetail('authentication')" v-if="user.type === 'single'">
       <group title=" " >
         <cell title="实名认证" is-link >
           <!--<badge text="1"></badge>-->
