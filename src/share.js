@@ -3,13 +3,14 @@ import wx from 'weixin-jsapi'
 // import {$toastWarn} from './config/util'
 
 exports.install = function (Vue, options) {
-  Vue.prototype.$shareList = function (imgUrl, link, desc, title) {
-    // 分享
+  Vue.prototype.$shareList = function (imgUrl, link, desc, title) { // 分享
     let vm = this
     let url = encodeURIComponent(location.href.split('#')[0])
-    // let url = location.href
-    let data = {url: url}
-    vm.$http.post(`/official/js/config`, data).then(({data}) => {
+    let parameter = {url: url}
+    let wxConfig = JSON.parse(localStorage.getItem('wxConfig'))
+    if (wxConfig) return wxInit(wxConfig, imgUrl, link, desc, title)
+    vm.$http.post(`/official/js/config`, parameter).then(({data}) => {
+      localStorage.setItem('wxConfig', JSON.stringify(data))
       wxInit(data, imgUrl, link, desc, title)
     }).catch((error) => {
       console.log(error)

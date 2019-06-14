@@ -21,7 +21,7 @@
         <li><p class="bold color6" @click="routeToDetail('myFriend', 'friend')">{{user.friend_count}}</p>好友</li>
       </ul>
     </div>
-    <div @click="routeToDetail('upgrade')">
+    <div @click="routeToDetail('upgrade')" v-if="user.type === 'single'">
       <group title=" " >
         <cell title="VIP办理" is-link>
           <!--<badge text="1"></badge>-->
@@ -30,7 +30,7 @@
         </cell>
       </group>
     </div>
-    <div @click="routeToDetail('authentication')" v-if="user.type === 'single'">
+    <div @click="routeToDetail('authentication')">
       <group title=" " >
         <cell title="实名认证" is-link >
           <!--<badge text="1"></badge>-->

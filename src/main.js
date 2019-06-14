@@ -12,9 +12,7 @@ import '../src/config/api'
 import md5 from 'js-md5'
 import {$toastWarn} from './config/util'
 import share from './share'
-import wxPay from './wxPay'
 Vue.use(share)
-Vue.use(wxPay)
 Vue.prototype.$md5 = md5
 FastClick.attach(document.body)
 require('es6-promise').polyfill()
@@ -68,7 +66,6 @@ Vue.prototype.$href = (url) => {
 }
 Vue.prototype.$isWeiXin = () => {
   var ua = window.navigator.userAgent.toLowerCase()
-  console.log(ua) // mozilla/5.0 (iphone; cpu iphone os 9_1 like mac os x) applewebkit/601.1.46 (khtml, like gecko)version/9.0 mobile/13b143 safari/601.1
   if (ua.includes('micromessenger')) {
     console.log('微信平台')
     return true
