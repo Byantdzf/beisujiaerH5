@@ -165,7 +165,14 @@
             })
           })
         } else {
-          console.log('非微信平台，无法获取地理定位')
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+              localStorage.setItem('latitude', position.coords.latitude)
+              localStorage.setItem('longitude', position.coords.longitude)
+            })
+          } else {
+            $toastWarn('未获取到地理定位.')
+          }
         }
       },
       shareInfo () {
