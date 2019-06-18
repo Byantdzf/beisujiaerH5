@@ -38,8 +38,14 @@ router.beforeEach((to, from, next) => {
   if (to.query.ACCESS_TOKEN) {
     localStorage.setItem('ACCESS_TOKEN', to.query.ACCESS_TOKEN)
   }
+  if (to.query.from_user_id) {
+    localStorage.setItem('from_user_id', to.query.from_user_id)
+  }
   if (to.query.official_openid) {
     localStorage.setItem('official_openid', to.query.official_openid)
+  }
+  if (to.query.from_platform) {
+    localStorage.setItem('official_openid', to.query.from_platform)
   }
   store.commit('updateLoadingStatus', {isLoading: true})
   next()

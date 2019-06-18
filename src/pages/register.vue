@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import {$toastSuccess} from '../../src/config/util'
+  import {$toastSuccess, $toastWarn} from '../../src/config/util'
 
   export default {
     name: 'register',
@@ -79,6 +79,15 @@
         let data = {
           mobile: this.mobile,
           code: this.code
+        }
+        if (!this.mobile) {
+          return $toastWarn('无手机号码')
+        }
+        if (!this.code) {
+          return $toastWarn('无验证码')
+        }
+        if (this.warn === true) {
+          return $toastWarn('手机号码错误')
         }
         this.$http.post('/official/login/mobile', data).then(({data}) => {
           localStorage.setItem('ACCESS_TOKEN', data.token)

@@ -24,12 +24,25 @@ const api = () => {
 // http request 拦截器
   AjaxPlugin.$http.interceptors.request.use((config) => {
     config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('ACCESS_TOKEN')
-    if (config.url.includes('?')) {
-      config.url = config.url + '&XDEBUG_SESSION_START=1&paas=' + localStorage.getItem('paasName')
-    } else {
-      config.url = config.url + '?XDEBUG_SESSION_START=1&paas=' + localStorage.getItem('paasName')
+    let data = {
+      paasName: localStorage.getItem('paasName'), // 平台名字
+      from_user_id: localStorage.getItem('from_user_id'), // 推荐人id
+      official_openid: localStorage.getItem('official_openid'), // openID
+      from_platform: localStorage.getItem('from_platform'),
+      location_latitude: localStorage.getItem('latitude'),
+      location_longitude: localStorage.getItem('longitude')
     }
-    // console.log(config)
+    let parameter = ''
+    for (let index in data) {
+      if (data[index] && data[index] !== null) {
+        parameter = `${parameter}&${index}=${data[index]}`
+      }
+    }
+    if (config.url.includes('?')) {
+      config.url = config.url + `&XDEBUG_SESSION_START=1${parameter}`
+    } else {
+      config.url = config.url + `?XDEBUG_SESSION_START=1${parameter}`
+    }
     // if (config.method === 'post') {
     //   config.data = qs.stringify(config.data)
     // }

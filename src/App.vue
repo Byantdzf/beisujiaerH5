@@ -30,37 +30,37 @@
           <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
             <img src="../src/assets/icon/home.png" alt="home">
           </span>
-            <span class="demo-icon-22" slot="icon-active">
+          <span class="demo-icon-22" slot="icon-active">
             <img src="../src/assets/icon/homeActive.png" alt="home">
           </span>
-            <span slot="label">首页</span>
+          <span slot="label">首页</span>
         </tabbar-item>
         <tabbar-item :link="{path:'/activity'}" :selected="path === '/activity'">
           <span class="demo-icon-22" slot="icon">
             <img src="../src/assets/icon/attention.png" alt="home">
           </span>
-            <span class="demo-icon-22" slot="icon-active">
+          <span class="demo-icon-22" slot="icon-active">
             <img src="../src/assets/icon/attentionActive.png" alt="home">
           </span>
-            <span slot="label">活动</span>
+          <span slot="label">活动</span>
         </tabbar-item>
         <tabbar-item :link="{path:'/chitchat'}" :badge="chat_num == 0?'':chat_num" :selected="path === '/chitchat'">
           <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
             <img src="../src/assets/icon/message.png" alt="home">
           </span>
-            <span class="demo-icon-22" slot="icon-active">
+          <span class="demo-icon-22" slot="icon-active">
             <img src="../src/assets/icon/messageActive.png" alt="home">
           </span>
-            <span slot="label">聊天</span>
+          <span slot="label">聊天</span>
         </tabbar-item>
         <tabbar-item :link="{path:'/user'}" :badge="notice_num == 0?'':notice_num" :selected="path === '/user'">
           <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
             <img src="../src/assets/icon/my.png" alt="home">
           </span>
-            <span class="demo-icon-22" slot="icon-active">
+          <span class="demo-icon-22" slot="icon-active">
             <img src="../src/assets/icon/myActive.png" alt="home">
           </span>
-            <span slot="label">我的</span>
+          <span slot="label">我的</span>
         </tabbar-item>
       </tabbar>
     </view-box>
@@ -71,7 +71,7 @@
   import {XHeader, Tabbar, TabbarItem, ViewBox, Loading, TransferDom} from 'vux'
   import {mapState, mapActions} from 'vuex'
   import loadingPage from './components/loading'
-  // import {$toastWarn} from './config/util'
+  import {$toastWarn} from './config/util'
 
   export default {
     name: 'app',
@@ -150,11 +150,37 @@
       onClickMore () {
         this.showMenu = true
       },
+      geolocation () {
+        if (this.$isWeiXin()) {
+          wx.ready(function () {
+            wx.getLocation({
+              type: 'gcj02',
+              success: (res) => {
+                localStorage.setItem('latitude', res.latitude)
+                localStorage.setItem('longitude', res.longitude)
+              },
+              cancel: (res) => {
+                $toastWarn('定位失败，权限不足')
+              }
+            })
+          })
+        } else {
+          console.log('非微信平台，无法获取地理定位')
+        }
+      },
       shareInfo () {
+        let vm = this
+        let url = ''
+        if (!localStorage.getItem('userInfo') || localStorage.getItem('userInfo') === null) {
+          return vm.$router.push({name: 'register'})
+        }
         let userInfo = JSON.parse(localStorage.getItem('userInfo'))
-        let vm = this,
-          url;
-        if(location.href.includes('?')) {url = location.href+'&from_user_id' + userInfo.id} else {url = location.href+'?from_user_id' + userInfo.id}
+
+        if (location.href.includes('?')) {
+          url = location.href + '&from_user_id=' + userInfo.id
+        } else {
+          url = location.href + '?from_user_id=' + userInfo.id
+        }
         if (localStorage.getItem('paasTitle')) {
           this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasTitle'), localStorage.getItem('paasIntro'))
           document.title = localStorage.getItem('paasTitle')
@@ -195,6 +221,7 @@
       this.notice_num = localStorage.getItem('notice_num')
     },
     created () {
+      this.geolocation()
     }
   }
 </script>
@@ -230,8 +257,10 @@
 
   .vux-header {
   }
-  .weui-tabbar{
+
+  .weui-tabbar {
     padding: 6px 0 !important;
+
     .weui-tabbar__icon {
       width: 22px !important;
       height: 22px !important;
@@ -280,7 +309,8 @@
     width: 32px;
     height: 32px;
   }
-  .vux-demo-tabbar{
+
+  .vux-demo-tabbar {
     background-color: #FAFAFB !important;
   }
 </style>
