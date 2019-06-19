@@ -179,14 +179,14 @@
         let vm = this
         let url = ''
         if (!localStorage.getItem('userInfo') || localStorage.getItem('userInfo') === null) {
-          return vm.$router.push({name: 'register'})
-        }
-        let userInfo = JSON.parse(localStorage.getItem('userInfo'))
-
-        if (location.href.includes('?')) {
-          url = location.href + '&from_user_id=' + userInfo.id
+          url = location.href
         } else {
-          url = location.href + '?from_user_id=' + userInfo.id
+          let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+          if (location.href.includes('?')) {
+            url = location.href + '&from_user_id=' + userInfo.id
+          } else {
+            url = location.href + '?from_user_id=' + userInfo.id
+          }
         }
         if (localStorage.getItem('paasTitle')) {
           this.$shareList(localStorage.getItem('logo'), url, localStorage.getItem('paasTitle'), localStorage.getItem('paasIntro'))
