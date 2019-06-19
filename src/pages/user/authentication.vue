@@ -81,8 +81,10 @@
       getUser () {
         this.$http.get(`/official/mine`).then(({data}) => {
           this.user = data
-          if (!data.official_openid || data.official_openid === null) {
-            this.$router.push({name: 'user'})
+          if (this.$isWeiXin()) {
+            if (!data.user.official_openid || data.user.official_openid === null) {
+              this.$router.push({name: 'user'})
+            }
           }
           localStorage.setItem('official_openid', data.official_openid)
         }).catch((error) => {

@@ -166,8 +166,10 @@
           this.score = data.score
           this.sub_ranks = data.rank.sub_ranks
           this.official_feature = data.rank.official_feature
-          if (!data.user.official_openid || data.user.official_openid === null) {
-            this.$router.push({name: 'user'})
+          if (this.$isWeiXin()) {
+            if (!data.user.official_openid || data.user.official_openid === null) {
+              this.$router.push({name: 'user'})
+            }
           }
           localStorage.setItem('official_openid', data.user.official_openid)
           $loadingHide()
