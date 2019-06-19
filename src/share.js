@@ -8,14 +8,14 @@ exports.install = function (Vue, options) {
     let url = encodeURIComponent(location.href.split('#')[0])
     let parameter = {url: url}
     let wxConfig = JSON.parse(localStorage.getItem('wxConfig'))
-    if (wxConfig) return wxInit(wxConfig, imgUrl, link, desc, title)
+    // if (wxConfig) return wxInit(wxConfig, imgUrl, link, desc, title)
     vm.$http.post(`/official/js/config`, parameter).then(({data}) => {
       localStorage.setItem('wxConfig', JSON.stringify(data))
       wxInit(data, imgUrl, link, desc, title)
     }).catch((error) => {
       console.log(error)
     })
-  }
+  // }
 }
 
 function wxInit (res, imgUrl, link, desc, title) {
