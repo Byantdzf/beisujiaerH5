@@ -45,7 +45,7 @@ router.beforeEach((to, from, next) => {
     localStorage.setItem('official_openid', to.query.official_openid)
   }
   if (to.query.from_platform) {
-    localStorage.setItem('official_openid', to.query.from_platform)
+    localStorage.setItem('from_platform', to.query.from_platform)
   }
   store.commit('updateLoadingStatus', {isLoading: true})
   next()
