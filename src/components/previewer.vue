@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import { Previewer, TransferDom } from 'vux'
+  import {Previewer, TransferDom} from 'vux'
 
   export default {
     props: ['list'],
@@ -26,9 +26,14 @@
           }
         }
       }
+    },
+    methods: {
+      logIndexChange (arg) {
+        console.log(arg)
+      }
     }
   }
 </script>
 
-<style  lang="less" scoped>
+<style lang="less" scoped>
 </style>

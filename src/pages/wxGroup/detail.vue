@@ -27,8 +27,8 @@
     </div>
     <shareModal :show.sync="showShare" @hideModal="hideShare"></shareModal>
     <LoadMore tip="群成员" :show-loading="false"></LoadMore>
-    <div class="main-otherUser" v-if="information.members.length>0">
-      <div class="item-photo" v-for="item,index in information.members" :key="index">
+    <div class="main-otherUser">
+      <div class="item-photo" v-for="item,index in information.members">
         <img :src="item.photo" >
       </div>
     </div>
@@ -48,34 +48,31 @@
     </div>
     <moadlUp :show.sync="showQr" @hideModal="hideQr">
       <div class="main-qr">
-        <!--<div v-transfer-dom>-->
-          <!--<previewer :list="list" ref="previewer" :options="options" @on-index-change="logIndexChange"></previewer>-->
-        <!--</div>-->
-        <img :src="information.qrcode" alt="">
-        <div class="text text-center">请扫描二维码进群</div>
+        <img :src="information.qrcode" alt="" @click="showImage">
+        <div class="text text-center">群主微信：{{information.owner_wechat}}</div>
       </div>
     </moadlUp>
-    <previewer></previewer>
+    <div v-transfer-dom>
+      <previewer :list="list" ref="previewer"  @on-index-change="logIndexChange"></previewer>
+    </div>
   </div>
 </template>
 <script>
   import {$loadingShow, $loadingHide} from '../../config/util'
-  // import {TransferDom} from 'vux'
-  import { LoadMore } from 'vux'
+  import {LoadMore, Previewer, TransferDom} from 'vux'
   import shareModal from '../../components/shareMoadl'
   import moadlUp from '../../components/moadlUp'
-  import previewer from '../../components/previewer'
 
   export default {
     name: 'authentication',
     directives: {
-      // TransferDom
+      TransferDom
     },
     components: {
       shareModal,
       LoadMore,
       moadlUp,
-      previewer
+      Previewer
     },
     data () {
       return {
@@ -84,10 +81,18 @@
         information: {},
         showShare: false,
         showQr: false,
-        show: false
+        show: false,
+        list: []
       }
     },
     methods: {
+      showImage () {
+        this.showQr = false
+        this.$refs.previewer.show(0)
+      },
+      logIndexChange (arg) {
+        console.log(arg)
+      },
       hideShare (value) {
         this.showShare = value
       },
@@ -103,6 +108,11 @@
       getUser () {
         this.$http.get(`/official/communities/${this.id}`).then(({data}) => {
           this.information = data
+          this.list.push(
+            {
+              src: data.qrcode
+            }
+          )
           if (this.$isWeiXin()) {
             if (!data.user.official_openid || data.user.official_openid === null) {
               this.$router.push({name: 'user'})
