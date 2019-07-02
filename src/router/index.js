@@ -74,6 +74,11 @@ export default new Router({
       component: (resolve) => require(['@/pages/user/setting'], resolve)
     },
     { // 单身详情
+      path: '/wxGroup/:id',
+      name: 'wxGroup',
+      component: (resolve) => require(['@/pages/wxGroup/detail'], resolve)
+    },
+    { // 单身详情
       path: '/information/:id',
       name: 'information',
       component: (resolve) => require(['@/pages/user/information'], resolve)

@@ -21,6 +21,13 @@
           </swiper>
         </div>
       </div>
+      <img src="http://images.ufutx.com/201907/01/419369bfc0834908da80d03d383c79dd.png" alt="" style="width: 100%">
+      <div class="groupicon">
+        <div class="item-icon" v-for="item,index in groupList" @click="$router.push({name: 'wxGroup', params: {id: item.id}})">
+          <img :src="item.icon" alt="">
+          <div class="font22 color6 title">{{item.title}}</div>
+        </div>
+      </div>
       <p class="bc_title font34 bold">推荐</p>
       <swiperComponent :list.sync="recommend"></swiperComponent>
       <!--<swiper  :min-moving-distance="120" :show-desc-mask="true"  :auto="true" :interval="2000" @on-index-change="swiperItem">-->
@@ -69,6 +76,28 @@
         recommend: [],
         noData: false,
         page: 1,
+        groupList: [
+          {
+            icon: 'http://images.ufutx.com/201907/01/9e0ee9cfa69b46e37576ce393a874ec3.png',
+            title: '单身群',
+            id: 1
+          },
+          {
+            icon: 'http://images.ufutx.com/201907/01/a3722ff97f8e49079c55c3ba1eb2e7a5.png',
+            title: '红娘群',
+            id: 2
+          },
+          {
+            icon: 'http://images.ufutx.com/201907/01/064d6bd1672193af0d116f1b23164480.png',
+            title: '介绍人群',
+            id: 3
+          },
+          {
+            icon: 'http://images.ufutx.com/201907/01/9e0ee9cfa69b46e37576ce393a874ec3.png',
+            title: '城市群',
+            id: 4
+          }
+        ],
         announcements: [],
         mescroll: null, //  mescroll实例对象
         mescrollDown: {}, // 下拉刷新的配置. (如果下拉刷新和上拉加载处理的逻辑是一样的,则mescrollDown可不用写了)
@@ -247,6 +276,22 @@
     to {
       height: 302px;
 
+    }
+  }
+  .groupicon{
+    padding: 32px 0;
+    overflow: hidden;
+    border-bottom: 8px solid #ECECEC;
+    .item-icon{
+      width: 25%;
+      float: left;
+      text-align: center;
+      img{
+        width: 88px;
+      }
+      .title{
+        margin-top: 4px;
+      }
     }
   }
 </style>

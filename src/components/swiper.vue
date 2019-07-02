@@ -1,5 +1,5 @@
 <template>
-  <swiper :options="swiperOption" ref="mySwiper">
+  <swiper :options="swiperOption" ref="mySwiper" :show-dots="false">
     <swiper-slide v-for="item,index in list" :key="index">
       <div class="swiper-box" @click="routeToDetail(item.user.type, item.user.id)">
         <div class="swiper-image backCover" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}"></div>
