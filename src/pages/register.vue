@@ -101,9 +101,13 @@
               type: data.user.type
             }
             localStorage.setItem('userInfo', JSON.stringify(userInfo))
-            this.$router.push({
-              name: 'home'
-            })
+            if (localStorage.getItem('jump')) {
+              window.location.href = localStorage.getItem('jump')
+            } else {
+              this.$router.push({
+                name: 'home'
+              })
+            }
           } else {
             this.$router.push({
               name: 'personalData'

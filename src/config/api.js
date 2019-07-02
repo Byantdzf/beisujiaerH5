@@ -57,6 +57,7 @@ const api = () => {
       $loadingHide()
       localStorage.removeItem('ACCESS_TOKEN')
       $toastWarn(response.data.message)
+      localStorage.setItem('jump', window.location.href)
       window.location.href = window.location.href.split('#/')[0] + '#/register'
     } else if (response.status === 200 && response.data.code === 1) {
       $loadingHide()

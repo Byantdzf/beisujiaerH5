@@ -22,7 +22,7 @@
       </div>
       <img src="http://images.ufutx.com/201907/01/419369bfc0834908da80d03d383c79dd.png" alt="" style="width: 100%">
       <div class="groupicon">
-        <div class="item-icon" v-for="item,index in groupList" @click="$router.push({name: 'wxGroup', params: {id: item.id}})">
+        <div class="item-icon" v-for="item,index in groupList" @click="goToDetail(item)">
           <img :src="item.icon" alt="">
           <div class="font22 color6 title">{{item.title}}</div>
         </div>
@@ -114,6 +114,13 @@
       }
     },
     methods: {
+      goToDetail (item) {
+        if (localStorage.getItem('official_openid') && localStorage.getItem('official_openid') !== null && this.$isWeiXin() === true) {
+          this.$router.push({name: 'wxGroup', params: {id: item.id}})
+        } else {
+          window.location.href = 'https://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + `&type=community?id=${item.id}`
+        }
+      },
       swiperItem (currentIndex) {
         this.currentIndex = currentIndex
       },

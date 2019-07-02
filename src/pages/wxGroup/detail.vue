@@ -125,19 +125,19 @@
       },
       apply () {
         $loadingShow('加载中...')
-        if (localStorage.getItem('official_openid') && localStorage.getItem('official_openid') !== null) {
-          this.$http.post(`/official/apply/communities/${this.id}`).then(({data}) => {
-            $loadingHide()
-            this.getUser()
-            this.showQr = true
-          }).catch((error) => {
-            console.log(error)
-            this.getUser()
-          })
-        } else {
+        // if (localStorage.getItem('official_openid') && localStorage.getItem('official_openid') !== null) {
+        this.$http.post(`/official/apply/communities/${this.id}`).then(({data}) => {
           $loadingHide()
-          window.location.href = 'https://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + '&type=communities'
-        }
+          this.getUser()
+          this.showQr = true
+        }).catch((error) => {
+          console.log(error)
+          this.getUser()
+        })
+        // } else {
+        //   $loadingHide()
+        //   window.location.href = 'https://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + '&type=communities'
+        // }
       }
     },
     mounted () {
