@@ -27,8 +27,8 @@
     </div>
     <shareModal :show.sync="showShare" @hideModal="hideShare"></shareModal>
     <LoadMore tip="群成员" :show-loading="false"></LoadMore>
-    <div class="main-otherUser">
-      <div class="item-photo" v-for="item,index in information.members">
+    <div class="main-otherUser" v-if="information.members.length>0">
+      <div class="item-photo" v-for="item,index in information.members" :key="index">
         <img :src="item.photo" >
       </div>
     </div>
