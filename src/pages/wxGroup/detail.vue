@@ -48,10 +48,14 @@
     </div>
     <moadlUp :show.sync="showQr" @hideModal="hideQr">
       <div class="main-qr">
+        <!--<div v-transfer-dom>-->
+          <!--<previewer :list="list" ref="previewer" :options="options" @on-index-change="logIndexChange"></previewer>-->
+        <!--</div>-->
         <img :src="information.qrcode" alt="">
         <div class="text text-center">请扫描二维码进群</div>
       </div>
     </moadlUp>
+    <previewer></previewer>
   </div>
 </template>
 <script>
@@ -60,6 +64,7 @@
   import { LoadMore } from 'vux'
   import shareModal from '../../components/shareMoadl'
   import moadlUp from '../../components/moadlUp'
+  import previewer from '../../components/previewer'
 
   export default {
     name: 'authentication',
@@ -69,7 +74,8 @@
     components: {
       shareModal,
       LoadMore,
-      moadlUp
+      moadlUp,
+      previewer
     },
     data () {
       return {

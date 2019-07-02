@@ -1,11 +1,11 @@
 <template>
-  <swiper :options="swiperOption" ref="mySwiper" :show-dots="false">
+  <swiper :options="swiperOption" ref="mySwiper">
     <swiper-slide v-for="item,index in list" :key="index">
       <div class="swiper-box" @click="routeToDetail(item.user.type, item.user.id)">
         <div class="swiper-image backCover" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}"></div>
       </div>
     </swiper-slide>
-    <div class="swiper-pagination" slot="pagination"></div>
+    <!--<div class="swiper-pagination" slot="pagination"></div>-->
   </swiper>
 </template>
 
