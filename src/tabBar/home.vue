@@ -118,7 +118,7 @@
         if (localStorage.getItem('official_openid') && localStorage.getItem('official_openid') !== null && this.$isWeiXin() === true) {
           this.$router.push({name: 'wxGroup', params: {id: item.id}})
         } else {
-          window.location.href = 'https://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + `&type=community?id=${item.id}`
+          window.location.href = 'https://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + `&type=community&id=${item.id}`
         }
       },
       swiperItem (currentIndex) {
