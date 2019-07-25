@@ -1,6 +1,6 @@
 <template>
   <div id="app" style="height:100%;">
-    <view-box ref="viewBox" body-padding-bottom="50">
+    <view-box ref="viewBox" >
       <div v-transfer-dom>
         <loading v-model="isLoading"></loading>
         <!--<loadingPage :init="!isLoading"></loadingPage>-->
@@ -35,24 +35,24 @@
           </span>
           <span slot="label">首页</span>
         </tabbar-item>
-        <tabbar-item :link="{path:'/activity'}" :selected="path === '/activity'">
+        <tabbar-item :link="{path:'/detection'}" :selected="path === '/detection'">
           <span class="demo-icon-22" slot="icon">
             <img src="../src/assets/icon/attention.png" alt="home">
           </span>
           <span class="demo-icon-22" slot="icon-active">
             <img src="../src/assets/icon/attentionActive.png" alt="home">
           </span>
-          <span slot="label">活动</span>
+          <span slot="label">检测</span>
         </tabbar-item>
-        <tabbar-item :link="{path:'/chitchat'}" :badge="chat_num == 0?'':chat_num" :selected="path === '/chitchat'">
-          <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
-            <img src="../src/assets/icon/message.png" alt="home">
-          </span>
-          <span class="demo-icon-22" slot="icon-active">
-            <img src="../src/assets/icon/messageActive.png" alt="home">
-          </span>
-          <span slot="label">聊天</span>
-        </tabbar-item>
+        <!--<tabbar-item :link="{path:'/chitchat'}" :badge="chat_num == 0?'':chat_num" :selected="path === '/chitchat'">-->
+          <!--<span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">-->
+            <!--<img src="../src/assets/icon/message.png" alt="home">-->
+          <!--</span>-->
+          <!--<span class="demo-icon-22" slot="icon-active">-->
+            <!--<img src="../src/assets/icon/messageActive.png" alt="home">-->
+          <!--</span>-->
+          <!--<span slot="label">聊天</span>-->
+        <!--</tabbar-item>-->
         <tabbar-item :link="{path:'/user'}" :badge="notice_num == 0?'':notice_num" :selected="path === '/user'">
           <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
             <img src="../src/assets/icon/my.png" alt="home">
@@ -111,8 +111,7 @@
       }),
       isTabbarDemo () {
         if (this.route.path === '/') return false
-        if (this.route.path === '/activity') return false
-        if (this.route.path === '/chitchat') return false
+        if (this.route.path === '/detection') return false
         if (this.route.path === '/user') return false
         return true
       },

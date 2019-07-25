@@ -1,15 +1,14 @@
 <template>
   <div>
-    <swiper loop auto :list="list" :index="index" height="100vw" @on-index-change="onIndexChange"></swiper>
-    <div class="list-item" v-for="item in list" @click="routeToDetail(item.type, item.id)">
-      <div class="image" v-bind:style="{backgroundImage:'url(' + item.img + ')'}"></div>
-    </div>
+    <swiperComponent :list.sync="recommend"></swiperComponent>
+    <!--<swiper loop auto :list="list" :index="index" height="100vw" @on-index-change="onIndexChange"></swiper>-->
     <!--<div class="height160"></div>-->
   </div>
 </template>
 
 <script>
   import {Group, Cell, Swiper, XInput, Search, SwiperItem} from 'vux'
+  import swiperComponent from '../components/swiper'
 
   export default {
     components: {
@@ -18,45 +17,25 @@
       Swiper,
       SwiperItem,
       XInput,
-      Search
+      Search,
+      swiperComponent
     },
     data () {
       return {
         init: true,
         index: 0,
         advertising: [],
-        list: [
-          {
-            url: 'http://m.baidu.com',
-            fallbackImg: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg',
-            img: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg',
-            title: '测试1',
-            id: 1
-          },
-          {
-            url: 'http://m.baidu.com',
-            fallbackImg: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg',
-            img: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg',
-            title: '测试2',
-            id: 1
-          }
-        ]
+        recommend: [
+          {photo: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg', id: 1},
+          {photo: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg', id: 1},
+          {photo: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg', id: 1},
+        ],
+        list: []
       }
     },
     methods: {
       onIndexChange (index) {
         this.index = index
-      },
-      goToDetail (item) {
-        if (localStorage.getItem('official_openid') && localStorage.getItem('official_openid') !== null && this.$isWeiXin() === true) {
-          this.$router.push({name: 'wxGroup', params: {id: item.id}})
-        } else {
-          if (localStorage.getItem('mobile') && localStorage.getItem('mobile') !== null) {
-            window.location.href = 'https://love.ufutx.com/wx/bind?mobile=' + localStorage.getItem('mobile') + `&type=community&id=${item.id}`
-          } else {
-            window.location.href = `https://love.ufutx.com/wx/bind?type=community&id=${item.id}`
-          }
-        }
       },
       swiperItem (currentIndex) {
         this.currentIndex = currentIndex

@@ -15,14 +15,9 @@ export default new Router({
       component: (resolve) => require(['@/tabBar/home'], resolve)
     },
     {
-      path: '/activity',
-      name: 'activity',
-      component: (resolve) => require(['@/tabBar/activity'], resolve)
-    },
-    {
-      path: '/chitchat',
-      name: 'chitchat',
-      component: (resolve) => require(['@/tabBar/chitchat'], resolve)
+      path: '/detection', // 检测
+      name: 'detection',
+      component: (resolve) => require(['@/tabBar/detection'], resolve)
     },
     {
       path: '/user',
