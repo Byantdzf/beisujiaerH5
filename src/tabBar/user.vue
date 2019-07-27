@@ -8,39 +8,45 @@
       </div>
       <div class="clearfloat"></div>
     </div>
-    <div @click="routeToDetail('upgrade')" v-if="user.type === 'single'">
+    <div @click="routeToDetail('record')">
       <group title=" ">
         <cell title="检测记录" is-link>
           <!--<badge text="1"></badge>-->
           <img slot="icon" width="20" class="item_icon"
-               src="https://images.ufutx.com/201904/02/ff09a194b571b1fa88c7516af916b122.png">
+               src="https://images.ufutx.com/201907/26/4247ca4eb0bb6912dd24966f6ffbf6f8.png">
         </cell>
       </group>
     </div>
-    <div @click="routeToDetail('authentication')">
+    <div @click="routeToDetail('course')">
       <group title=" ">
         <cell title="使用教程" is-link>
-          <!--<badge text="1"></badge>-->
           <img slot="icon" width="20" class="item_icon"
-               src="https://images.ufutx.com/201904/02/22ae44de7e489989752d4091d4e4bada.png">
+               src="https://images.ufutx.com/201907/26/ffe88e7d56e62b1e8c76ca115b1e3273.png">
+        </cell>
+      </group>
+    </div>
+    <div @click="routeToDetail('about')">
+      <group title=" ">
+        <cell title="关于我们" is-link>
+          <img slot="icon" width="20" class="item_icon"
+               src="https://images.ufutx.com/201907/26/cd88edd1a3bfd416e1e0d0589da353d0.png">
         </cell>
       </group>
     </div>
     <div @click="routeToDetail('feedback')">
       <group title=" ">
-        <cell title="关于我们" is-link>
-          <!--<badge text="1"></badge>-->
+        <cell title="联系客服" is-link>
           <img slot="icon" width="20" class="item_icon"
-               src="https://images.ufutx.com/201904/02/6b86b27ecd45bf9bdea13beff075b60f.png">
+               src="https://images.ufutx.com/201907/26/de4e05eba61eaa9ec487a1297fece9e6.png">
         </cell>
       </group>
     </div>
     <div @click="routeToDetail('setting')">
       <group title=" ">
-        <cell title="退出登录" is-link>
+        <cell title="设置" is-link>
           <!--<badge text="1"></badge>-->
           <img slot="icon" width="20" class="item_icon"
-               src="https://images.ufutx.com/201904/27/5c55d4f63e9ddba13c598cbb0c814f8e.png">
+               src="https://images.ufutx.com/201907/26/65c9e492bbc3ca513c851717578de48f.png">
         </cell>
       </group>
     </div>

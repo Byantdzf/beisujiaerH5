@@ -1,9 +1,10 @@
 <template>
   <div>
-    <swiper loop auto :list="list" :index="index" height="100vw" @on-index-change="onIndexChange"></swiper>
-    <div class="list-item" v-for="item in list" @click="routeToDetail(item.type, item.id)">
-      <div class="image" v-bind:style="{backgroundImage:'url(' + item.img + ')'}"></div>
-    </div>
+    <swiper loop auto :list="list" :index="index" height="60vw" @on-index-change="onIndexChange"></swiper>
+    <img src="https://images.ufutx.com/201907/26/ae63f83a0552b07f32b87d31be591cce.jpeg" alt="" width="100%">
+    <!--<div class="list-item" v-for="item in 1" @click="routeToDetail()">-->
+      <!--<div class="image" v-bind:style="{backgroundImage:'url(' + 'https://images.ufutx.com/201907/26/ae63f83a0552b07f32b87d31be591cce.jpeg' + ')'}"></div>-->
+    <!--</div>-->
     <!--<div class="height160"></div>-->
   </div>
 </template>
@@ -28,16 +29,30 @@
         list: [
           {
             url: 'http://m.baidu.com',
-            fallbackImg: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg',
-            img: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg',
+            fallbackImg: 'https://images.ufutx.com/201907/26/4b6d5d829633139a85d0e8cdd52f61aa.jpeg',
+            img: 'https://images.ufutx.com/201907/26/4b6d5d829633139a85d0e8cdd52f61aa.jpeg',
             title: '测试1',
             id: 1
           },
           {
             url: 'http://m.baidu.com',
-            fallbackImg: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg',
-            img: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg',
+            fallbackImg: 'https://images.ufutx.com/201907/26/cf5fd04d6ec622c04bd600dca8dbda5a.jpeg',
+            img: 'https://images.ufutx.com/201907/26/cf5fd04d6ec622c04bd600dca8dbda5a.jpeg',
             title: '测试2',
+            id: 1
+          },
+          {
+            url: 'http://m.baidu.com',
+            fallbackImg: 'https://images.ufutx.com/201907/26/2e857d0459e6718c8203149173376d1a.jpeg',
+            img: 'https://images.ufutx.com/201907/26/2e857d0459e6718c8203149173376d1a.jpeg',
+            title: '测试3',
+            id: 1
+          },
+          {
+            url: 'http://m.baidu.com',
+            fallbackImg: 'https://images.ufutx.com/201907/26/a0927398989d4c5b18c56880bd56442b.jpeg',
+            img: 'https://images.ufutx.com/201907/26/cf5fd04d6ec622c04bd600dca8dbda5a.jpeg',
+            title: '测试4',
             id: 1
           }
         ]
@@ -154,7 +169,7 @@
   .list-item{
     .image{
       width: 100%;
-      height: 646px;
+      min-height: 646px;
       background-repeat: no-repeat;
       background-size: cover;
     }

@@ -30,14 +30,14 @@
         </cell>
       </group>
     </div>
-    <div @click="routeToDetail('feedback')">
-      <group title=" ">
-        <cell title="意见反馈" is-link>
-          <!--<badge text="1"></badge>-->
-          <img slot="icon" width="20" class="item_icon" src="https://images.ufutx.com/201904/02/6b86b27ecd45bf9bdea13beff075b60f.png">
-        </cell>
-      </group>
-    </div>
+    <!--<div @click="routeToDetail('feedback')">-->
+      <!--<group title=" ">-->
+        <!--<cell title="意见反馈" is-link>-->
+          <!--&lt;!&ndash;<badge text="1"></badge>&ndash;&gt;-->
+          <!--<img slot="icon" width="20" class="item_icon" src="https://images.ufutx.com/201904/02/6b86b27ecd45bf9bdea13beff075b60f.png">-->
+        <!--</cell>-->
+      <!--</group>-->
+    <!--</div>-->
     <!--{{count}}-->
     <div class="text-center">
       <div @click="onClick" class="outLogin color6 inline-block font32">退出登录</div>

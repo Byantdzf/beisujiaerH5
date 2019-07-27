@@ -96,10 +96,10 @@
   .swiper-box{
     padding: 12px;
     .swiper-image{
-      width: 88%;
-      height: 680px;
+      width: 90vw;
+      height: 100vw;
       box-shadow: 1px 1px 12px #d0d0d0;
-      margin-left: 6%;
+      margin-left: 3vw;
     }
   }
 </style>

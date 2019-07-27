@@ -1,8 +1,18 @@
 <template>
   <div>
     <swiperComponent :list.sync="recommend"></swiperComponent>
-    <!--<swiper loop auto :list="list" :index="index" height="100vw" @on-index-change="onIndexChange"></swiper>-->
-    <!--<div class="height160"></div>-->
+    <div class="main">
+      <div class="main-uploader">
+        <img src="https://images.ufutx.com/201907/27/86dc9ae9265e1eed7fd1258c8b60d0ab.png" alt="" class="uploader">
+      </div>
+      <div class="main-uploader1">
+        <img src="https://images.ufutx.com/201907/27/6d2695557f8dbae358f479b299d9b1cd.png" alt="" class="uploader">
+      </div>
+      <div class="main-uploader2">
+        <img src="https://images.ufutx.com/201907/27/6c7ccc47ee1656bbe79efc050cbcaf40.png" alt="" class="uploader">
+      </div>
+      <!--<div class="wrap"></div>-->
+    </div>
   </div>
 </template>
 
@@ -27,8 +37,8 @@
         advertising: [],
         recommend: [
           {photo: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg', id: 1},
-          {photo: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg', id: 1},
-          {photo: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg', id: 1},
+          {photo: 'http://img.dingdingtrip.com/uploads/20190621/Fr7i42sqlRLCddu-cC2yyvWn9bmT.png', id: 1},
+          {photo: 'http://img.dingdingtrip.com/uploads/20190621/FmFa0BzWzNUrgmD04uwM1vXF2i4b.jpg', id: 1}
         ],
         list: []
       }
@@ -91,114 +101,118 @@
       vertical-align: middle;
     }
   }
-  .vux-demo {
-    text-align: center;
-  }
-  .logo {
-    width: 100px;
-    height: 100px
-  }
-  .search-box{
-    width: 690px;
-    height: 88px;
-    margin: 22px auto;
-    background: white;
-    border-radius: 6px;
-    border: 2px solid #f0f0f3;
-    .homeSearch{
+  .main{
+    .wrap{
+      position: relative;  /*日常相对定位*/
+      width: 320px;
+      height: 180px;
+      border:1px solid #666666;
+      border-radius:5px;
+      margin: auto;
+      &::before,&::after{
+        content: "";
+        display: block;
+        position: absolute;
+        width:0;
+        height: 0;
+        border: 12px solid transparent;
+        border-right-color: white;
+        left: -24px;
+        bottom: 12px;
+        z-index:1;
+      }
+      &::after{
+        left: -26px;
+        border-right-color: black;
+        z-index:0;
+      }
+    }
+    .main-uploader,.main-uploader2,.main-uploader1{
+      position: fixed;
+      left: 0;
+      bottom: -20px;
       width: 100%;
-      height: 100%;
-      border: none;
-      background: none;
-      /*box-shadow: 1px 1px 12px #e9e9e9;*/
+      text-align: center;
+      animation: myMove 2800ms infinite linear;
+      animation-fill-mode: forwards;
+      animation-delay: 800ms;
+      .uploader{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        box-shadow: 1px 1px 16px #ededed;
+      }
     }
-  }
-  .bc_title{
-    margin-top: 12px;
-    margin-left: 22px;
-    margin-bottom: 12px;
-  }
-  .vux-img{
-    width: 90% !important;
-    margin: auto;
-    border-radius: 6px;
-    box-shadow: 1px 1px 12px #d3d3d3;
-  }
-  .vux-swiper{
-    text-align: center;
-    p{
-      color: #666666;
+    .main-uploader1{
+      animation: myMove1 800ms ;
+      animation-fill-mode: forwards;
+      animation-delay: 400ms;
+      .uploader{
+        width: 50px;
+        height: 50px;
+      }
     }
-  }
-  .list-item{
-    .image{
-      width: 100%;
-      height: 646px;
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-  }
-  .recommend-image{
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  .vux-swiper{
-    height: 400px;
-  }
-
-  .announcements {
-    background: #EDEDED;
-    padding: 12px 22px;
-    padding-bottom: 0px;
-    /*margin-top: -12px;*/
-    /*margin-bottom: 18px;*/
-  }
-
-  .animationData {
-    animation: myMove2 800ms linear;
-    animation-fill-mode: forwards;
-  }
-
-  @keyframes myMove2 {
-    from {
-      height: 302px;
-    }
-    to {
-      height: 347px;
+    .main-uploader2{
+      animation: myMove2 800ms ;
+      animation-fill-mode: forwards;
+      .uploader{
+        width: 30px;
+        height: 30px;
+      }
     }
   }
 
-  .animationData2 {
-    animation: myMove1 800ms linear;
-    animation-fill-mode: forwards;
-
+  @keyframes myMove {
+    0% {
+      bottom: 126px;
+      opacity: 0.5;
+      transform: scale(.8)
+    }
+    50% {
+      opacity: 1;
+      bottom: 160px;
+      transform: scale(1)
+    }
+    100% {
+      opacity: 1;
+      bottom: 126px;
+      transform: scale(.8)
+    }
   }
 
   @keyframes myMove1 {
     from {
-      height: 347px;
+      bottom: 0;
+      opacity: 0.1;
     }
     to {
-      height: 302px;
+      opacity: 1;
+      bottom: 100px;
+    }
+  }
+  @keyframes myMove2 {
+    0% {
+      bottom: 0;
+      opacity: 0.1;
+    }
+    100% {
+      opacity: 1;
+      bottom: 68px;
+    }
+  }
 
-    }
-  }
-  .groupicon{
-    padding: 32px 0;
-    overflow: hidden;
-    border-bottom: 8px solid #ECECEC;
-    .item-icon{
-      width: 25%;
-      float: left;
-      text-align: center;
-      img{
-        width: 88px;
-      }
-      .title{
-        margin-top: 4px;
-      }
-    }
-  }
+  /*.animationData {*/
+    /*animation: myMove2 800ms linear;*/
+    /*animation-fill-mode: forwards;*/
+  /*}*/
+
+  /*@keyframes myMove2 {*/
+    /*from {*/
+      /*height: 302px;*/
+    /*}*/
+    /*to {*/
+      /*height: 347px;*/
+    /*}*/
+  /*}*/
+
 </style>

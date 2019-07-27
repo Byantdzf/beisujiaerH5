@@ -1,6 +1,6 @@
 <template>
   <div id="app" style="height:100%;">
-    <view-box ref="viewBox" >
+    <view-box ref="viewBox" :body-padding-bottom="!isTabbarDemo?50:0">
       <div v-transfer-dom>
         <loading v-model="isLoading"></loading>
         <!--<loadingPage :init="!isLoading"></loadingPage>-->
@@ -31,34 +31,25 @@
             <img src="../src/assets/icon/home.png" alt="home">
           </span>
           <span class="demo-icon-22" slot="icon-active">
-            <img src="../src/assets/icon/homeActive.png" alt="home">
+            <img src="../src/assets/icon/homeA.png" alt="home">
           </span>
           <span slot="label">首页</span>
         </tabbar-item>
         <tabbar-item :link="{path:'/detection'}" :selected="path === '/detection'">
           <span class="demo-icon-22" slot="icon">
-            <img src="../src/assets/icon/attention.png" alt="home">
+            <img src="../src/assets/icon/detection.png" alt="home">
           </span>
           <span class="demo-icon-22" slot="icon-active">
-            <img src="../src/assets/icon/attentionActive.png" alt="home">
+            <img src="../src/assets/icon/detectionA.png" alt="home">
           </span>
           <span slot="label">检测</span>
         </tabbar-item>
-        <!--<tabbar-item :link="{path:'/chitchat'}" :badge="chat_num == 0?'':chat_num" :selected="path === '/chitchat'">-->
-          <!--<span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">-->
-            <!--<img src="../src/assets/icon/message.png" alt="home">-->
-          <!--</span>-->
-          <!--<span class="demo-icon-22" slot="icon-active">-->
-            <!--<img src="../src/assets/icon/messageActive.png" alt="home">-->
-          <!--</span>-->
-          <!--<span slot="label">聊天</span>-->
-        <!--</tabbar-item>-->
         <tabbar-item :link="{path:'/user'}" :badge="notice_num == 0?'':notice_num" :selected="path === '/user'">
           <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
             <img src="../src/assets/icon/my.png" alt="home">
           </span>
           <span class="demo-icon-22" slot="icon-active">
-            <img src="../src/assets/icon/myActive.png" alt="home">
+            <img src="../src/assets/icon/myA.png" alt="home">
           </span>
           <span slot="label">我的</span>
         </tabbar-item>

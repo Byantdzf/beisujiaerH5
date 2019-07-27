@@ -1,26 +1,26 @@
 <template>
   <div class="box_background">
     <div class="box_camera_backgruond">
-      <div class="bc_box">
-        <textarea placeholder="请填写内容" class="input_text" maxlength="120" @input="descInput" v-model="desc"></textarea>
-        <div class="circle font28 bold">
-          <p class="text">{{remnant}}/120</p>
-        </div>
+      <p class="title font28 color6">
+        <img src="https://images.ufutx.com/201907/26/07a18a2f88d591c94aba05b2ee0b3f43.png" alt="">
+        13392878513(陈先生)
+      </p>
+      <p class="title font28 color6">
+        <img src="https://images.ufutx.com/201907/26/07a18a2f88d591c94aba05b2ee0b3f43.png" alt="">
+        0755-29061820
+      </p>
+      <p class="title font28 color6" style="margin-bottom: 16px;">
+        <img src="https://images.ufutx.com/201907/26/7bc3884ee53fc5b88872c462361f524a.png" alt="">
+         周一至周五9:00-18:00
+      </p>
+      <div class="split-line"></div>
+      <div class="qr">
+        <p class="title font28 color6">
+          <img src="https://images.ufutx.com/201907/26/5206db75acb853eaee4709c8351ef5e9.png" alt="" >
+          客服微信
+        </p>
+        <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=851377140,178835677&fm=26&gp=0.jpg" alt="">
       </div>
-      <!--<div class="icon_camera">-->
-        <!--<div class="box_camera" v-for="(item,index) in list" :key="index">-->
-          <!--<div :style="{ backgroundImage: 'url('+ item +')'}" class="camera_s"></div>-->
-        <!--</div>-->
-        <!--<div class="box_camera">-->
-          <!--<img src="https://images.ufutx.com/201904/09/bb2fdcbe0524ea66203db1407618cc68.png" alt="" class="camera_s">-->
-        <!--</div>-->
-        <!--<div class="clearfloat"></div>-->
-      <!--</div>-->
-      <div class="camera_bottom">
-        <div class="save font28" @click="save">提交</div>
-        <div class="clearfloat"></div>
-      </div>
-      <div class="clearfloat"></div>
     </div>
   </div>
 </template>
@@ -71,55 +71,41 @@
 
 <style scoped lang="less">
   .box_background{
-    width: 100vw;
+    background: #e6e6e6 !important;
+    width: 100%;
     height: 100vh;
-    background-color: #f0f3f5;
+    padding-top: 6%;
   }
-  .box_camera_backgruond{
-    background-color: #ffffff;
-  }
-  .box{
-    /*position: relative;*/
-  }
-  .circle{
-    text-align: right;
-    padding: 30px 35px;
-  }
-  .input_text{
-    font-size: 30px;
-    padding: 20px 36px;
-    width: 678px;
-    height: 300px;
-    border: none;
-    outline: none;
-  }
-  .icon_camera{
-    padding: 0 35px 0 35px;
-  }
-  .box_camera{
-    float: left;
-    text-align: center;
-    width: 33.3%;
-  }
-  .camera_s{
-    width: 218px;
-    height: 218px;
-    display: inline-block;
-    margin-top: 4px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    /*background: black !important;*/
-  }
-  .camera_bottom{
-    padding-bottom: 60px;
-    padding-right: 36px;
-    margin-top: 120px;
-  }
-  .save{
-    padding: 12px 22px;
-    border-radius: 6px;
-    background-color: #00a400;
-    float: right;
-    color: white;
+
+  .box_camera_backgruond {
+    width: 94%;
+    border-radius: 22px;
+    margin: auto;
+    background: white;
+    padding-top: 16px;
+    .title{
+      padding: 12px 22px;
+      img{
+        width: 42px;
+        vertical-align: middle;
+        margin-bottom: 6px;
+      }
+    }
+    .qr{
+      margin-top: 12px;
+      padding: 22px 12px;
+      img{
+        width: 100%;
+        border-radius: 12px;
+      }
+      .title{
+        padding: 12px 12px;
+        img{
+          width: 42px;
+          vertical-align: middle;
+          margin-bottom: 6px;
+        }
+      }
+    }
   }
 </style>
