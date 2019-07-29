@@ -32,6 +32,11 @@ export default new Router({
       component: (resolve) => require(['@/pages/user/record'], resolve)
     },
     {
+      path: '/test', // test测试
+      name: 'test',
+      component: (resolve) => require(['@/pages/user/test'], resolve)
+    },
+    {
       path: '/setting', // 设置
       name: 'setting',
       component: (resolve) => require(['@/pages/user/setting'], resolve)
