@@ -2,7 +2,11 @@
   <div>
     <swiperComponent :list.sync="recommend"></swiperComponent>
     <div class="main">
+<!--      <div class="main-message">-->
+<!--        <img src="http://images.ufutx.com/201907/30/1671dd2e112a1fb02b225afda4528be7.png" alt=""  class="pic">-->
+<!--      </div>-->
       <div class="main-uploader">
+        <input type="file" id="file"  @change="tirggerFile($event)"  class="file-input">
         <img src="https://images.ufutx.com/201907/27/86dc9ae9265e1eed7fd1258c8b60d0ab.png" alt="" class="uploader">
       </div>
       <div class="main-uploader1">
@@ -66,6 +70,12 @@
           localStorage.setItem('notice_num', data.notice_num.toString())
         })
       },
+      tirggerFile (event) {
+        if (!event.target.files[0]) {
+          return
+        }
+        this.$router.push({name: 'introducer', : {id: id}})
+      },
       getOrderList (page, mescroll) {
         let vm = this
         vm.$http.get(`/official/home?page=${page.num}`).then(({data}) => {
@@ -127,7 +137,16 @@
         z-index:0;
       }
     }
+    .main-message{
+      position: absolute;
+      right: 22px;
+      bottom: 400px;
+      .pic {
+        width: 300px;
+      }
+    }
     .main-uploader,.main-uploader2,.main-uploader1{
+      position: relative;
       position: fixed;
       left: 0;
       bottom: -20px;
@@ -199,6 +218,49 @@
       opacity: 1;
       bottom: 68px;
     }
+  }
+  .test{
+    margin:42px auto;
+    padding:10px;
+    border: 2px solid #b0b0b0;
+    border-radius:14px;
+    width:300px;
+    height:120px;
+    position:relative;
+    position: absolute;
+    right: 22px;
+    /*background-color: #f52633;*/
+  }
+  .bubble{
+    position:absolute;
+    width:40px;
+    height:40px;
+    bottom: -40px;
+    left:22px;
+  }
+  .bubble *{
+    display:block;
+    border-width:20px;
+    position:absolute;
+    border-style:solid dashed dashed dashed;
+    font-size:0; line-height:0;
+  }
+
+  .bubble em {
+    border-color: white transparent transparent;
+    top: -4px;
+  }
+
+  .bubble span {
+    border-color: #b0b0b0 transparent transparent;
+    top: 0px;
+  }
+  .file-input{
+    color: transparent;
+    opacity: 0;
+    position: absolute;
+    width: 100px;
+    height: 100px;
   }
 
   /*.animationData {*/

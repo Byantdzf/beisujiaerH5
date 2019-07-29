@@ -1,30 +1,29 @@
 <template>
-  <div id="register" class="wrapper text-center">
+  <div id="register" class="wrapper text-center font28">
     <div class="center"></div>
     <div style="position: relative;">
       <input type="number" v-model="mobile" class="font30 colorff mobile" placeholder="手机号">
-      <img src="https://images.ufutx.com/201903/28/8026e39a4bd864b41293b4276203026d.png" alt="icon" class="iphone_icon">
-      <img src="https://images.ufutx.com/201903/28/f04cd2fd382dbd6da45260e825ff61ef.png" alt="icon" class="del_icon"
+      <img src="http://images.ufutx.com/201907/30/073d127a02a6728c82cf19980d462bd4.png" alt="icon" class="iphone_icon font28">
+      <img src="http://images.ufutx.com/201907/30/04adff8af8c5864eb25946059101ef68.png" alt="icon" class="del_icon"
            v-show="mobile" @click="mobile = ''">
-      <img src="https://images.ufutx.com/201903/28/458109eca8206129719b768be914382f.png" alt="icon" class="del_icon"
-           v-show="warn && mobile" style="right: 12px;">
+<!--      <img src="http://images.ufutx.com/201907/30/389f1ab3438fe981ba8236fc99d4ec3d.png" alt="icon" class="del_icon"-->
+<!--           v-show="warn && mobile" style="right: 12px;">-->
     </div>
     <div style="position: relative;">
       <input type="number" v-model="code" class="font30 colorff code" placeholder="验证码" @keyup.enter="register">
-      <img src="https://images.ufutx.com/201903/28/0d60138223b3bf6ca002682946adacf6.png" alt="icon" class="iphone_icon"
-           style="top: 7.2vw;">
+      <img src="http://images.ufutx.com/201907/30/f5d1aa278b53064dfd4e527570be6e8a.png" alt="icon" class="iphone_icon code_icon">
       <p class="getCode font28" @click="getCode" v-if="time == 60">{{text}}</p>
       <p class="getCode font28" v-else>{{time}} 秒后重试</p>
     </div>
-    <button class="colorff button text-center font28" @click="register">立即登录</button>
-    <p class="font26 protocol">
-      <span style="color: #9a9a9a;">
-        点击立即登录默认您同意
-      </span>
-      <span style="color: #cadefc;text-decoration:underline;">
-        <router-link to="protocol" style="color: #cadefc; text-decoration: none;">《福恋注册协议》</router-link>
-      </span>
-    </p>
+    <button class="colorff button text-center font28" @click="register">登录</button>
+<!--    <p class="font26 protocol">-->
+<!--      <span style="color: #9a9a9a;">-->
+<!--        点击立即登录默认您同意-->
+<!--      </span>-->
+<!--      <span style="color: #cadefc;text-decoration:underline;">-->
+<!--        <router-link to="protocol" style="color: #cadefc; text-decoration: none;">《福恋注册协议》</router-link>-->
+<!--      </span>-->
+<!--    </p>-->
   </div>
 </template>
 
@@ -72,6 +71,7 @@
             this.time--
           }, 1000)
         }).catch((error) => {
+          $toastWarn('发送失败！')
           console.log(error)
         })
       },
@@ -135,14 +135,19 @@
       background-repeat: no-repeat;
       background-position-x: center;
       background-image: url('https://images.ufutx.com/201903/27/eab72e299990c7264ed4385556e471b6.jpeg');
+      background: #559fcd;
 
       input {
-        width: 488px;
-        height: 100px;
+        width: 400px;
+        height: 80px;
         background: none;
-        border: 1px solid #808080;
+        border: none;
+        border-bottom: 1px solid white;
         border-radius: 4px;
-        margin-top: 20px;
+        margin-top: 60px;
+        &::placeholder{
+          color: white;
+        }
       }
 
       .center {
@@ -154,16 +159,16 @@
       }
 
       .getCode {
-        min-width: 164px;
-        color: #C1E0FA;
+        min-width: 124px;
+        color: white;
         position: relative;
         position: absolute;
-        right: 95px;
-        top: 50px;
+        right: 140px;
+        top: 80px;
 
         &:before {
           content: '';
-          background: #404040;
+          background: white;
           width: 2px;
           height: 52px;
           position: absolute;
@@ -173,31 +178,36 @@
       }
 
       .iphone_icon {
-        width: 30px;
+        width: 52px;
         position: absolute;
-        left: 95px;
-        top: 48px;
+        left: 120px;
+        top: 72px;
+      }
+      .code_icon{
+        left: 126px;
+        width: 38px;
+        top: 78px;
       }
 
       .del_icon {
         width: 30px;
         position: absolute;
-        right: 95px;
-        top: 56px;
+        right: 120px;
+        top: 82px;
       }
 
       .code {
-        width: 295px;
-        padding: 0 244px 0 76px;
+        width: 210px;
+        padding: 0 242px 0 76px;
       }
 
       .button {
-        width: 615px;
-        height: 100px;
-        background: #344A5D;
+        padding: 16px 58px;
+        background: none;
         border: none;
-        border-radius: 6px;
-        margin-top: 20px;
+        border: 1px solid white;
+        border-radius: 10px;
+        margin-top: 80px;
       }
     }
 
