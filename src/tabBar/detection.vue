@@ -2,11 +2,11 @@
   <div>
     <swiperComponent :list.sync="recommend"></swiperComponent>
     <div class="main">
-<!--      <div class="main-message">-->
-<!--        <img src="http://images.ufutx.com/201907/30/1671dd2e112a1fb02b225afda4528be7.png" alt=""  class="pic">-->
-<!--      </div>-->
+      <!--      <div class="main-message">-->
+      <!--        <img src="http://images.ufutx.com/201907/30/1671dd2e112a1fb02b225afda4528be7.png" alt=""  class="pic">-->
+      <!--      </div>-->
       <div class="main-uploader">
-        <input type="file" id="file"  @change="tirggerFile($event)"  class="file-input">
+        <input type="file" id="file" @change="tirggerFile($event)" class="file-input">
         <img src="https://images.ufutx.com/201907/27/86dc9ae9265e1eed7fd1258c8b60d0ab.png" alt="" class="uploader">
       </div>
       <div class="main-uploader1">
@@ -34,7 +34,7 @@
       Search,
       swiperComponent
     },
-    data () {
+    data() {
       return {
         init: true,
         index: 0,
@@ -48,44 +48,42 @@
       }
     },
     methods: {
-      onIndexChange (index) {
+      onIndexChange(index) {
         this.index = index
       },
-      swiperItem (currentIndex) {
+      swiperItem(currentIndex) {
         this.currentIndex = currentIndex
       },
-      routeToDetail (type, id) {
+      routeToDetail(type, id) {
         if (type === 'single') {
           this.$router.push({name: 'information', params: {id: id}})
         } else {
           this.$router.push({name: 'introducer', params: {id: id}})
         }
       },
-      mescrollInit (mescroll) {
+      mescrollInit(mescroll) {
         this.mescroll = mescroll
       },
-      getMessageNum () {
+      getMessageNum() {
         this.$http.get(`/official/notice/num`).then(({data}) => {
           localStorage.setItem('chat_num', data.chat_message_num.toString())
           localStorage.setItem('notice_num', data.notice_num.toString())
         })
       },
-      tirggerFile (event) {
+      tirggerFile(event) {
         if (!event.target.files[0]) {
           return
         }
-        this.$router.push({name: 'introducer', : {id: id}})
+        this.$router.push({name: 'test'})
       },
-      getOrderList (page, mescroll) {
+      getOrderList(page, mescroll) {
         let vm = this
         vm.$http.get(`/official/home?page=${page.num}`).then(({data}) => {
-          // vm.announcements = data.announcements
           vm.recommend = data.recommend
           vm.$http.get(`/official/home/likers?page=${page.num}`).then(({data}) => {
             vm.init = true
             let dataV = page.num === 1 ? [] : this.list
             dataV.push(...data.data)
-            // vm.list = dataV
             vm.$nextTick(() => {
               mescroll.endSuccess(data.data.length)
             })
@@ -98,54 +96,61 @@
         })
       }
     },
-    mounted () {
+    mounted() {
     }
   }
 </script>
 
-<style  lang="less" scoped>
-  body{
+<style lang="less" scoped>
+  body {
     background: #f7f7f7 !important;
+
     .announcementIcon {
       margin-bottom: 8px;
       vertical-align: middle;
     }
   }
-  .main{
-    .wrap{
-      position: relative;  /*日常相对定位*/
+
+  .main {
+    .wrap {
+      position: relative; /*日常相对定位*/
       width: 320px;
       height: 180px;
-      border:1px solid #666666;
-      border-radius:5px;
+      border: 1px solid #666666;
+      border-radius: 5px;
       margin: auto;
-      &::before,&::after{
+
+      &::before, &::after {
         content: "";
         display: block;
         position: absolute;
-        width:0;
+        width: 0;
         height: 0;
         border: 12px solid transparent;
         border-right-color: white;
         left: -24px;
         bottom: 12px;
-        z-index:1;
+        z-index: 1;
       }
-      &::after{
+
+      &::after {
         left: -26px;
         border-right-color: black;
-        z-index:0;
+        z-index: 0;
       }
     }
-    .main-message{
+
+    .main-message {
       position: absolute;
       right: 22px;
       bottom: 400px;
+
       .pic {
         width: 300px;
       }
     }
-    .main-uploader,.main-uploader2,.main-uploader1{
+
+    .main-uploader, .main-uploader2, .main-uploader1 {
       position: relative;
       position: fixed;
       left: 0;
@@ -155,26 +160,31 @@
       animation: myMove 2800ms infinite linear;
       animation-fill-mode: forwards;
       animation-delay: 800ms;
-      .uploader{
+
+      .uploader {
         width: 100px;
         height: 100px;
         border-radius: 50%;
         box-shadow: 1px 1px 16px #ededed;
       }
     }
-    .main-uploader1{
-      animation: myMove1 800ms ;
+
+    .main-uploader1 {
+      animation: myMove1 800ms;
       animation-fill-mode: forwards;
       animation-delay: 400ms;
-      .uploader{
+
+      .uploader {
         width: 50px;
         height: 50px;
       }
     }
-    .main-uploader2{
-      animation: myMove2 800ms ;
+
+    .main-uploader2 {
+      animation: myMove2 800ms;
       animation-fill-mode: forwards;
-      .uploader{
+
+      .uploader {
         width: 30px;
         height: 30px;
       }
@@ -209,6 +219,7 @@
       bottom: 100px;
     }
   }
+
   @keyframes myMove2 {
     0% {
       bottom: 0;
@@ -219,31 +230,35 @@
       bottom: 68px;
     }
   }
-  .test{
-    margin:42px auto;
-    padding:10px;
+
+  .test {
+    margin: 42px auto;
+    padding: 10px;
     border: 2px solid #b0b0b0;
-    border-radius:14px;
-    width:300px;
-    height:120px;
-    position:relative;
+    border-radius: 14px;
+    width: 300px;
+    height: 120px;
+    position: relative;
     position: absolute;
     right: 22px;
     /*background-color: #f52633;*/
   }
-  .bubble{
-    position:absolute;
-    width:40px;
-    height:40px;
+
+  .bubble {
+    position: absolute;
+    width: 40px;
+    height: 40px;
     bottom: -40px;
-    left:22px;
+    left: 22px;
   }
-  .bubble *{
-    display:block;
-    border-width:20px;
-    position:absolute;
-    border-style:solid dashed dashed dashed;
-    font-size:0; line-height:0;
+
+  .bubble * {
+    display: block;
+    border-width: 20px;
+    position: absolute;
+    border-style: solid dashed dashed dashed;
+    font-size: 0;
+    line-height: 0;
   }
 
   .bubble em {
@@ -255,7 +270,8 @@
     border-color: #b0b0b0 transparent transparent;
     top: 0px;
   }
-  .file-input{
+
+  .file-input {
     color: transparent;
     opacity: 0;
     position: absolute;
@@ -264,17 +280,17 @@
   }
 
   /*.animationData {*/
-    /*animation: myMove2 800ms linear;*/
-    /*animation-fill-mode: forwards;*/
+  /*animation: myMove2 800ms linear;*/
+  /*animation-fill-mode: forwards;*/
   /*}*/
 
   /*@keyframes myMove2 {*/
-    /*from {*/
-      /*height: 302px;*/
-    /*}*/
-    /*to {*/
-      /*height: 347px;*/
-    /*}*/
+  /*from {*/
+  /*height: 302px;*/
+  /*}*/
+  /*to {*/
+  /*height: 347px;*/
+  /*}*/
   /*}*/
 
 </style>
