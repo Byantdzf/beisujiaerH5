@@ -26,7 +26,7 @@
         }
       },
       methods: { // 方法
-        post (file) { // 上传
+        post (file) {
           this.loading = true
           var self = this
           var formData = new FormData()
@@ -65,6 +65,7 @@
             return
           }
           $loadingShow('系统正在识别...')
+          // let img = document.querySelector('#img')
           let file = event.target.files[0]
           this.file = event.target.files[0]
           let vm = this
@@ -80,8 +81,16 @@
           }
         },
         getImg () {
+          /**
+           * 获取图片，实例化图片
+           * 执行方法
+           * 解析完成，获得数组，操作回调函数
+           *
+           */
           let img = document.querySelector('#img')
           let a = new getImgColor(img)
+          // 获取 坐标 0 0 点的颜色值
+          // console.log(a.getColorXY(0, 0))
           a.getColors().then((arr) => {
             console.log(arr)
             let ul = document.querySelector('#ul')
@@ -99,6 +108,7 @@
       },
       mounted () { // 拉取数据
         this.getSignature()
+        console.log(this.progress)
         console.log(this.progress, '////')
       }
     }
@@ -107,6 +117,17 @@
     })
   export default vm
   function getImgColor (img) {
+    /**
+     * @ param 传入的图片
+     * @ this.progress 解析图片的进度 实时
+     * @ this.canvas canvas元素
+     * @ this.cvs context对象
+     * @ this.accuracy Number 解析图片颜色的精确度 1 - 7 数字选择
+     *
+     *
+     * @ anther taoqun <taoquns@foxmail.com>
+     */
+    console.log(img.width)
     this.canvas = document.createElement('canvas')
     this.canvas.width = img.width >= 200 ? img.width / 2 : img.width
     this.canvas.height = img.height >= 200 ? img.height / 2 : img.height
@@ -117,6 +138,11 @@
   }
 
   getImgColor.prototype.getColorXY = function (x, y) {
+    /**
+     * @param x Number x坐标起点
+     * @param y Number y坐标起点
+     * @return color Object 包含颜色的rgba #16进制颜色
+     */
     let obj = this.cvs.getImageData(x, y, 1, 1)
     let arr = obj.data.toString().split(',')
     let first = parseInt(arr[0]).toString(16)
@@ -133,6 +159,13 @@
     return color
   }
   getImgColor.prototype.getColors = function () {
+    /**
+     * 避免图片过大，阻塞卡死
+     * 每加载一行像素，延迟20毫秒加载下一行
+     * return Promise
+     * promise resolve 解析完成后，返回颜色的总计数组，降序排列
+     * promise reject none
+     */
     return (new Promise((resolve, reject) => {
       let arr = []
       let getY = (i) => {
