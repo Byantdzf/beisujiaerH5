@@ -38,7 +38,17 @@
         </div>
       </div>
     </div>
-    <moadlUp  :show.sync="showUpload" @hideModal="hideUpload">
+    <moadlUp :show.sync="showDetail" @hideModal="hideDetail">
+      <div class="main-qr font28">
+        <p>
+          <span class="bold">检测结果：</span><span class=" color6">{{colorItem.name}}</span></p>
+        <p class="flo_l bold">对比色块：</p>
+        <div class="itemColor flo_l" v-bind:style="{background: `rgb(${colorItem.color_value})`}"></div>
+        <div class="clearfloat"></div>
+        <p>
+          <span class="bold">结果说明：</span>
+          <span class="color6">{{colorItem.intro}}</span></p>
+      </div>
     </moadlUp>
   </div>
 </template>
@@ -59,6 +69,8 @@
         file: {},
         color: '',
         colorList: [],
+        colorItem: {},
+        showDetail: false,
         progress: '0%'
       }
     },
@@ -78,6 +90,9 @@
       }
     },
     methods: { // 方法
+      hideDetail (value) {
+        this.showDetail = value
+      },
       bc_click () {
         this.image_amin = true
         setTimeout(() => {
@@ -95,7 +110,8 @@
           pic: this.img_url
         }
         this.$http.post('/detect', data).then(({data}) => {
-          debugger
+          this.showDetail = true
+          this.colorItem = data.example
         }).catch((error) => {
           console.log(error)
         })
@@ -278,6 +294,22 @@
   @keyframes blink-caret {
     from, to { border-color: transparent; }
     50% { border-color: currentColor; }
+  }
+  .main-qr {
+    width: 86%;
+    margin: auto;
+    background: white;
+    margin-top: 32px;
+    border-radius: 12px;
+    padding: 22px;
+    overflow: hidden;
+    .itemColor{
+      width: 100px;
+      height: 100px;
+    }
+    p {
+      margin: 12px;
+    }
   }
   .main-colorList{
     width: 100vw;

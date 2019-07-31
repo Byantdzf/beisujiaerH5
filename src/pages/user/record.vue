@@ -68,26 +68,7 @@
           htmlLoading: '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>', // 上拉加载中的布局
           htmlNodata: '<p class="upwarp-nodata">-- 加载完毕 --</p>' // 无数据的布局
         },
-        list: [
-          // {
-          //   photo: 'https://images.ufutx.com/201907/26/c66ed5d4a3900b873815b4856758931e.jpeg',
-          //   id: 1,
-          //   created_at: '2019-7-19 19:29:00',
-          //   name: '病原体'
-          // },
-          // {
-          //   photo: 'https://images.ufutx.com/201907/26/c66ed5d4a3900b873815b4856758931e.jpeg',
-          //   id: 1,
-          //   created_at: '2019-7-19 19:29:00',
-          //   name: '病原体'
-          // },
-          // {
-          //   photo: 'https://images.ufutx.com/201907/26/c66ed5d4a3900b873815b4856758931e.jpeg',
-          //   id: 1,
-          //   created_at: '2019-7-19 19:29:00',
-          //   name: '病原体'
-          // }
-        ]
+        list: []
       }
     },
     methods: {
