@@ -23,7 +23,7 @@
     </div>
     <div class="main-colorList" v-if="colorList.length > 0">
       <div class="item-title font26 color6">
-        <p class="typing">为了更加准确的检测，请选择最接近图片的色块!</p>
+        <p class="typing">为了更加准确的检测，请选择最接近取色区的色块!</p>
       </div>
       <div class="text-center item-box">
         <div v-for="item,index in colorList" :key="index" class="flo_l color-box" @click="activeFn(index)">
