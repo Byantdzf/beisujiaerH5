@@ -1,8 +1,12 @@
 <template>
   <div id="user">
     <div class="wrapper_user ff">
-      <div class="avatar flo_l backCover" @touchstart="showDeleteButton()" @touchend="clearLoop()"
-           @click="routeToDetail('PreviewData')" :style="{backgroundImage:'url(' + user.photo + ')'}"></div>
+      <div class="avatar flo_l backCover" :style="{backgroundImage:'url(' + user.avatar + ')'}" v-if="user.avatar">
+        <uploadOss @onSuccess="onSuccess"></uploadOss>
+      </div>
+      <div class="avatar flo_l backCover" v-else :style="{backgroundImage:'url(http://www.sucaijishi.com/uploadfile/2016/0203/20160203022635285.png)'}">
+        <uploadOss @onSuccess="onSuccess"></uploadOss>
+      </div>
       <div class="name inline-block">
         <span class="font36 bold">{{user.name}}</span><br/>
       </div>
@@ -55,7 +59,7 @@
 
 <script>
   import {Group, Cell, XHeader, XInput, Badge} from 'vux'
-
+  import UploadOss from '@/components/upload_oss'
   export default {
     name: 'user',
     components: {
@@ -63,7 +67,8 @@
       Cell,
       XHeader,
       XInput,
-      Badge
+      Badge,
+      UploadOss
     },
     computed: {
       count () {
@@ -80,6 +85,14 @@
       }
     },
     methods: {
+      onSuccess (val) {
+        this.$http.put(`/user/avatar?avatar=${val}`).then(({data}) => {
+          console.log('更新成功')
+          this.getUser()
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
       routeToDetail (name, type) {
         if (localStorage.getItem('official_openid') && localStorage.getItem('official_openid') !== null) {
           if (type) {
@@ -103,20 +116,9 @@
           }
         }
       },
-      getMessageNum () {
-        this.$http.get(`/official/notice/num`).then(({data}) => {
-          localStorage.setItem('chat_num', data.chat_message_num.toString())
-          localStorage.setItem('notice_num', data.notice_num.toString())
-          this.notice_num = data.notice_num.toString()
-        })
-      },
       getUser () {
-        this.$http.get(`/official/mine`).then(({data}) => {
+        this.$http.get(`/user`).then(({data}) => {
           this.user = data
-          if (data && data.official_openid) {
-            localStorage.setItem('official_openid', data.official_openid)
-          }
-          this.getMessageNum()
         }).catch((error) => {
           console.log(error)
         })
@@ -182,6 +184,7 @@
       background-size: cover;
       margin-right: 25px;
       box-shadow: 1px 1px 12px #d3d3d3;
+      position: relative;
     }
 
     .name {

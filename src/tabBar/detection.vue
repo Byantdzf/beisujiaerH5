@@ -1,12 +1,8 @@
 <template>
   <div>
-    <swiperComponent :list.sync="recommend"></swiperComponent>
+    <swiperComponent :list.sync="list"></swiperComponent>
     <div class="main">
-      <!--      <div class="main-message">-->
-      <!--        <img src="http://images.ufutx.com/201907/30/1671dd2e112a1fb02b225afda4528be7.png" alt=""  class="pic">-->
-      <!--      </div>-->
-      <div class="main-uploader">
-        <input type="file" id="file" @change="tirggerFile($event)" class="file-input">
+      <div class="main-uploader" @click="tirggerFile">
         <img src="https://images.ufutx.com/201907/27/86dc9ae9265e1eed7fd1258c8b60d0ab.png" alt="" class="uploader">
       </div>
       <div class="main-uploader1">
@@ -15,7 +11,6 @@
       <div class="main-uploader2">
         <img src="https://images.ufutx.com/201907/27/6c7ccc47ee1656bbe79efc050cbcaf40.png" alt="" class="uploader">
       </div>
-      <!--<div class="wrap"></div>-->
     </div>
   </div>
 </template>
@@ -25,6 +20,7 @@
   import swiperComponent from '../components/swiper'
 
   export default {
+    name: 'detection',
     components: {
       Group,
       Cell,
@@ -38,12 +34,6 @@
       return {
         init: true,
         index: 0,
-        advertising: [],
-        recommend: [
-          {photo: 'http://img.dingdingtrip.com/uploads/20190621/Foz54TVj0oXh3mS0p2tFBeGw_lIV.jpg', id: 1},
-          {photo: 'http://img.dingdingtrip.com/uploads/20190621/Fr7i42sqlRLCddu-cC2yyvWn9bmT.png', id: 1},
-          {photo: 'http://img.dingdingtrip.com/uploads/20190621/FmFa0BzWzNUrgmD04uwM1vXF2i4b.jpg', id: 1}
-        ],
         list: []
       }
     },
@@ -71,32 +61,30 @@
         })
       },
       tirggerFile(event) {
-        if (!event.target.files[0]) {
-          return
-        }
-        this.$router.push({name: 'test'})
+        this.$router.push({name: 'detectionDetail'})
       },
-      getOrderList(page, mescroll) {
+      getOrderList(page) {
         let vm = this
-        vm.$http.get(`/official/home?page=${page.num}`).then(({data}) => {
-          vm.recommend = data.recommend
-          vm.$http.get(`/official/home/likers?page=${page.num}`).then(({data}) => {
-            vm.init = true
-            let dataV = page.num === 1 ? [] : this.list
-            dataV.push(...data.data)
-            vm.$nextTick(() => {
-              mescroll.endSuccess(data.data.length)
-            })
-            vm.getMessageNum()
-          }).catch((error) => {
-            console.log(error)
-          })
+        vm.$http.get(`/detection/carousels?type=baby_carousel`).then(({data}) => {
+          let list = []
+          for (let item of data){
+            list.push(
+              {
+                photo: item.pic,
+                id: item.id,
+                title: item.title,
+                path: item.path
+              }
+            )
+          }
+          this.list = list
         }).catch((error) => {
           console.log(error)
         })
       }
     },
     mounted() {
+      this.getOrderList()
     }
   }
 </script>

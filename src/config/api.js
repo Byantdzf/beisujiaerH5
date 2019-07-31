@@ -4,7 +4,7 @@ import {AjaxPlugin} from 'vux'
 import {$toastWarn, $loadingHide} from '../../src/config/util'
 
 const api = () => {
-  const baseURL = process.env.NODE_ENV === 'development' ? 'http://love.hankin.ufutx.cn/api' : 'https://love.ufutx.com/api/'
+  const baseURL = process.env.NODE_ENV === 'development' ? 'http://color.hankin.ufutx.cn/api' : 'https://color.hankin.top/api/'
   // const baseURL = 'http://love.hankin.ufutx.cn/api'
   AjaxPlugin.$http.defaults.baseURL = baseURL
 //   AjaxPlugin.$http.defaults.headers = {'X-Custom-Header': 'foobar'}

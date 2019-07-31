@@ -1,7 +1,7 @@
 <template>
   <swiper :options="swiperOption" ref="mySwiper">
     <swiper-slide v-for="item,index in list" :key="index">
-      <div class="swiper-box" @click="routeToDetail(item.user.type, item.user.id)">
+      <div class="swiper-box" @click="routeToDetail(item.path)">
         <div class="swiper-image backCover" v-bind:style="{backgroundImage:'url(' + item.photo + ')'}"></div>
       </div>
     </swiper-slide>
@@ -73,12 +73,8 @@
       }
     },
     methods: {
-      routeToDetail (type, id) {
-        if (type === 'single') {
-          this.$router.push({name: 'information', params: {id: id}})
-        } else {
-          this.$router.push({name: 'introducer', params: {id: id}})
-        }
+      routeToDetail (path) {
+        window.location.href = path
       },
       onSlideClick () {
       }

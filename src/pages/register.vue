@@ -1,6 +1,9 @@
 <template>
   <div id="register" class="wrapper text-center font28">
     <div class="center"></div>
+    <div class="main-logo">
+      <img src="https://images.ufutx.com/201907/31/1bb87d41d15fe27b500a4bfcde01bb0e.png" alt="">
+    </div>
     <div style="position: relative;">
       <input type="number" v-model="mobile" class="font30 colorff mobile" placeholder="手机号">
       <img src="http://images.ufutx.com/201907/30/073d127a02a6728c82cf19980d462bd4.png" alt="icon" class="iphone_icon font28">
@@ -16,6 +19,9 @@
       <p class="getCode font28" v-else>{{time}} 秒后重试</p>
     </div>
     <button class="colorff button text-center font28" @click="register">登录</button>
+    <div class="main_baby">
+      <img src="https://images.ufutx.com/201907/31/64befa18637bf0cb5338cecd2e1b0d5c.png" alt="">
+    </div>
 <!--    <p class="font26 protocol">-->
 <!--      <span style="color: #9a9a9a;">-->
 <!--        点击立即登录默认您同意-->
@@ -62,10 +68,13 @@
     },
     methods: {
       getCode () {
+        if (!this.mobile) {
+          return $toastWarn('无手机号码')
+        }
         let data = {
           mobile: this.mobile
         }
-        this.$http.post('/official/sms/register', data).then(({data}) => {
+        this.$http.post('/send/code', data).then(({data}) => {
           $toastSuccess('发送成功')
           this.timer = setInterval(() => {
             this.time--
@@ -89,30 +98,27 @@
         if (this.warn === true) {
           return $toastWarn('手机号码错误')
         }
-        this.$http.post('/official/login/mobile', data).then(({data}) => {
+        this.$http.post('/login/mobile', data).then(({data}) => {
           localStorage.setItem('ACCESS_TOKEN', data.token)
           localStorage.setItem('mobile', data.user.mobile)
           if (data.wechat && data.wechat.official_openid) localStorage.setItem('official_openid', data.wechat.official_openid)
-          if (data.user && data.user.type) {
-            let userInfo = {
-              id: data.user.id,
-              name: data.user.name,
-              photo: data.user.photo,
-              type: data.user.type
-            }
-            localStorage.setItem('userInfo', JSON.stringify(userInfo))
-            if (localStorage.getItem('jump')) {
-              window.location.href = localStorage.getItem('jump')
-            } else {
-              this.$router.push({
-                name: 'home'
-              })
-            }
+          let userInfo = {
+            id: data.user.id,
+            name: data.user.name,
+            photo: data.user.photo,
+            type: data.user.type
+          }
+          localStorage.setItem('userInfo', JSON.stringify(userInfo))
+          if (localStorage.getItem('jump')) {
+            window.location.href = localStorage.getItem('jump')
           } else {
             this.$router.push({
-              name: 'personalData'
+              name: 'home'
             })
           }
+          this.$router.push({
+            name: 'home'
+          })
         }).catch((error) => {
           console.log(error)
         })
@@ -127,6 +133,45 @@
 
 <style lang="less" scoped>
   body {
+    .main_baby{
+      position: absolute;
+      bottom: 10%;
+      img{
+        width: 360px;
+      }
+      animation: babyam 800ms linear;
+      animation-fill-mode: forwards;
+      @keyframes babyam {
+        0% {
+          opacity: 0;
+          right: -12vw;
+        }
+        100% {
+          opacity: 1;
+          right: 6vw;
+        }
+      }
+    }
+    .main-logo{
+      position: absolute;
+      top: 10%;
+      left: 32vw;
+      img{
+        width: 300px;
+      }
+      animation: opacityV2 800ms linear;
+      animation-fill-mode: forwards;
+      @keyframes opacityV2 {
+        0% {
+          opacity: 0;
+          left: -12vw;
+        }
+        100% {
+          opacity: 1;
+          left: 32vw;
+        }
+      }
+    }
     .wrapper {
       width: 100vw;
       height: 100vh;
@@ -151,7 +196,7 @@
       }
 
       .center {
-        padding-top: 340px;
+        padding-top: 44%;
       }
 
       .mobile {

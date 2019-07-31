@@ -11,8 +11,8 @@ import '../src/config/api'
 // import '../src/config/wxConfig'
 import md5 from 'js-md5'
 import {$toastWarn} from './config/util'
-import share from './share'
-Vue.use(share)
+// import share from './share'
+// Vue.use(share)
 Vue.prototype.$md5 = md5
 FastClick.attach(document.body)
 require('es6-promise').polyfill()

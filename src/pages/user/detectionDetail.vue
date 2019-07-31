@@ -22,10 +22,19 @@
       </div>
     </div>
     <div class="main-colorList" v-if="colorList.length > 0">
-      <div class="item-title font26 color6">为了更加准确的检测，请选择最接近图片的色块!</div>
+      <div class="item-title font26 color6">
+        <p class="typing">为了更加准确的检测，请选择最接近图片的色块!</p>
+      </div>
       <div class="text-center item-box">
-        <div v-for="item,index in colorList" :key="index" class="flo_l color-box">
-          <div class="item-color"  v-bind:style="{background: item['#']}"></div>
+        <div v-for="item,index in colorList" :key="index" class="flo_l color-box" @click="activeFn(index)">
+          <div :class="['itemColor', item.active?'colorActive': '']"  v-bind:style="{background: item['#']}" >
+            <div class="active" v-if="item.active">
+              <img src="https://images.ufutx.com/201907/31/65460e0108d181f386456d5b032e16c3.png" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="submit-box flo_r font26 text-center">
+          <div class="submit-btn" @click="submit()">确定</div>
         </div>
       </div>
     </div>
@@ -48,6 +57,7 @@
         host: '',
         image_amin: true,
         file: {},
+        color: '',
         colorList: [],
         progress: '0%'
       }
@@ -73,13 +83,22 @@
         setTimeout(() => {
           this.image_amin = false
         }, 3000)
-        // if (this.image_amin) {
-        //   this.image_amin = false
-        //   return
-        // }
       },
       hideUpload() {
         this.showUpload = value
+      },
+      submit() {
+        let color = this.color.split('rgba(')[1].split(')')[0]
+        let data = {
+          color_value: color,
+          type: 'baby',
+          pic: this.img_url
+        }
+        this.$http.post('/detect', data).then(({data}) => {
+          debugger
+        }).catch((error) => {
+          console.log(error)
+        })
       },
       post(file) { // 上传
         this.loading = true
@@ -113,6 +132,15 @@
         }).catch((error) => {
           console.log(error)
         })
+      },
+      activeFn(index) {
+        for (let item of this.colorList) {
+          console.log(item)
+          item.active = false
+        }
+        this.colorList[index].active = true
+        this.color = this.colorList[index].rgba
+        console.log(this.colorList)
       },
       tirggerFile(event) {
         if (!event.target.files[0]) {
@@ -211,7 +239,12 @@
         }
         let a = new getImgColor(img)
         a.getColors().then((arr) => {
-          this.colorList = arr.slice(0, 10)
+          let list = arr.slice(0, 10)
+          for (let item of list) {
+            item.active = false
+          }
+          this.colorList = list
+
         })
       },
       getImg() {
@@ -227,6 +260,25 @@
 </script>
 
 <style scoped lang="less">
+  .typing {
+    width: 22.5em;
+    height: 1.25em;
+    border-right: 1px solid transparent;
+    animation: typing 3.5s steps(37, end), blink-caret .75s step-end infinite;
+    font-family: Consolas, Monaco;
+    word-break: break-all;
+    overflow: hidden;
+  }
+  /* 打印效果 */
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 18.5em; }
+  }
+  /* 光标闪啊闪 */
+  @keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: currentColor; }
+  }
   .main-colorList{
     width: 100vw;
     margin: auto;
@@ -252,14 +304,53 @@
       .color-box{
         width: 100%/5;
         margin-top: 16px;
-        .item-color{
+        .itemColor{
           width: 100px;
           height: 100px;
           border-radius: 6px;
           border: 1px solid #b0b0b0;
           display: inline-block;
+          position: relative;
+          .active{
+            width: 100%;
+            height: 40%;
+            background: rgba(0, 0, 0, .5);
+            color: white;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            overflow: hidden;
+            img{
+              width: 36px;
+              height: 36px;
+              margin-top: 2px;
+            }
+          }
+        }
+        .colorActive{
+          transform: scale(1.2);
+          border: 1px solid #56a0ce !important;
+          box-shadow: 1px 1px 12px #56a0ce;
         }
       }
+    }
+  }
+  .submit-box{
+    width: 40%;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 22px;
+    overflow: hidden;
+    .submit-btn{
+      width: 120px;
+      height: 50px;
+      line-height: 50px;
+      border-radius: 6px;
+      color: white;
+      padding: 0 12px;
+      background-image: linear-gradient(120deg, #6fbde1 0%, #2e95c0 100%);
+      text-align: center;
+      margin: 20px auto;
+      margin-bottom: 12px;
     }
   }
   .main-upload{

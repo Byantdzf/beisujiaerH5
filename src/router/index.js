@@ -6,13 +6,19 @@ export default new Router({
   // mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
+      meta: {
+        keepAlive: true // 需要被缓存
+      },
       component: (resolve) => require(['@/tabBar/home'], resolve)
     },
     {
       path: '/detection', // 检测
       name: 'detection',
+      meta: {
+        keepAlive: true // 需要被缓存
+      },
       component: (resolve) => require(['@/tabBar/detection'], resolve)
     },
     {
@@ -32,9 +38,9 @@ export default new Router({
       component: (resolve) => require(['@/pages/user/record'], resolve)
     },
     {
-      path: '/test', // test测试
-      name: 'test',
-      component: (resolve) => require(['@/pages/user/test'], resolve)
+      path: '/detectionDetail', // test测试
+      name: 'detectionDetail',
+      component: (resolve) => require(['@/pages/user/detectionDetail'], resolve)
     },
     {
       path: '/testV2', // test测试
@@ -55,31 +61,6 @@ export default new Router({
       path: '/about',
       name: 'about',
       component: (resolve) => require(['@/pages/user/about'], resolve)
-    },
-    { // 完善资料
-      path: '/PreviewData',
-      name: 'PreviewData',
-      component: (resolve) => require(['@/pages/user/PreviewData'], resolve)
-    },
-    { // 生活照
-      path: '/uploadImage',
-      name: 'uploadImage',
-      component: (resolve) => require(['@/pages/user/uploadImage'], resolve)
-    },
-    { // 意见反馈
-      path: '/feedback',
-      name: 'feedback',
-      component: (resolve) => require(['@/pages/user/feedback'], resolve)
-    },
-    { // 用户列表
-      path: '/userList',
-      name: 'userList',
-      component: (resolve) => require(['@/pages/user/userList'], resolve)
-    },
-    { // 上传调试页面
-      path: '/upload',
-      name: 'upload',
-      component: (resolve) => require(['@/pages/user/upload'], resolve)
     }
   ]
 })
