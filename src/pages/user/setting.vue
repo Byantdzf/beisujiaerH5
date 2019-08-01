@@ -145,7 +145,7 @@
       }
     },
     mounted () {
-      this.getUser()
+      // this.getUser()
       this.$isWeiXin()
     }
   }
