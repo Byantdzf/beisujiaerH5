@@ -111,12 +111,12 @@
           pic: this.img_url
         }
         this.$http.post('/detect', data).then(({data}) => {
+          $loadingHide()
           this.showDetail = true
           this.colorItem = data.example
-          $loadingShow()
         }).catch((error) => {
-          console.log(error)
-          $loadingShow()
+          $loadingHide()
+          console.log(error,'asssssss')
         })
       },
       post(file) { // 上传
@@ -129,7 +129,7 @@
         formData.append('name', self.ossConfig.dir + fileName)
         formData.append('key', self.ossConfig.dir + fileName)
         formData.append('policy', self.ossConfig.policy)
-        formData.append('OSSAccessKeyId', self.ossConfig.accessid)
+        formData.append('AWSAccessKeyId', self.ossConfig.accessid)
         formData.append('success_action_status', '200')
         formData.append('signature', self.ossConfig.signature)
         formData.append('file', self.file)

@@ -26,7 +26,7 @@
       <!--</span>-->
       <!--</x-header>-->
       <tabbar class="vux-demo-tabbar" icon-class="vux-center tabbar-icon" v-show="!isTabbarDemo" slot="bottom">
-        <tabbar-item :link="{path:'/home'}" :selected="path === '/home'">
+        <tabbar-item :link="{path:'/'}" :selected="path === '/'">
           <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">
             <img src="../src/assets/icon/home.png" alt="home">
           </span>
@@ -101,7 +101,7 @@
         direction: state => state.vux.direction
       }),
       isTabbarDemo () {
-        if (this.route.path === '/home') return false
+        if (this.route.path === '/') return false
         if (this.route.path === '/detection') return false
         if (this.route.path === '/user') return false
         return true

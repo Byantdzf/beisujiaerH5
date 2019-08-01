@@ -52,7 +52,7 @@ const api = () => {
     return error
   })
   AjaxPlugin.$http.interceptors.response.use(response => {
-    // $loadingHide()
+    $loadingHide()
     if (response.status === 200 && response.data.code === 2) { // token过期
       $loadingHide()
       localStorage.removeItem('ACCESS_TOKEN')
@@ -61,7 +61,9 @@ const api = () => {
       window.location.href = window.location.href.split('#/')[0] + '#/register'
     } else if (response.status === 200 && response.data.code === 1) {
       $loadingHide()
-      return $toastWarn(response.data.message)
+      $toastWarn(response.data.message)
+      $loadingHide()
+      return
     }
     return response.data
   }, error => {

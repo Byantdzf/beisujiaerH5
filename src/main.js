@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
   if (to.query.from_platform) {
     localStorage.setItem('from_platform', to.query.from_platform)
   }
-  store.commit('updateLoadingStatus', {isLoading: true})
+  // store.commit('updateLoadingStatus', {isLoading: true})
   next()
   if (to.query && to.query.paas) {
     // store.commit('setPaas', store.state.route.query.paas)
@@ -60,7 +60,7 @@ router.afterEach((to) => {
     window.ga('set', 'page', to.path) // 你可能想根据请求参数添加其他参数，可以修改这里的 to.fullPath
     window.ga('send', 'pageview')
   }
-  store.commit('updateLoadingStatus', {isLoading: false})
+  // store.commit('updateLoadingStatus', {isLoading: false})
 })
 
 Vue.prototype.$href = (url) => {

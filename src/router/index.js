@@ -6,18 +6,26 @@ export default new Router({
   // mode: 'history',
   routes: [
     {
-      path: '/home',
+      path: '/',
       name: 'home',
       meta: {
-        keepAlive: true // 需要被缓存
+        keepAlive: false // 需要被缓存
       },
       component: (resolve) => require(['@/tabBar/home'], resolve)
     },
+    // {
+    //   path: '/home',
+    //   name: 'home',
+    //   meta: {
+    //     keepAlive: false // 需要被缓存
+    //   },
+    //   component: (resolve) => require(['@/tabBar/home'], resolve)
+    // },
     {
       path: '/detection', // 检测
       name: 'detection',
       meta: {
-        keepAlive: true // 需要被缓存
+        keepAlive: false // 需要被缓存
       },
       component: (resolve) => require(['@/tabBar/detection'], resolve)
     },

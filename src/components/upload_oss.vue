@@ -153,7 +153,7 @@
         formData.append('name', self.ossConfig.dir + fileName)
         formData.append('key', self.ossConfig.dir + fileName)
         formData.append('policy', self.ossConfig.policy)
-        formData.append('OSSAccessKeyId', self.ossConfig.accessid)
+        formData.append('AWSAccessKeyId', self.ossConfig.accessid)
         formData.append('success_action_status', '200')
         formData.append('signature', self.ossConfig.signature)
         formData.append('file', self.file)
