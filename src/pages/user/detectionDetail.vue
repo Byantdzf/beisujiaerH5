@@ -103,6 +103,7 @@
         this.showUpload = value
       },
       submit() {
+        $loadingShow('智能匹配中...')
         let color = this.color.split('rgba(')[1].split(')')[0]
         let data = {
           color_value: color,
@@ -112,8 +113,10 @@
         this.$http.post('/detect', data).then(({data}) => {
           this.showDetail = true
           this.colorItem = data.example
+          $loadingShow()
         }).catch((error) => {
           console.log(error)
+          $loadingShow()
         })
       },
       post(file) { // 上传
@@ -162,7 +165,7 @@
         if (!event.target.files[0]) {
           return
         }
-        // $loadingShow('系统正在识别...')
+        $loadingShow('系统正在识别...')
         let file = event.target.files[0]
         this.file = event.target.files[0]
         let vm = this
