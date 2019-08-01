@@ -69,6 +69,11 @@ export default new Router({
       path: '/about',
       name: 'about',
       component: (resolve) => require(['@/pages/user/about'], resolve)
+    },
+    {
+      path: '/service',
+      name: 'service',
+      component: (resolve) => require(['@/pages/user/service'], resolve)
     }
   ]
 })

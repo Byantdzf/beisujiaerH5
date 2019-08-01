@@ -37,6 +37,7 @@
           <div class="submit-btn" @click="submit()">确定</div>
         </div>
       </div>
+      <div class="no-color font26 text-right">没有识别到颜色？</div>
     </div>
     <moadlUp :show.sync="showDetail" @hideModal="hideDetail">
       <div class="main-qr font28">
@@ -103,6 +104,9 @@
         this.showUpload = value
       },
       submit() {
+        if(!this.color) {
+          return $toastWarn('请先选择颜色！')
+        }
         $loadingShow('智能匹配中...')
         let color = this.color.split('rgba(')[1].split(')')[0]
         let data = {
@@ -116,7 +120,8 @@
           this.colorItem = data.example
         }).catch((error) => {
           $loadingHide()
-          console.log(error,'asssssss')
+          console.log(error)
+
         })
       },
       post(file) { // 上传
@@ -279,6 +284,10 @@
 </script>
 
 <style scoped lang="less">
+  .no-color{
+    color: orange;
+    padding: 12px 32px;
+  }
   .typing {
     width: 22.5em;
     height: 1.25em;

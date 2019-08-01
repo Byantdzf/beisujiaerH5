@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="main">
     <swiperComponent :list.sync="list"></swiperComponent>
-    <div class="main">
+    <div class="">
       <div class="main-uploader" @click="tirggerFile">
         <img src="https://images.ufutx.com/201907/27/86dc9ae9265e1eed7fd1258c8b60d0ab.png" alt="" class="uploader">
+        <div class="momentLikers colorb0 font28">点击上传图片或拍照，系统将为您自动识别检测哦</div>
       </div>
       <div class="main-uploader1">
         <img src="https://images.ufutx.com/201907/27/6d2695557f8dbae358f479b299d9b1cd.png" alt="" class="uploader">
@@ -98,8 +99,41 @@
       vertical-align: middle;
     }
   }
+  .momentLikers{
+    width: 30%;
+    background: #f0f0f0;
+    padding: 12px 22px;
+    position: relative;
+    border-radius: 12px;
+    margin: auto;
+    position: absolute;
+    right: 32px;
+    bottom: 20%;
+    &:before {
+      display: block;
+      content: '';
+      border-width: 18px 18px 18px 18px;
+      border-style: solid;
+      border-color: transparent #f0f0f0 transparent transparent;
+      /* 定位 */
+      position: absolute;
+      left: -12%;
+      bottom: 10%;
+    }
+    .img{
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      margin-right: 12px;
+    }
+  }
 
   .main {
+    height: 100vh;
+    background: white;
     .wrap {
       position: relative; /*日常相对定位*/
       width: 320px;
@@ -182,16 +216,16 @@
   @keyframes myMove {
     0% {
       bottom: 126px;
-      opacity: 0.5;
+      /*opacity: 0.5;*/
       transform: scale(.8)
     }
     50% {
-      opacity: 1;
+      /*opacity: 1;*/
       bottom: 160px;
       transform: scale(1)
     }
     100% {
-      opacity: 1;
+      /*opacity: 1;*/
       bottom: 126px;
       transform: scale(.8)
     }

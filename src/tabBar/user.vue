@@ -37,7 +37,7 @@
         </cell>
       </group>
     </div>
-    <div @click="routeToDetail('feedback')">
+    <div @click="routeToDetail('service')">
       <group title=" ">
         <cell title="联系客服" is-link>
           <img slot="icon" width="20" class="item_icon"
