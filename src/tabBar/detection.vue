@@ -1,10 +1,11 @@
 <template>
   <div class="main">
     <swiperComponent :list.sync="list"></swiperComponent>
-    <div class="">
+    <div class="" v-if="paas !== 'fuke'">
       <div class="main-uploader" @click="tirggerFile">
         <img src="https://images.ufutx.com/201907/27/86dc9ae9265e1eed7fd1258c8b60d0ab.png" alt="" class="uploader">
-        <div class="momentLikers colorb0 font28">点击上传图片或拍照，系统将为您自动识别检测哦</div>
+        <div class="momentLikers colorb0 font28 text-left" v-if="paas === 'junban'">嗨喽！为了保证检测的准确性，请上传素颜图哦！</div>
+        <div class="momentLikers colorb0 font28 text-left" v-else>点击上传图片或拍照，系统将为您自动识别检测哦</div>
       </div>
       <div class="main-uploader1">
         <img src="https://images.ufutx.com/201907/27/6d2695557f8dbae358f479b299d9b1cd.png" alt="" class="uploader">
@@ -12,6 +13,9 @@
       <div class="main-uploader2">
         <img src="https://images.ufutx.com/201907/27/6c7ccc47ee1656bbe79efc050cbcaf40.png" alt="" class="uploader">
       </div>
+    </div>
+    <div class="fuke-box text-center" v-else>
+      <div class="main-fuke text-left font28 color6">请耐心等待，此产品本公司正在努力开发，请拭目以待！</div>
     </div>
   </div>
 </template>
@@ -35,7 +39,8 @@
       return {
         init: true,
         index: 0,
-        list: []
+        list: [],
+        paas: localStorage.getItem('paasName')
       }
     },
     methods: {
@@ -108,7 +113,18 @@
     margin: auto;
     position: absolute;
     right: 32px;
-    bottom: 20%;
+    bottom: 30%;
+    /*animation: Move 2800ms infinite linear;*/
+    /*animation-fill-mode: forwards;*/
+    /*animation-delay: 800ms;*/
+    /*@keyframes Move {*/
+      /*0% {*/
+        /*opacity: 0;*/
+      /*}*/
+      /*100% {*/
+        /*opacity: 1;*/
+      /*}*/
+    /*}*/
     &:before {
       display: block;
       content: '';
@@ -171,12 +187,37 @@
         width: 300px;
       }
     }
-
+    .fuke-box{
+      width: 100%;
+      position: fixed;
+      bottom: 12%;
+      right: 0;
+      animation: myMove 2800ms infinite linear;
+      animation-fill-mode: forwards;
+      @keyframes myMove {
+        0% {
+          bottom: 126px;
+          transform: scale(.8)
+        }
+        100% {
+          bottom: 126px;
+          transform: scale(.8)
+        }
+      }
+      .main-fuke {
+        width: 36vw;
+        background: #f1f1f1;
+        padding: 22px;
+        box-shadow: 1px 1px 12px #d3d3d3;
+        border-radius: 12px;
+        margin: 20% auto;
+      }
+    }
     .main-uploader, .main-uploader2, .main-uploader1 {
       position: relative;
       position: fixed;
       left: 0;
-      bottom: -20px;
+      bottom: -60px;
       width: 100%;
       text-align: center;
       animation: myMove 2800ms infinite linear;

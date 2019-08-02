@@ -114,7 +114,7 @@
           onCancel: () => {
           },
           onConfirm: () => {
-            let url = location.href + '?paas=' + localStorage.getItem('paasName')
+            let url = location.href
             localStorage.clear()
             this.$href(url)
           }

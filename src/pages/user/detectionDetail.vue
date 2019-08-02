@@ -33,11 +33,12 @@
             </div>
           </div>
         </div>
+        <div class="clearfloat"></div>
         <div class="submit-box flo_r font26 text-center">
           <div class="submit-btn" @click="submit()">确定</div>
         </div>
       </div>
-      <div class="no-color font26 text-right">没有识别到颜色？</div>
+      <div class="no-color font26 text-left inline-block" v-if="showExmpText"  @click="showExmp=true">没有识别到颜色？</div>
     </div>
     <moadlUp :show.sync="showDetail" @hideModal="hideDetail">
       <div class="main-qr font28">
@@ -49,6 +50,26 @@
         <p>
           <span class="bold">结果说明：</span>
           <span class="color6">{{colorItem.intro}}</span></p>
+      </div>
+    </moadlUp>
+    <moadlUp :show.sync="showExmp" @hideModal="hideExmp">
+      <div class="main-colorListV2 font28 text-center">
+        <div class="font28 color6 text-left title">请选择最接近检测区的色块，然后
+          <span style="color: #56a0ce">《确定》</span>
+        </div>
+        <div v-for="item,index in exmps" :key="index" class="flo_l color-box" @click="activeFnV2(index)">
+          <div :class="['itemColor', item.active?'colorActive': '']"  v-bind:style="{background: `rgb(${item.color_value})`}" >
+            <div class="active" v-if="item.active">
+              <img src="https://images.ufutx.com/201907/31/65460e0108d181f386456d5b032e16c3.png" alt="">
+            </div>
+          </div>
+        </div>
+        <!--<div class="inline-block" v-for="item,index in exmps">-->
+          <!--<div class="item-colorListV2" v-bind:style="{background: `rgb(${item.color_value})`}"></div>-->
+        <!--</div>-->
+        <div class="main-btn flo_r font26 text-center" @click="saveColor">
+          确定
+        </div>
       </div>
     </moadlUp>
   </div>
@@ -65,13 +86,18 @@
         loading: false,
         showUpload: false,
         ossConfig: {},
+        showExmpText: false,
         host: '',
         image_amin: true,
         file: {},
         color: '',
+        colorId: '',
         colorList: [],
         colorItem: {},
         showDetail: false,
+        showExmp: false,
+        exmps: [],
+        userInfo: JSON.parse(localStorage.getItem('userInfo')),
         progress: '0%'
       }
     },
@@ -91,8 +117,51 @@
       }
     },
     methods: { // 方法
-      hideDetail (value) {
+      saveColor() {
+        console.log(this.colorId)
+        console.log(this.img_url)
+        let data = {
+          pic: this.img_url,
+          type: 'baby',
+          example_id: this.colorId
+        }
+        console.log(data)
+        this.$http.post('/user/detect', data).then(({data}) => {
+          this.showExmp = false
+          this.colorList = []
+          this.img_url = 'https://images.ufutx.com/201907/30/0b17fa29cd56b3cbc4eeaf0293b4adbb.png'
+          this.$vux.confirm.show({
+            title: '提示',
+            content: '已成功生成记录!点击《确定》，可查看记录详情！',
+            dialogTransition: 'vux-fade',
+            onCancel: () => {
+            },
+            onConfirm: () => {
+              this.$router.push({name: 'record'})
+            }
+          })
+        }).catch((error) => {
+          $loadingHide()
+          console.log(error)
+        })
+      },
+      hideDetail(value) {
         this.showDetail = value
+        this.colorList = []
+        this.img_url = 'https://images.ufutx.com/201907/30/0b17fa29cd56b3cbc4eeaf0293b4adbb.png'
+        this.$vux.confirm.show({
+          title: '提示',
+          content: '已成功生成记录!点击《确定》，可查看记录详情！',
+          dialogTransition: 'vux-fade',
+          onCancel: () => {
+          },
+          onConfirm: () => {
+            this.$router.push({name: 'record'})
+          }
+        })
+      },
+      hideExmp(value) {
+        this.showExmp = value
       },
       bc_click () {
         this.image_amin = true
@@ -121,7 +190,7 @@
         }).catch((error) => {
           $loadingHide()
           console.log(error)
-
+          this.showExmpText = true
         })
       },
       post(file) { // 上传
@@ -157,6 +226,17 @@
           console.log(error)
         })
       },
+      getExmps() { // 获取上传签证
+        this.$http.get('/exmps?nopage=1').then(({data}) => {
+          for (let item of data) {
+            item.active = false
+          }
+          this.exmps = data
+          console.log(data)
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
       activeFn(index) {
         for (let item of this.colorList) {
           console.log(item)
@@ -165,6 +245,13 @@
         this.colorList[index].active = true
         this.color = this.colorList[index].rgba
         console.log(this.colorList)
+      },
+      activeFnV2(index) {
+        for (let item of this.exmps) {
+          item.active = false
+        }
+        this.exmps[index].active = true
+        this.colorId = this.exmps[index].id
       },
       tirggerFile(event) {
         if (!event.target.files[0]) {
@@ -279,6 +366,7 @@
     },
     mounted() { // 拉取数据
       this.getSignature()
+      this.getExmps()
     }
   }
 </script>
@@ -286,10 +374,11 @@
 <style scoped lang="less">
   .no-color{
     color: orange;
-    padding: 12px 32px;
+    padding: 0 32px;
+    padding-bottom: 32px;
   }
   .typing {
-    width: 22.5em;
+    width: 23.5em;
     height: 1.25em;
     border-right: 1px solid transparent;
     animation: typing 3.5s steps(37, end), blink-caret .75s step-end infinite;
@@ -321,6 +410,37 @@
     }
     p {
       margin: 12px;
+    }
+  }
+  .main-colorListV2{
+    width: 86%;
+    margin: auto;
+    background: white;
+    margin-top: 32px;
+    border-radius: 12px;
+    padding: 22px;
+    overflow: hidden;
+    .title{
+      margin: 16px;
+    }
+    .item-colorListV2{
+      width: 100px;
+      height: 100px;
+      margin: 12px;
+    }
+    .main-btn{
+      width: 120px;
+      height: 60px;
+      line-height: 60px;
+      background: palegreen;
+      position: relative;
+      margin-top: 42px;
+      margin-left: 16px;
+      border-radius: 6px;
+      color: white;
+      padding: 0 12px;
+      margin-right: 22px;
+      background-image: linear-gradient(120deg, #6fbde1 0%, #2e95c0 100%);
     }
   }
   .main-colorList{
@@ -377,6 +497,38 @@
           box-shadow: 1px 1px 12px #56a0ce;
         }
       }
+    }
+  }
+  .color-box{
+    width: 100%/5;
+    margin-top: 16px;
+    .itemColor{
+      width: 100px;
+      height: 100px;
+      border-radius: 6px;
+      border: 1px solid #b0b0b0;
+      display: inline-block;
+      position: relative;
+      .active{
+        width: 100%;
+        height: 40%;
+        background: rgba(0, 0, 0, .5);
+        color: white;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        overflow: hidden;
+        img{
+          width: 36px;
+          height: 36px;
+          margin-top: 2px;
+        }
+      }
+    }
+    .colorActive{
+      transform: scale(1.2);
+      border: 1px solid #56a0ce !important;
+      box-shadow: 1px 1px 12px #56a0ce;
     }
   }
   .submit-box{
