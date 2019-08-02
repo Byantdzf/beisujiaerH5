@@ -19,7 +19,7 @@
           <img src="https://images.ufutx.com/201907/26/5206db75acb853eaee4709c8351ef5e9.png" alt="" >
           客服微信
         </p>
-        <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=851377140,178835677&fm=26&gp=0.jpg" alt="">
+        <img src="http://images.ufutx.com/201908/03/33e32ad141fb64e5e2adb3cac8a5a83b.png" alt="">
       </div>
     </div>
   </div>
